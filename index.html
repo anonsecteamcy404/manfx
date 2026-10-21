@@ -27,7 +27,7 @@
             flex-direction: column;
         }
         .ios-glass {
-            background: rgba(28, 28, 30, 0.8);
+            background: rgba(28, 28, 30, 0.85);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -40,7 +40,7 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
         .ios-glass-modal {
-            background: rgba(30, 30, 35, 0.92);
+            background: rgba(30, 30, 35, 0.95);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.18);
@@ -58,24 +58,57 @@
 </head>
 <body class="flex flex-col h-screen justify-between">
 
-    <!-- LOGIN SCREEN -->
-    <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-2xl p-6 transition-all duration-500">
-        <div class="ios-glass-modal w-full max-w-sm rounded-[32px] p-7 shadow-2xl flex flex-col items-center animate-ios">
-            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-lg shadow-blue-500/40 mb-5 animate-pulse">
-                <i data-lucide="trending-up" class="w-10 h-10 text-white"></i>
+    <!-- AUTH SCREEN (LOGIN & REGISTER) - Default diset flex agar langsung muncul -->
+    <div id="auth-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-2xl p-4 overflow-y-auto" style="display: flex;">
+        <div class="ios-glass-modal w-full max-w-sm rounded-[32px] p-6 shadow-2xl flex flex-col items-center animate-ios my-auto">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-lg shadow-blue-500/40 mb-4">
+                <i data-lucide="trending-up" class="w-8 h-8 text-white"></i>
             </div>
-            <h2 class="text-2xl font-bold tracking-tight text-white mb-1">MT5 iOS Trader</h2>
-            <p class="text-xs text-gray-400 text-center mb-6 leading-relaxed">Masukkan username unik Anda untuk masuk & klaim modal demo $100.</p>
-            <div class="w-full space-y-4">
+            
+            <h2 id="auth-title" class="text-xl font-bold tracking-tight text-white mb-1">MT5 iOS Trader</h2>
+            <p id="auth-subtitle" class="text-xs text-gray-400 text-center mb-5 leading-relaxed">Silakan masuk atau buat akun baru untuk mulai trading.</p>
+
+            <!-- TAB SWITCHER LOGIN / REGISTER -->
+            <div class="flex w-full bg-black/60 p-1 rounded-2xl mb-4 border border-white/10">
+                <button id="tab-login-btn" onclick="switchAuthTab('login')" class="flex-1 py-2 text-xs font-bold rounded-xl bg-blue-600 text-white shadow-md transition">Masuk</button>
+                <button id="tab-register-btn" onclick="switchAuthTab('register')" class="flex-1 py-2 text-xs font-semibold rounded-xl text-gray-400 hover:text-white transition">Daftar</button>
+            </div>
+
+            <!-- FORM LOGIN -->
+            <div id="form-login" class="w-full space-y-3">
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-300 ml-1 mb-1.5 block uppercase tracking-wider">Username Unik</label>
-                    <input type="text" id="username-input" placeholder="Contoh: manzxsync" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-blue-500 transition shadow-inner">
+                    <label class="text-[11px] font-semibold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Username</label>
+                    <input type="text" id="login-username" placeholder="Masukkan username" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 shadow-inner">
                 </div>
-                <button onclick="handleLogin()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-95 transition-all font-semibold text-sm shadow-lg shadow-blue-600/40 text-white">
+                <div>
+                    <label class="text-[11px] font-semibold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Password</label>
+                    <input type="password" id="login-password" placeholder="Masukkan password" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 shadow-inner">
+                </div>
+                <button onclick="handleLogin()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-95 transition-all font-semibold text-sm shadow-lg shadow-blue-600/40 text-white mt-2">
                     Masuk Platform
                 </button>
             </div>
-            <div id="login-error" class="text-xs text-red-400 mt-3 text-center hidden"></div>
+
+            <!-- FORM REGISTER (DAFTAR) -->
+            <div id="form-register" class="w-full space-y-3 hidden">
+                <div>
+                    <label class="text-[11px] font-semibold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Nama Lengkap</label>
+                    <input type="text" id="reg-fullname" placeholder="Contoh: John Doe" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 shadow-inner">
+                </div>
+                <div>
+                    <label class="text-[11px] font-semibold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Username Unik</label>
+                    <input type="text" id="reg-username" placeholder="Contoh: trader99" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 shadow-inner">
+                </div>
+                <div>
+                    <label class="text-[11px] font-semibold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Password</label>
+                    <input type="password" id="reg-password" placeholder="Buat password aman" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 shadow-inner">
+                </div>
+                <button onclick="handleRegister()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-95 transition-all font-semibold text-sm shadow-lg shadow-emerald-600/40 text-white mt-2">
+                    Daftar & Klaim $100
+                </button>
+            </div>
+
+            <div id="auth-error" class="text-xs text-red-400 mt-3 text-center font-medium hidden"></div>
         </div>
     </div>
 
@@ -88,7 +121,7 @@
             <div>
                 <h1 id="header-username" class="text-sm font-bold text-white leading-tight">Trader</h1>
                 <p class="text-[10px] text-emerald-400 flex items-center gap-1 font-medium mt-0.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Terhubung Firebase
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Terhubung Realtime Firebase
                 </p>
             </div>
         </div>
@@ -193,7 +226,7 @@
                 </div>
 
                 <div id="profile-display-name" class="text-lg font-bold text-white tracking-tight">Trader Pro</div>
-                <div id="profile-username" class="text-xs text-gray-400 mb-5 font-medium">@username</div>
+                <div id="settings-username" class="text-xs text-gray-400 mb-5 font-medium">@username</div>
 
                 <div class="w-full space-y-3.5 text-left border-t border-white/10 pt-4">
                     <div>
@@ -319,38 +352,119 @@
 
         window.addEventListener("DOMContentLoaded", () => {
             lucide.createIcons();
-            
-            // Render quotes langsung agar tidak kosong
             renderQuotes();
 
-            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe?.user) {
-                let tgUser = window.Telegram.WebApp.initDataUnsafe.user;
-                currentUser = (tgUser.username || tgUser.first_name).toLowerCase();
-                fullName = tgUser.first_name + (tgUser.last_name ? " " + tgUser.last_name : "");
-                document.getElementById("login-screen").classList.add("hidden");
+            // Pengecekan sesi login yang aman agar auth screen tidak hilang sendiri secara keliru
+            const savedUser = localStorage.getItem("mt5_username");
+            if (savedUser && savedUser.trim() !== "") {
+                currentUser = savedUser;
+                document.getElementById("auth-screen").style.display = "none";
                 initUserSession();
             } else {
-                const savedUser = localStorage.getItem("mt5_username");
-                if (savedUser) {
-                    currentUser = savedUser;
-                    document.getElementById("login-screen").classList.add("hidden");
-                    initUserSession();
-                }
+                document.getElementById("auth-screen").style.display = "flex";
             }
         });
 
+        function switchAuthTab(tab) {
+            const loginBtn = document.getElementById("tab-login-btn");
+            const regBtn = document.getElementById("tab-register-btn");
+            const formLogin = document.getElementById("form-login");
+            const formReg = document.getElementById("form-register");
+            const errDiv = document.getElementById("auth-error");
+            errDiv.classList.add("hidden");
+
+            if (tab === 'login') {
+                loginBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-blue-600 text-white shadow-md transition";
+                regBtn.className = "flex-1 py-2 text-xs font-semibold rounded-xl text-gray-400 hover:text-white transition";
+                formLogin.classList.remove("hidden");
+                formReg.classList.add("hidden");
+            } else {
+                regBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-emerald-600 text-white shadow-md transition";
+                loginBtn.className = "flex-1 py-2 text-xs font-semibold rounded-xl text-gray-400 hover:text-white transition";
+                formReg.classList.remove("hidden");
+                formLogin.classList.add("hidden");
+            }
+        }
+
         async function handleLogin() {
-            const inputVal = document.getElementById("username-input").value.trim();
-            const errDiv = document.getElementById("login-error");
-            if (!inputVal) {
-                errDiv.textContent = "Username tidak boleh kosong!";
+            const u = document.getElementById("login-username").value.trim().toLowerCase();
+            const p = document.getElementById("login-password").value.trim();
+            const errDiv = document.getElementById("auth-error");
+
+            if (!u || !p) {
+                errDiv.textContent = "Username dan password wajib diisi!";
                 errDiv.classList.remove("hidden");
                 return;
             }
-            currentUser = inputVal.toLowerCase();
-            localStorage.setItem("mt5_username", currentUser);
-            document.getElementById("login-screen").classList.add("hidden");
-            initUserSession();
+
+            try {
+                let res = await fetch(`${FIREBASE_URL}/users/${u}.json`);
+                let data = await res.json();
+                if (!data) {
+                    errDiv.textContent = "Akun tidak ditemukan. Silakan daftar terlebih dahulu!";
+                    errDiv.classList.remove("hidden");
+                    return;
+                }
+                if (data.password && data.password !== p) {
+                    errDiv.textContent = "Password salah!";
+                    errDiv.classList.remove("hidden");
+                    return;
+                }
+
+                currentUser = u;
+                localStorage.setItem("mt5_username", currentUser);
+                document.getElementById("auth-screen").style.display = "none";
+                initUserSession();
+            } catch(e) {
+                errDiv.textContent = "Koneksi ke database gagal!";
+                errDiv.classList.remove("hidden");
+            }
+        }
+
+        async function handleRegister() {
+            const fname = document.getElementById("reg-fullname").value.trim();
+            const u = document.getElementById("reg-username").value.trim().toLowerCase();
+            const p = document.getElementById("reg-password").value.trim();
+            const errDiv = document.getElementById("auth-error");
+
+            if (!fname || !u || !p) {
+                errDiv.textContent = "Semua kolom wajib diisi!";
+                errDiv.classList.remove("hidden");
+                return;
+            }
+
+            try {
+                let res = await fetch(`${FIREBASE_URL}/users/${u}.json`);
+                let data = await res.json();
+                if (data) {
+                    errDiv.textContent = "Username sudah terdaftar! Gunakan username lain.";
+                    errDiv.classList.remove("hidden");
+                    return;
+                }
+
+                let initData = {
+                    balance: 100.00,
+                    fullName: fname,
+                    password: p,
+                    avatar: null,
+                    positions: [],
+                    history: []
+                };
+
+                await fetch(`${FIREBASE_URL}/users/${u}.json`, {
+                    method: 'PUT',
+                    body: JSON.stringify(initData)
+                });
+
+                currentUser = u;
+                fullName = fname;
+                localStorage.setItem("mt5_username", currentUser);
+                document.getElementById("auth-screen").style.display = "none";
+                initUserSession();
+            } catch(e) {
+                errDiv.textContent = "Gagal membuat akun ke database!";
+                errDiv.classList.remove("hidden");
+            }
         }
 
         async function initUserSession() {
@@ -359,24 +473,27 @@
             document.getElementById("locked-username-input").value = "@" + currentUser;
             document.getElementById("user-avatar").textContent = currentUser.charAt(0).toUpperCase();
             document.getElementById("profile-initial").textContent = currentUser.charAt(0).toUpperCase();
-            document.getElementById("edit-fullname-input").value = fullName;
-            document.getElementById("profile-display-name").textContent = fullName;
 
+            await fetchUserData();
+            renderQuotes();
+            startMarketEngine();
+            
+            // Polling realtime setiap 1 detik agar saldo sinkron langsung dengan bot Telegram/Admin
+            setInterval(fetchUserData, 1000);
+        }
+
+        async function fetchUserData() {
+            if (!currentUser) return;
             try {
                 let res = await fetch(`${FIREBASE_URL}/users/${currentUser}.json`);
                 let data = await res.json();
-                if (!data) {
-                    let initData = { balance: 100.00, fullName: fullName, avatar: null, positions: [], history: [] };
-                    await fetch(`${FIREBASE_URL}/users/${currentUser}.json`, { method: 'PUT', body: JSON.stringify(initData) });
-                    currentBalance = 100.00;
-                } else {
+                if (data) {
                     currentBalance = data.balance ?? 100.00;
                     fullName = data.fullName || fullName;
                     avatarBase64 = data.avatar || null;
                     openPositions = data.positions || [];
                     tradeHistory = data.history || [];
                     
-                    document.getElementById("edit-fullname-input").value = fullName;
                     document.getElementById("profile-display-name").textContent = fullName;
                     if (avatarBase64) {
                         let img = document.getElementById("profile-img-preview");
@@ -386,12 +503,6 @@
                     }
                 }
             } catch(e) {}
-
-            renderQuotes();
-            renderPositions();
-            renderHistory();
-            startMarketEngine();
-            setInterval(syncFirebaseData, 3000);
         }
 
         function logout() {
@@ -697,6 +808,9 @@
                 return;
             }
             list.innerHTML = "";
+            tradeHistory.history.forEach(h => {
+                // handle safely
+            });
             tradeHistory.forEach(h => {
                 let isProf = h.profit >= 0;
                 list.innerHTML += `
@@ -720,7 +834,7 @@
             if (!currentUser) return;
             try {
                 await fetch(`${FIREBASE_URL}/users/${currentUser}.json`, {
-                    method: 'PUT',
+                    method: 'PATCH',
                     body: JSON.stringify({ 
                         balance: currentBalance, 
                         fullName: fullName, 
