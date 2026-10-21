@@ -4,22 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MetaTrader 5 - iOS Edition</title>
+    <!-- Tailwind CSS & Lucide Icons & SF Pro Font -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #000000;
+            background: #000000;
             color: #ffffff;
-            overflow-x: hidden;
+            overflow: hidden;
             user-select: none;
-            -webkit-tap-highlight-color: transparent;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
         }
-        .glass { background: rgba(28, 28, 30, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .glass-card { background: rgba(44, 44, 46, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .glass-modal { background: rgba(30, 30, 35, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.15); }
+        .ios-glass {
+            background: rgba(28, 28, 30, 0.8);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ios-glass-card {
+            background: rgba(44, 44, 46, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .ios-glass-modal {
+            background: rgba(30, 30, 35, 0.92);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        @keyframes iosScaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-ios {
+            animation: iosScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
     </style>
@@ -27,19 +59,19 @@
 <body class="flex flex-col h-screen justify-between">
 
     <!-- LOGIN SCREEN -->
-    <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-xl p-6">
-        <div class="glass-modal w-full max-w-sm rounded-3xl p-6 shadow-2xl flex flex-col items-center">
-            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/30 mb-4">
-                <i data-lucide="trending-up" class="w-8 h-8 text-white"></i>
+    <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-2xl p-6 transition-all duration-500">
+        <div class="ios-glass-modal w-full max-w-sm rounded-[32px] p-7 shadow-2xl flex flex-col items-center animate-ios">
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-lg shadow-blue-500/40 mb-5 animate-pulse">
+                <i data-lucide="trending-up" class="w-10 h-10 text-white"></i>
             </div>
             <h2 class="text-2xl font-bold tracking-tight text-white mb-1">MT5 iOS Trader</h2>
-            <p class="text-xs text-gray-400 text-center mb-6">Masukkan username unik Anda untuk masuk & klaim modal demo $100.</p>
+            <p class="text-xs text-gray-400 text-center mb-6 leading-relaxed">Masukkan username unik Anda untuk masuk & klaim modal demo $100.</p>
             <div class="w-full space-y-4">
                 <div>
-                    <label class="text-xs font-medium text-gray-300 ml-1 mb-1 block">Username Unik (Permanen)</label>
-                    <input type="text" id="username-input" placeholder="Contoh: traderpro99" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500">
+                    <label class="text-[11px] font-semibold text-gray-300 ml-1 mb-1.5 block uppercase tracking-wider">Username Unik</label>
+                    <input type="text" id="username-input" placeholder="Contoh: manzxsync" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-blue-500 transition shadow-inner">
                 </div>
-                <button onclick="handleLogin()" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-95 transition font-semibold text-sm shadow-lg text-white">
+                <button onclick="handleLogin()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-95 transition-all font-semibold text-sm shadow-lg shadow-blue-600/40 text-white">
                     Masuk Platform
                 </button>
             </div>
@@ -48,197 +80,201 @@
     </div>
 
     <!-- TOP HEADER -->
-    <header class="glass sticky top-0 z-30 px-4 py-3 flex items-center justify-between border-b border-white/10">
+    <header class="ios-glass sticky top-0 z-30 px-4 py-3 flex items-center justify-between border-b border-white/10 shrink-0">
         <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-blue-600/25 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm overflow-hidden" id="header-avatar-box">
+            <div class="w-10 h-10 rounded-2xl bg-blue-600/30 border border-blue-500/40 flex items-center justify-center text-blue-400 font-bold text-sm overflow-hidden shadow-md" id="header-avatar-box">
                 <span id="user-avatar">U</span>
             </div>
             <div>
-                <h1 id="header-username" class="text-sm font-semibold text-white leading-tight">Trader</h1>
-                <p class="text-[10px] text-emerald-400 flex items-center gap-1 font-medium"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Terhubung Firebase</p>
+                <h1 id="header-username" class="text-sm font-bold text-white leading-tight">Trader</h1>
+                <p class="text-[10px] text-emerald-400 flex items-center gap-1 font-medium mt-0.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Terhubung Firebase
+                </p>
             </div>
         </div>
         <div class="flex items-center space-x-2">
-            <button onclick="openDepositModal()" class="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center gap-1.5 active:scale-95">
+            <button onclick="openDepositModal()" class="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center gap-1.5 active:scale-95 transition shadow-md shadow-emerald-500/10">
                 <i data-lucide="wallet" class="w-3.5 h-3.5"></i> Deposit
             </button>
         </div>
     </header>
 
     <!-- MAIN APP CONTAINER -->
-    <main class="flex-1 overflow-y-auto pb-24" id="main-content">
+    <main class="flex-1 overflow-y-auto pb-24 pt-3 px-3 space-y-3" id="main-content">
         <!-- QUOTES TAB -->
-        <div id="tab-quotes" class="tab-pane p-4 space-y-3">
-            <div class="flex items-center justify-between mb-2">
-                <h2 class="text-lg font-bold text-white">Market Watch</h2>
+        <div id="tab-quotes" class="tab-pane space-y-3 animate-ios">
+            <div class="flex items-center justify-between px-1 py-1">
+                <h2 class="text-lg font-bold text-white tracking-tight">Market Watch</h2>
+                <span class="text-[11px] text-gray-400 font-medium">Spread Rendah</span>
             </div>
-            <div id="market-list" class="space-y-2"></div>
+            <div id="market-list" class="space-y-2.5 pb-4"></div>
         </div>
 
         <!-- CHART TAB -->
-        <div id="tab-chart" class="tab-pane p-4 space-y-3 hidden">
-            <div class="flex items-center justify-between glass-card p-3 rounded-2xl">
+        <div id="tab-chart" class="tab-pane space-y-3 hidden animate-ios">
+            <div class="flex items-center justify-between ios-glass-card p-3.5 rounded-2xl">
                 <div>
-                    <select id="chart-symbol-select" onchange="switchChartSymbol(this.value)" class="bg-black/40 border border-white/10 rounded-lg px-2 py-1 text-sm font-bold text-white focus:outline-none">
+                    <select id="chart-symbol-select" onchange="switchChartSymbol(this.value)" class="bg-black/50 border border-white/15 rounded-xl px-3 py-1.5 text-sm font-bold text-white focus:outline-none shadow-inner">
                         <option value="EURUSD">EURUSD</option>
                         <option value="GBPUSD">GBPUSD</option>
                         <option value="USDJPY">USDJPY</option>
                         <option value="XAUUSD">XAUUSD (Gold)</option>
                         <option value="BTCUSD">BTCUSD</option>
                     </select>
-                    <div id="chart-price-display" class="text-xs text-gray-400 mt-0.5">Bid: 0.00 | Ask: 0.00</div>
+                    <div id="chart-price-display" class="text-xs text-gray-400 mt-1 font-medium">Bid: 0.00 | Ask: 0.00</div>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="openTradeModal('BUY')" class="px-4 py-2 rounded-xl bg-blue-600 font-bold text-xs shadow-lg active:scale-95">BUY</button>
-                    <button onclick="openTradeModal('SELL')" class="px-4 py-2 rounded-xl bg-red-600 font-bold text-xs shadow-lg active:scale-95">SELL</button>
+                    <button onclick="openTradeModal('BUY')" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 font-bold text-xs shadow-lg shadow-blue-600/30 active:scale-95 transition">BUY</button>
+                    <button onclick="openTradeModal('SELL')" class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 font-bold text-xs shadow-lg shadow-red-600/30 active:scale-95 transition">SELL</button>
                 </div>
             </div>
-            <div class="glass-card rounded-2xl p-3 relative">
+            <div class="ios-glass-card rounded-2xl p-3.5 relative">
                 <div class="flex justify-between items-center mb-2 text-xs text-gray-400 font-medium px-1">
-                    <span id="active-symbol-title">EURUSD - M1 Chart</span>
-                    <span class="text-emerald-400">Live Candle Engine</span>
+                    <span id="active-symbol-title" class="font-bold text-white">EURUSD - M1 Chart</span>
+                    <span class="text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Live Candle Engine</span>
                 </div>
-                <div class="w-full h-80 relative bg-black/40 rounded-xl overflow-hidden border border-white/5">
+                <div class="w-full h-80 relative bg-black/60 rounded-xl overflow-hidden border border-white/10 shadow-inner">
                     <canvas id="trading-canvas" class="w-full h-full cursor-crosshair"></canvas>
                 </div>
             </div>
         </div>
 
         <!-- TRADE TAB -->
-        <div id="tab-trade" class="tab-pane p-4 space-y-4 hidden">
-            <div class="glass-card p-4 rounded-2xl">
-                <div class="text-xs text-gray-400 uppercase font-semibold">Account Summary</div>
-                <div class="grid grid-cols-2 gap-4 mt-3">
-                    <div>
+        <div id="tab-trade" class="tab-pane space-y-4 hidden animate-ios">
+            <div class="ios-glass-card p-4.5 rounded-3xl">
+                <div class="text-xs text-gray-400 uppercase font-bold tracking-wider mb-3">Account Summary</div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-black/30 p-3 rounded-2xl border border-white/5">
                         <div class="text-[11px] text-gray-400">Balance</div>
-                        <div id="summary-balance" class="text-lg font-bold text-white">$100.00</div>
+                        <div id="summary-balance" class="text-base font-bold text-white mt-0.5">$100.00</div>
                     </div>
-                    <div>
+                    <div class="bg-black/30 p-3 rounded-2xl border border-white/5">
                         <div class="text-[11px] text-gray-400">Equity</div>
-                        <div id="summary-equity" class="text-lg font-bold text-emerald-400">$100.00</div>
+                        <div id="summary-equity" class="text-base font-bold text-emerald-400 mt-0.5">$100.00</div>
                     </div>
-                    <div>
+                    <div class="bg-black/30 p-3 rounded-2xl border border-white/5">
                         <div class="text-[11px] text-gray-400">Floating P/L</div>
-                        <div id="summary-pl" class="text-sm font-bold text-gray-300">$0.00</div>
+                        <div id="summary-pl" class="text-sm font-bold text-gray-300 mt-0.5">$0.00</div>
                     </div>
-                    <div>
+                    <div class="bg-black/30 p-3 rounded-2xl border border-white/5">
                         <div class="text-[11px] text-gray-400">Margin Level</div>
-                        <div id="summary-margin" class="text-sm font-bold text-blue-400">0.00%</div>
+                        <div id="summary-margin" class="text-sm font-bold text-blue-400 mt-0.5">0.00%</div>
                     </div>
                 </div>
             </div>
             <div>
-                <h3 class="text-sm font-bold text-white mb-2 px-1">Open Positions</h3>
-                <div id="positions-list" class="space-y-2">
-                    <div class="text-center py-8 text-gray-500 text-xs">Tidak ada posisi terbuka</div>
+                <h3 class="text-sm font-bold text-white mb-2.5 px-1">Open Positions</h3>
+                <div id="positions-list" class="space-y-2.5 pb-4">
+                    <div class="text-center py-10 text-gray-500 text-xs">Tidak ada posisi terbuka</div>
                 </div>
             </div>
         </div>
 
         <!-- HISTORY TAB -->
-        <div id="tab-history" class="tab-pane p-4 space-y-3 hidden">
-            <h2 class="text-lg font-bold text-white mb-2">Riwayat Trading</h2>
-            <div id="history-list" class="space-y-2">
-                <div class="text-center py-8 text-gray-500 text-xs">Belum ada riwayat transaksi</div>
+        <div id="tab-history" class="tab-pane space-y-3 hidden animate-ios">
+            <h2 class="text-lg font-bold text-white mb-2 px-1">Riwayat Trading</h2>
+            <div id="history-list" class="space-y-2.5 pb-4">
+                <div class="text-center py-10 text-gray-500 text-xs">Belum ada riwayat transaksi</div>
             </div>
         </div>
 
         <!-- SETTINGS TAB -->
-        <div id="tab-settings" class="tab-pane p-4 space-y-4 hidden">
-            <div class="glass-card p-5 rounded-3xl flex flex-col items-center text-center">
-                <div class="relative mb-3">
-                    <div id="profile-avatar-container" class="w-20 h-20 rounded-2xl bg-blue-600/30 border-2 border-blue-500/40 flex items-center justify-center text-2xl font-bold text-white overflow-hidden shadow-lg">
+        <div id="tab-settings" class="tab-pane space-y-4 hidden animate-ios pb-6">
+            <div class="ios-glass-card p-6 rounded-[32px] flex flex-col items-center text-center shadow-xl">
+                <div class="relative mb-4">
+                    <div id="profile-avatar-container" class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-blue-600 to-indigo-600 border-2 border-white/20 flex items-center justify-center text-3xl font-bold text-white overflow-hidden shadow-xl">
                         <span id="profile-initial">U</span>
                         <img id="profile-img-preview" class="w-full h-full object-cover hidden" />
                     </div>
-                    <label for="avatar-file-input" class="absolute -bottom-1 -right-1 bg-blue-600 p-1.5 rounded-full cursor-pointer shadow-md hover:bg-blue-500 transition">
-                        <i data-lucide="camera" class="w-3.5 h-3.5 text-white"></i>
+                    <label for="avatar-file-input" class="absolute -bottom-1 -right-1 bg-blue-600 hover:bg-blue-500 p-2 rounded-2xl cursor-pointer shadow-lg transition active:scale-90">
+                        <i data-lucide="camera" class="w-4 h-4 text-white"></i>
                     </label>
                     <input type="file" id="avatar-file-input" accept="image/*" class="hidden" onchange="handleAvatarUpload(event)">
                 </div>
 
-                <div id="profile-display-name" class="text-base font-bold text-white">Trader Pro</div>
-                <div id="profile-username" class="text-xs text-gray-400 mb-4">@username</div>
+                <div id="profile-display-name" class="text-lg font-bold text-white tracking-tight">Trader Pro</div>
+                <div id="profile-username" class="text-xs text-gray-400 mb-5 font-medium">@username</div>
 
-                <div class="w-full space-y-3 text-left border-t border-white/10 pt-4">
+                <div class="w-full space-y-3.5 text-left border-t border-white/10 pt-4">
                     <div>
-                        <label class="text-[11px] text-gray-400 font-medium block mb-1">Nama Lengkap (Dapat Diubah)</label>
+                        <label class="text-[11px] text-gray-400 font-semibold block mb-1.5 uppercase tracking-wider">Nama Lengkap (Dapat Diubah)</label>
                         <div class="flex gap-2">
-                            <input type="text" id="edit-fullname-input" class="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500">
-                            <button onclick="saveFullName()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-xl text-xs font-semibold text-white">Simpan</button>
+                            <input type="text" id="edit-fullname-input" class="w-full bg-black/50 border border-white/15 rounded-2xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500 shadow-inner">
+                            <button onclick="saveFullName()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 active:scale-95 rounded-2xl text-xs font-semibold text-white shadow-md shadow-blue-600/30 transition">Simpan</button>
                         </div>
                     </div>
                     <div>
-                        <label class="text-[11px] text-gray-400 font-medium block mb-1">Username Unik (Permanen)</label>
-                        <input type="text" id="locked-username-input" disabled class="w-full bg-black/60 border border-white/5 rounded-xl px-3 py-2 text-xs text-gray-500 cursor-not-allowed">
+                        <label class="text-[11px] text-gray-400 font-semibold block mb-1.5 uppercase tracking-wider">Username Unik (Permanen)</label>
+                        <input type="text" id="locked-username-input" disabled class="w-full bg-black/70 border border-white/5 rounded-2xl px-3.5 py-2.5 text-xs text-gray-500 cursor-not-allowed">
                     </div>
                 </div>
             </div>
 
-            <div class="glass-card p-4 rounded-3xl space-y-3">
+            <div class="ios-glass-card p-5 rounded-[32px] space-y-3.5 shadow-xl">
                 <h3 class="text-sm font-bold text-white flex items-center gap-2">
                     <i data-lucide="pie-chart" class="w-4 h-4 text-emerald-400"></i> Portofolio Akun
                 </h3>
-                <div class="grid grid-cols-2 gap-3 pt-1">
-                    <div class="bg-black/30 p-3 rounded-2xl border border-white/5">
-                        <div class="text-[10px] text-gray-400">Total Saldo (Balance)</div>
-                        <div id="portfolio-balance" class="text-sm font-bold text-white mt-0.5">$100.00</div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-black/40 p-3.5 rounded-2xl border border-white/5">
+                        <div class="text-[10px] text-gray-400 font-medium">Total Saldo</div>
+                        <div id="portfolio-balance" class="text-base font-bold text-white mt-0.5">$100.00</div>
                     </div>
-                    <div class="bg-black/30 p-3 rounded-2xl border border-white/5">
-                        <div class="text-[10px] text-gray-400">Total Nilai (Equity)</div>
-                        <div id="portfolio-equity" class="text-sm font-bold text-emerald-400 mt-0.5">$100.00</div>
+                    <div class="bg-black/40 p-3.5 rounded-2xl border border-white/5">
+                        <div class="text-[10px] text-gray-400 font-medium">Total Nilai Equity</div>
+                        <div id="portfolio-equity" class="text-base font-bold text-emerald-400 mt-0.5">$100.00</div>
                     </div>
                 </div>
-                <button onclick="openDepositModal()" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 transition">
+                <button onclick="openDepositModal()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-xs font-bold text-white shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 active:scale-95 transition">
                     <i data-lucide="wallet" class="w-4 h-4"></i> Top-Up / Deposit Saldo via Admin
                 </button>
             </div>
 
-            <button onclick="logout()" class="w-full py-3 rounded-2xl bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-semibold active:scale-95 transition">Keluar Akun</button>
+            <button onclick="logout()" class="w-full py-3.5 rounded-2xl bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-semibold active:scale-95 transition shadow-lg shadow-red-500/10">Keluar Akun</button>
         </div>
     </main>
 
     <!-- NAVIGATION BAR -->
-    <nav class="glass fixed bottom-0 left-0 right-0 z-40 px-2 py-2 flex justify-around items-center border-t border-white/10">
-        <button onclick="switchTab('quotes')" class="nav-btn flex flex-col items-center text-blue-500 transition" data-target="tab-quotes"><i data-lucide="list" class="w-5 h-5 mb-0.5"></i><span class="text-[10px]">Quotes</span></button>
-        <button onclick="switchTab('chart')" class="nav-btn flex flex-col items-center text-gray-400 transition" data-target="tab-chart"><i data-lucide="line-chart" class="w-5 h-5 mb-0.5"></i><span class="text-[10px]">Chart</span></button>
-        <button onclick="switchTab('trade')" class="nav-btn flex flex-col items-center text-gray-400 transition" data-target="tab-trade"><i data-lucide="arrow-left-right" class="w-5 h-5 mb-0.5"></i><span class="text-[10px]">Trade</span></button>
-        <button onclick="switchTab('history')" class="nav-btn flex flex-col items-center text-gray-400 transition" data-target="tab-history"><i data-lucide="clock" class="w-5 h-5 mb-0.5"></i><span class="text-[10px]">History</span></button>
-        <button onclick="switchTab('settings')" class="nav-btn flex flex-col items-center text-gray-400 transition" data-target="tab-settings"><i data-lucide="user" class="w-5 h-5 mb-0.5"></i><span class="text-[10px]">Settings</span></button>
+    <nav class="ios-glass fixed bottom-0 left-0 right-0 z-40 px-3 py-2.5 flex justify-around items-center border-t border-white/10 shrink-0 shadow-2xl">
+        <button onclick="switchTab('quotes')" class="nav-btn flex flex-col items-center text-blue-500 transition active:scale-90" data-target="tab-quotes"><i data-lucide="list" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-semibold">Quotes</span></button>
+        <button onclick="switchTab('chart')" class="nav-btn flex flex-col items-center text-gray-400 transition active:scale-90" data-target="tab-chart"><i data-lucide="line-chart" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-semibold">Chart</span></button>
+        <button onclick="switchTab('trade')" class="nav-btn flex flex-col items-center text-gray-400 transition active:scale-90" data-target="tab-trade"><i data-lucide="arrow-left-right" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-semibold">Trade</span></button>
+        <button onclick="switchTab('history')" class="nav-btn flex flex-col items-center text-gray-400 transition active:scale-90" data-target="tab-history"><i data-lucide="clock" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-semibold">History</span></button>
+        <button onclick="switchTab('settings')" class="nav-btn flex flex-col items-center text-gray-400 transition active:scale-90" data-target="tab-settings"><i data-lucide="user" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-semibold">Settings</span></button>
     </nav>
 
     <!-- TRADE MODAL -->
-    <div id="trade-modal" class="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm hidden">
-        <div class="glass-modal w-full max-w-md rounded-t-3xl p-6 shadow-2xl border-t border-white/20">
-            <div class="flex justify-between items-center mb-4">
-                <h3 id="trade-modal-title" class="text-base font-bold text-white">Order</h3>
-                <button onclick="closeTradeModal()" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+    <div id="trade-modal" class="fixed inset-0 z-50 flex items-end justify-center bg-black/70 backdrop-blur-md hidden transition-all duration-300">
+        <div class="ios-glass-modal w-full max-w-md rounded-t-[36px] p-6 shadow-2xl border-t border-white/20 animate-ios">
+            <div class="flex justify-between items-center mb-5">
+                <h3 id="trade-modal-title" class="text-base font-bold text-white tracking-tight">Order</h3>
+                <button onclick="closeTradeModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
             </div>
             <div class="space-y-4">
                 <div>
-                    <label class="text-xs font-medium text-gray-300 mb-1 block">Lot Size</label>
-                    <input type="number" id="trade-lots" value="0.10" step="0.01" min="0.01" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white">
+                    <label class="text-[11px] font-semibold text-gray-300 mb-1.5 block uppercase tracking-wider">Lot Size</label>
+                    <input type="number" id="trade-lots" value="0.10" step="0.01" min="0.01" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 shadow-inner">
                 </div>
-                <button id="execute-order-btn" onclick="executeOrder()" class="w-full py-3.5 rounded-xl font-bold text-sm text-white shadow-lg transition">Eksekusi Order</button>
+                <button id="execute-order-btn" onclick="executeOrder()" class="w-full py-4 rounded-2xl font-bold text-sm text-white shadow-lg transition active:scale-95">Eksekusi Order</button>
             </div>
         </div>
     </div>
 
     <!-- DEPOSIT MODAL -->
-    <div id="deposit-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden">
-        <div class="glass-modal w-full max-w-sm rounded-3xl p-6 shadow-2xl">
-            <div class="flex justify-between items-center mb-3">
-                <h3 class="text-base font-bold text-white">Deposit Saldo</h3>
-                <button onclick="closeDepositModal()" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+    <div id="deposit-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md hidden p-4 transition-all duration-300">
+        <div class="ios-glass-modal w-full max-w-sm rounded-[32px] p-6 shadow-2xl text-center animate-ios">
+            <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mx-auto mb-4 text-emerald-400 shadow-lg">
+                <i data-lucide="wallet" class="w-8 h-8"></i>
             </div>
-            <p class="text-xs text-gray-300 mb-4">Saldo Anda habis atau ingin top-up? Silakan hubungi admin utama kami via Telegram di bawah ini:</p>
-            <a href="https://t.me/manzxsync" target="_blank" class="w-full py-3 rounded-xl bg-sky-500 font-bold text-xs text-white flex items-center justify-center gap-2 mb-3 shadow-lg shadow-sky-500/30">
+            <h3 class="text-lg font-bold text-white mb-2">Deposit Saldo</h3>
+            <p class="text-xs text-gray-300 mb-5 leading-relaxed">Saldo Anda habis atau ingin top-up? Silakan hubungi admin utama kami via Telegram di bawah ini:</p>
+            <a href="https://t.me/manzxsync" target="_blank" class="w-full py-3.5 rounded-2xl bg-sky-500 hover:bg-sky-400 font-bold text-xs text-white flex items-center justify-center gap-2 mb-3 shadow-lg shadow-sky-500/30 transition active:scale-95">
                 <i data-lucide="send" class="w-4 h-4"></i> Chat Admin (@manzxsync)
             </a>
-            <button onclick="closeDepositModal()" class="w-full py-2.5 rounded-xl bg-white/10 text-xs font-semibold text-gray-300">Tutup</button>
+            <button onclick="closeDepositModal()" class="w-full py-3 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-gray-300 transition">Tutup</button>
         </div>
     </div>
 
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         const FIREBASE_URL = "https://manzsmodz-default-rtdb.firebaseio.com";
         let currentUser = null;
@@ -283,6 +319,10 @@
 
         window.addEventListener("DOMContentLoaded", () => {
             lucide.createIcons();
+            
+            // Render quotes langsung agar tidak kosong
+            renderQuotes();
+
             if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe?.user) {
                 let tgUser = window.Telegram.WebApp.initDataUnsafe.user;
                 currentUser = (tgUser.username || tgUser.first_name).toLowerCase();
@@ -348,6 +388,8 @@
             } catch(e) {}
 
             renderQuotes();
+            renderPositions();
+            renderHistory();
             startMarketEngine();
             setInterval(syncFirebaseData, 3000);
         }
@@ -398,22 +440,23 @@
 
         function renderQuotes() {
             const list = document.getElementById("market-list");
+            if (!list) return;
             list.innerHTML = "";
             Object.keys(markets).forEach(sym => {
                 let m = markets[sym];
                 let isGreen = m.change >= 0;
                 list.innerHTML += `
-                    <div onclick="selectMarket('${sym}')" class="glass-card p-3.5 rounded-2xl flex items-center justify-between cursor-pointer active:scale-98 transition">
+                    <div onclick="selectMarket('${sym}')" class="ios-glass-card p-4 rounded-2xl flex items-center justify-between cursor-pointer active:scale-98 transition shadow-lg">
                         <div>
                             <div class="text-sm font-bold text-white">${sym}</div>
-                            <div class="text-[11px] text-gray-400">${m.name}</div>
+                            <div class="text-[11px] text-gray-400 font-medium">${m.name}</div>
                         </div>
                         <div class="flex items-center space-x-4">
                             <div class="text-right">
                                 <div class="text-sm font-bold text-white">${m.bid.toFixed(m.decimals)}</div>
                                 <div class="text-[11px] text-gray-400">Ask: ${m.ask.toFixed(m.decimals)}</div>
                             </div>
-                            <div class="px-2.5 py-1 rounded-xl text-xs font-semibold ${isGreen ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">
+                            <div class="px-3 py-1 rounded-xl text-xs font-semibold ${isGreen ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}">
                                 ${isGreen ? '+' : ''}${m.change}%
                             </div>
                         </div>
@@ -426,6 +469,7 @@
             selectedSymbol = sym;
             document.getElementById("chart-symbol-select").value = sym;
             switchTab('chart');
+            setTimeout(drawChart, 50);
         }
 
         function switchChartSymbol(sym) {
@@ -537,6 +581,9 @@
             tradeActionType = type;
             let m = markets[selectedSymbol];
             document.getElementById("trade-modal-title").textContent = `${type} ${selectedSymbol} (Bid: ${m.bid.toFixed(m.decimals)})`;
+            let btn = document.getElementById("execute-order-btn");
+            btn.textContent = `Eksekusi ${type}`;
+            btn.className = `w-full py-4 rounded-2xl font-bold text-sm text-white shadow-lg transition active:scale-95 ${type === 'BUY' ? 'bg-blue-600 shadow-blue-600/30' : 'bg-red-600 shadow-red-600/30'}`;
             document.getElementById("trade-modal").classList.remove("hidden");
         }
 
@@ -592,33 +639,39 @@
 
             let plEl = document.getElementById("summary-pl");
             plEl.textContent = `${totalPL >= 0 ? '+' : ''}$${totalPL.toFixed(2)}`;
-            plEl.className = `text-sm font-bold ${totalPL >= 0 ? 'text-emerald-400' : 'text-red-400'}`;
+            plEl.className = `text-sm font-bold mt-0.5 ${totalPL >= 0 ? 'text-emerald-400' : 'text-red-400'}`;
+
+            let marginLevel = openPositions.length > 0 ? ((currentEquity / (openPositions.length * 10)) * 100).toFixed(2) + '%' : '0.00%';
+            document.getElementById("summary-margin").textContent = marginLevel;
+
             renderPositions();
         }
 
         function renderPositions() {
             const list = document.getElementById("positions-list");
+            if (!list) return;
             if (openPositions.length === 0) {
-                list.innerHTML = `<div class="text-center py-8 text-gray-500 text-xs">Tidak ada posisi terbuka</div>`;
+                list.innerHTML = `<div class="text-center py-10 text-gray-500 text-xs">Tidak ada posisi terbuka</div>`;
                 return;
             }
             list.innerHTML = "";
             openPositions.forEach((p, idx) => {
                 let isProf = p.pl >= 0;
                 list.innerHTML += `
-                    <div class="glass-card p-3 rounded-2xl flex items-center justify-between">
+                    <div class="ios-glass-card p-4 rounded-2xl flex items-center justify-between shadow-md">
                         <div>
                             <div class="flex items-center gap-2">
-                                <span class="text-xs font-bold ${p.type === 'BUY' ? 'text-blue-400' : 'text-red-400'}">${p.type}</span>
+                                <span class="text-xs font-bold px-2 py-0.5 rounded-lg ${p.type === 'BUY' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}">${p.type}</span>
                                 <span class="text-xs font-bold text-white">${p.symbol}</span>
+                                <span class="text-[10px] text-gray-400 font-medium">(${p.lots} Lot)</span>
                             </div>
-                            <div class="text-[11px] text-gray-400">Open: ${p.openPrice.toFixed(markets[p.symbol].decimals)}</div>
+                            <div class="text-[11px] text-gray-400 mt-1 font-medium">Open: ${p.openPrice.toFixed(markets[p.symbol].decimals)}</div>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="text-right">
                                 <div class="text-xs font-bold ${isProf ? 'text-emerald-400' : 'text-red-400'}">${isProf ? '+' : ''}$${p.pl.toFixed(2)}</div>
                             </div>
-                            <button onclick="closePosition(${idx})" class="px-2.5 py-1 rounded-lg bg-red-500/20 text-red-400 text-[10px] font-semibold">Tutup</button>
+                            <button onclick="closePosition(${idx})" class="px-3 py-1.5 rounded-xl bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 text-[11px] font-semibold active:scale-95 transition">Tutup</button>
                         </div>
                     </div>
                 `;
@@ -638,18 +691,19 @@
 
         function renderHistory() {
             const list = document.getElementById("history-list");
+            if (!list) return;
             if (tradeHistory.length === 0) {
-                list.innerHTML = `<div class="text-center py-8 text-gray-500 text-xs">Belum ada riwayat transaksi</div>`;
+                list.innerHTML = `<div class="text-center py-10 text-gray-500 text-xs">Belum ada riwayat transaksi</div>`;
                 return;
             }
             list.innerHTML = "";
             tradeHistory.forEach(h => {
                 let isProf = h.profit >= 0;
                 list.innerHTML += `
-                    <div class="glass-card p-3 rounded-2xl flex items-center justify-between">
+                    <div class="ios-glass-card p-4 rounded-2xl flex items-center justify-between shadow-md">
                         <div>
                             <div class="text-xs font-bold text-white">${h.symbol} <span class="text-gray-400 font-normal">(${h.type})</span></div>
-                            <div class="text-[10px] text-gray-400">${h.time}</div>
+                            <div class="text-[10px] text-gray-400 mt-0.5">${h.time}</div>
                         </div>
                         <div class="text-right">
                             <div class="text-xs font-bold ${isProf ? 'text-emerald-400' : 'text-red-400'}">${isProf ? '+' : ''}$${h.profit.toFixed(2)}</div>
