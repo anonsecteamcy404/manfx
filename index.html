@@ -58,7 +58,7 @@
 </head>
 <body class="flex flex-col h-screen justify-between">
 
-    <!-- AUTH SCREEN (LOGIN & REGISTER) - Default diset flex agar langsung muncul -->
+    <!-- AUTH SCREEN (LOGIN & REGISTER) -->
     <div id="auth-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-2xl p-4 overflow-y-auto" style="display: flex;">
         <div class="ios-glass-modal w-full max-w-sm rounded-[32px] p-6 shadow-2xl flex flex-col items-center animate-ios my-auto">
             <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-lg shadow-blue-500/40 mb-4">
@@ -354,7 +354,6 @@
             lucide.createIcons();
             renderQuotes();
 
-            // Pengecekan sesi login yang aman agar auth screen tidak hilang sendiri secara keliru
             const savedUser = localStorage.getItem("mt5_username");
             if (savedUser && savedUser.trim() !== "") {
                 currentUser = savedUser;
@@ -478,7 +477,6 @@
             renderQuotes();
             startMarketEngine();
             
-            // Polling realtime setiap 1 detik agar saldo sinkron langsung dengan bot Telegram/Admin
             setInterval(fetchUserData, 1000);
         }
 
@@ -725,6 +723,7 @@
             let totalPL = 0;
             openPositions.forEach(p => {
                 let m = markets[p.symbol];
+                if (!m) return;
                 let currentMarketPrice = p.type === 'BUY' ? m.bid : m.ask;
                 let diff = p.type === 'BUY' ? (currentMarketPrice - p.openPrice) : (p.openPrice - currentMarketPrice);
                 p.pl = diff * p.lots * 10000;
@@ -803,14 +802,11 @@
         function renderHistory() {
             const list = document.getElementById("history-list");
             if (!list) return;
-            if (tradeHistory.length === 0) {
+            if (!Array.isArray(tradeHistory) || tradeHistory.length === 0) {
                 list.innerHTML = `<div class="text-center py-10 text-gray-500 text-xs">Belum ada riwayat transaksi</div>`;
                 return;
             }
             list.innerHTML = "";
-            tradeHistory.history.forEach(h => {
-                // handle safely
-            });
             tradeHistory.forEach(h => {
                 let isProf = h.profit >= 0;
                 list.innerHTML += `
