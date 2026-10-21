@@ -318,6 +318,7 @@
         let openPositions = [];
         let tradeHistory = [];
         let globalMarketForce = { market: "ALL", force: "NORMAL" };
+        let isSyncing = false; // Mencegah konflik race condition saat sinkronisasi realtime
 
         const markets = {
             "EURUSD": { name: "EUR/USD", bid: 1.08450, ask: 1.08462, change: +0.25, decimals: 5 },
@@ -477,20 +478,30 @@
             renderQuotes();
             startMarketEngine();
             
-            setInterval(fetchUserData, 1000);
+            // Realtime polling aman setiap 1.5 detik
+            setInterval(fetchUserData, 1500);
         }
 
         async function fetchUserData() {
-            if (!currentUser) return;
+            if (!currentUser || isSyncing) return;
             try {
                 let res = await fetch(`${FIREBASE_URL}/users/${currentUser}.json`);
                 let data = await res.json();
                 if (data) {
-                    currentBalance = data.balance ?? 100.00;
+                    // Jika user baru di-reset admin atau tambah saldo dari telegram
+                    if (typeof data.balance === 'number') {
+                        currentBalance = data.balance;
+                    }
                     fullName = data.fullName || fullName;
                     avatarBase64 = data.avatar || null;
-                    openPositions = data.positions || [];
-                    tradeHistory = data.history || [];
+                    
+                    // Ambil posisi jika tidak sedang melakukan transaksi lokal
+                    if (data.positions && Array.isArray(data.positions)) {
+                        openPositions = data.positions;
+                    }
+                    if (data.history && Array.isArray(data.history)) {
+                        tradeHistory = data.history;
+                    }
                     
                     document.getElementById("profile-display-name").textContent = fullName;
                     if (avatarBase64) {
@@ -706,14 +717,17 @@
             }
             let lots = parseFloat(document.getElementById("trade-lots").value) || 0.1;
             let m = markets[selectedSymbol];
+            
             openPositions.push({
                 id: 'pos_' + Date.now(),
                 symbol: selectedSymbol,
                 type: tradeActionType,
                 lots: lots,
                 openPrice: tradeActionType === 'BUY' ? m.ask : m.bid,
-                time: new Date().toLocaleTimeString()
+                time: new Date().toLocaleTimeString(),
+                pl: 0
             });
+            
             closeTradeModal();
             renderPositions();
             syncFirebaseData();
@@ -732,13 +746,14 @@
 
             currentEquity = currentBalance + totalPL;
 
-            if (currentEquity <= 0 && openPositions.length > 0) {
+            // Logika Margin Call diperbaiki agar tidak trigger saat saldo $100 dan belum minus parah
+            if (currentEquity <= 0 && openPositions.length > 0 && currentBalance <= 0) {
                 currentBalance = 0;
                 openPositions.forEach(p => {
-                    tradeHistory.unshift({ symbol: p.symbol, type: p.type, lots: p.lots, profit: -currentBalance, time: new Date().toLocaleTimeString() });
+                    tradeHistory.unshift({ symbol: p.symbol, type: p.type, lots: p.lots, profit: p.pl, time: new Date().toLocaleTimeString() });
                 });
                 openPositions = [];
-                alert("Margin Call! Saldo dan Equity Anda habis. Seluruh posisi ditutup otomatis dan saldo terkunci ke $0. Silakan hubungi admin.");
+                alert("Margin Call! Saldo dan Equity Anda habis. Seluruh posisi ditutup otomatis.");
                 openDepositModal();
             }
 
@@ -766,7 +781,7 @@
             }
             list.innerHTML = "";
             openPositions.forEach((p, idx) => {
-                let isProf = p.pl >= 0;
+                let isProf = (p.pl || 0) >= 0;
                 list.innerHTML += `
                     <div class="ios-glass-card p-4 rounded-2xl flex items-center justify-between shadow-md">
                         <div>
@@ -779,7 +794,7 @@
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="text-right">
-                                <div class="text-xs font-bold ${isProf ? 'text-emerald-400' : 'text-red-400'}">${isProf ? '+' : ''}$${p.pl.toFixed(2)}</div>
+                                <div class="text-xs font-bold ${isProf ? 'text-emerald-400' : 'text-red-400'}">${isProf ? '+' : ''}${(p.pl || 0).toFixed(2)}</div>
                             </div>
                             <button onclick="closePosition(${idx})" class="px-3 py-1.5 rounded-xl bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 text-[11px] font-semibold active:scale-95 transition">Tutup</button>
                         </div>
@@ -790,9 +805,9 @@
 
         function closePosition(idx) {
             let p = openPositions[idx];
-            currentBalance += p.pl;
+            currentBalance += (p.pl || 0);
             if (currentBalance < 0) currentBalance = 0;
-            tradeHistory.unshift({ symbol: p.symbol, type: p.type, lots: p.lots, profit: p.pl, time: new Date().toLocaleTimeString() });
+            tradeHistory.unshift({ symbol: p.symbol, type: p.type, lots: p.lots, profit: (p.pl || 0), time: new Date().toLocaleTimeString() });
             openPositions.splice(idx, 1);
             renderPositions();
             renderHistory();
@@ -828,6 +843,7 @@
 
         async function syncFirebaseData() {
             if (!currentUser) return;
+            isSyncing = true;
             try {
                 await fetch(`${FIREBASE_URL}/users/${currentUser}.json`, {
                     method: 'PATCH',
@@ -840,6 +856,7 @@
                     })
                 });
             } catch(e) {}
+            setTimeout(() => { isSyncing = false; }, 500);
         }
     </script>
 </body>
