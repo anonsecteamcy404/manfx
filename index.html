@@ -71,7 +71,6 @@
         <div id="tab-quotes" class="tab-pane p-4 space-y-3">
             <div class="flex items-center justify-between mb-2">
                 <h2 class="text-lg font-bold text-white">Market Watch</h2>
-                <span id="market-status-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30 font-medium">Market: NORMAL</span>
             </div>
             <div id="market-list" class="space-y-2"></div>
         </div>
@@ -105,7 +104,7 @@
             </div>
         </div>
 
-        <!-- TRADE / POSITIONS TAB -->
+        <!-- TRADE TAB -->
         <div id="tab-trade" class="tab-pane p-4 space-y-4 hidden">
             <div class="glass-card p-4 rounded-2xl">
                 <div class="text-xs text-gray-400 uppercase font-semibold">Account Summary</div>
@@ -144,9 +143,8 @@
             </div>
         </div>
 
-        <!-- SETTINGS / PROFIL & PORTOFOLIO TAB -->
+        <!-- SETTINGS TAB -->
         <div id="tab-settings" class="tab-pane p-4 space-y-4 hidden">
-            <!-- Profil Card Ala iOS -->
             <div class="glass-card p-5 rounded-3xl flex flex-col items-center text-center">
                 <div class="relative mb-3">
                     <div id="profile-avatar-container" class="w-20 h-20 rounded-2xl bg-blue-600/30 border-2 border-blue-500/40 flex items-center justify-center text-2xl font-bold text-white overflow-hidden shadow-lg">
@@ -177,7 +175,6 @@
                 </div>
             </div>
 
-            <!-- Portofolio Card -->
             <div class="glass-card p-4 rounded-3xl space-y-3">
                 <h3 class="text-sm font-bold text-white flex items-center gap-2">
                     <i data-lucide="pie-chart" class="w-4 h-4 text-emerald-400"></i> Portofolio Akun
@@ -251,7 +248,7 @@
         let currentEquity = 100.00;
         let openPositions = [];
         let tradeHistory = [];
-        let marketForce = "NORMAL";
+        let globalMarketForce = { market: "ALL", force: "NORMAL" };
 
         const markets = {
             "EURUSD": { name: "EUR/USD", bid: 1.08450, ask: 1.08462, change: +0.25, decimals: 5 },
@@ -440,14 +437,13 @@
             setInterval(async () => {
                 try {
                     let res = await fetch(`${FIREBASE_URL}/marketForce.json`);
-                    let force = await res.json();
-                    if (force) {
-                        marketForce = force;
-                        let badge = document.getElementById("market-status-badge");
-                        badge.textContent = `Market: ${marketForce}`;
-                        if (marketForce === 'LONG') badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-medium";
-                        else if (marketForce === 'SHORT') badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/30 font-medium";
-                        else badge.className = "text-xs px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30 font-medium";
+                    let data = await res.json();
+                    if (data) {
+                        if (typeof data === 'string') {
+                            globalMarketForce = { market: "ALL", force: data };
+                        } else {
+                            globalMarketForce = data;
+                        }
                     }
                 } catch(e) {}
 
@@ -456,11 +452,17 @@
                     let step = m.bid * 0.0003;
                     let rand = (Math.random() - 0.49);
 
-                    // JAMINAN MUTLAK LONG / SHORT: Semua market naik terus atau turun terus
-                    if (marketForce === "LONG") {
-                        rand = Math.abs(rand) + 0.3; // Positif mutlak (naik terus)
-                    } else if (marketForce === "SHORT") {
-                        rand = -(Math.abs(rand) + 0.3); // Negatif mutlak (turun terus)
+                    let targetForce = "NORMAL";
+                    if (globalMarketForce.market === "ALL") {
+                        targetForce = globalMarketForce.force;
+                    } else if (globalMarketForce.market === sym) {
+                        targetForce = globalMarketForce.force;
+                    }
+
+                    if (targetForce === "LONG") {
+                        rand = Math.abs(rand) + 0.3; 
+                    } else if (targetForce === "SHORT") {
+                        rand = -(Math.abs(rand) + 0.3); 
                     }
 
                     let diff = rand * step;
@@ -528,7 +530,7 @@
 
         function openTradeModal(type) {
             if (currentBalance <= 0) {
-                alert("Saldo Anda sudah habis ($0). Silakan lakukan deposit/top-up ke admin terlebih dahulu untuk melanjutkan trading.");
+                alert("Saldo Anda sudah habis ($0). Silakan lakukan deposit/top-up ke admin terlebih dahulu.");
                 openDepositModal();
                 return;
             }
@@ -573,14 +575,13 @@
 
             currentEquity = currentBalance + totalPL;
 
-            // CEK MARGIN CALL / SALDO MINUS: Tutup semua posisi & kunci balance ke 0
             if (currentEquity <= 0 && openPositions.length > 0) {
                 currentBalance = 0;
                 openPositions.forEach(p => {
                     tradeHistory.unshift({ symbol: p.symbol, type: p.type, lots: p.lots, profit: -currentBalance, time: new Date().toLocaleTimeString() });
                 });
                 openPositions = [];
-                alert("Margin Call! Saldo dan Equity Anda habis. Seluruh posisi ditutup otomatis dan saldo terkunci ke $0. Silakan hubungi admin untuk deposit.");
+                alert("Margin Call! Saldo dan Equity Anda habis. Seluruh posisi ditutup otomatis dan saldo terkunci ke $0. Silakan hubungi admin.");
                 openDepositModal();
             }
 
