@@ -1,251 +1,421 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MetaTrader 5 - iOS Edition</title>
-    <!-- Tailwind CSS & Lucide Icons & SF Pro Font -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>MetaTrader 5 - Liquid iOS Edition</title>
+    <!-- Tailwind CSS, Lucide Icons, Plus Jakarta Sans / SF Pro aesthetic font -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                    },
+                    colors: {
+                        ios: {
+                            bg: '#050508',
+                            card: 'rgba(255, 255, 255, 0.04)',
+                            cardHover: 'rgba(255, 255, 255, 0.07)',
+                            glass: 'rgba(18, 18, 26, 0.65)',
+                            border: 'rgba(255, 255, 255, 0.12)',
+                            blue: '#0A84FF',
+                            green: '#30D158',
+                            red: '#FF453A',
+                            gold: '#FFD60A',
+                            purple: '#BF5AF2'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         * {
             -webkit-tap-highlight-color: transparent;
             box-sizing: border-box;
-        }
-        body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #000000;
-            color: #ffffff;
-            overflow: hidden;
             user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background-color: #040406;
+            color: #F2F2F7;
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            overflow: hidden;
             height: 100vh;
             width: 100vw;
             margin: 0;
-            display: flex;
-            flex-direction: column;
+            padding: 0;
         }
-        .ios-glass {
-            background: rgba(28, 28, 30, 0.85);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+        /* LIQUID GLASS DESIGN SYSTEM */
+        .liquid-bg-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.45;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatBlob 18s ease-in-out infinite alternate;
         }
-        .ios-glass-card {
-            background: rgba(44, 44, 46, 0.65);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+
+        .blob-1 {
+            top: -10%;
+            left: -10%;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, #0A84FF 0%, #BF5AF2 100%);
+        }
+
+        .blob-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, #30D158 0%, #0A84FF 100%);
+            animation-delay: -9s;
+        }
+
+        .blob-3 {
+            top: 40%;
+            right: 15%;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, #FF453A 0%, #7D2AE8 100%);
+            animation-delay: -5s;
+        }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(30px, -40px) scale(1.12); }
+            100% { transform: translate(-20px, 30px) scale(0.95); }
+        }
+
+        .liquid-glass {
+            background: rgba(18, 18, 28, 0.65);
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .liquid-glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
-        .ios-glass-modal {
-            background: rgba(30, 30, 35, 0.95);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
+
+        .liquid-glass-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .liquid-glass-modal {
+            background: rgba(14, 14, 22, 0.88);
+            backdrop-filter: blur(40px) saturate(210%);
+            -webkit-backdrop-filter: blur(40px) saturate(210%);
             border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.25);
         }
-        @keyframes iosScaleIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+
+        .liquid-btn-blue {
+            background: linear-gradient(135deg, #0A84FF 0%, #0055FF 100%);
+            box-shadow: 0 8px 24px rgba(10, 132, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
-        .animate-ios {
-            animation: iosScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+        .liquid-btn-green {
+            background: linear-gradient(135deg, #30D158 0%, #159938 100%);
+            box-shadow: 0 8px 24px rgba(48, 209, 88, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
+
+        .liquid-btn-red {
+            background: linear-gradient(135deg, #FF453A 0%, #C91A0E 100%);
+            box-shadow: 0 8px 24px rgba(255, 69, 58, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        /* FLASH ANIMATIONS FOR PRICE TICKS */
+        @keyframes flashUp {
+            0% { background-color: rgba(48, 209, 88, 0.35); }
+            100% { background-color: transparent; }
+        }
+
+        @keyframes flashDown {
+            0% { background-color: rgba(255, 69, 58, 0.35); }
+            100% { background-color: transparent; }
+        }
+
+        .tick-up { animation: flashUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .tick-down { animation: flashDown 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        /* CUSTOM SCROLLBAR */
         ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="flex flex-col h-screen justify-between">
+<body class="flex flex-col h-screen w-screen relative overflow-hidden text-gray-100 select-none">
 
-    <!-- AUTH SCREEN (LOGIN & REGISTER) -->
-    <div id="auth-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-2xl p-4 overflow-y-auto" style="display: flex;">
-        <div class="ios-glass-modal w-full max-w-sm rounded-[32px] p-6 shadow-2xl flex flex-col items-center animate-ios my-auto">
-            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-lg shadow-blue-500/40 mb-4">
-                <i data-lucide="trending-up" class="w-8 h-8 text-white"></i>
-            </div>
+    <!-- AMBIENT LIQUID GLOWING BLOBS -->
+    <div class="liquid-bg-blob blob-1"></div>
+    <div class="liquid-bg-blob blob-2"></div>
+    <div class="liquid-bg-blob blob-3"></div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 w-11/12 max-w-md pointer-events-none"></div>
+
+    <!-- AUTHENTICATION OVERLAY (LOGIN & REGISTER) -->
+    <div id="auth-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl" style="display: flex;">
+        <div class="liquid-glass-modal w-full max-w-sm rounded-[36px] p-7 flex flex-col items-center relative overflow-hidden transition-all duration-300">
             
-            <h2 id="auth-title" class="text-xl font-bold tracking-tight text-white mb-1">MT5 iOS Trader</h2>
-            <p id="auth-subtitle" class="text-xs text-gray-400 text-center mb-5 leading-relaxed">Silakan masuk atau buat akun baru untuk mulai trading.</p>
-
-            <!-- TAB SWITCHER LOGIN / REGISTER -->
-            <div class="flex w-full bg-black/60 p-1 rounded-2xl mb-4 border border-white/10">
-                <button id="tab-login-btn" onclick="switchAuthTab('login')" class="flex-1 py-2 text-xs font-bold rounded-xl bg-blue-600 text-white shadow-md transition">Masuk</button>
-                <button id="tab-register-btn" onclick="switchAuthTab('register')" class="flex-1 py-2 text-xs font-semibold rounded-xl text-gray-400 hover:text-white transition">Daftar</button>
+            <div class="w-16 h-16 rounded-2xl liquid-btn-blue flex items-center justify-center mb-4 text-white shadow-lg">
+                <i data-lucide="candlestick-chart" class="w-8 h-8"></i>
             </div>
 
-            <!-- FORM LOGIN -->
-            <div id="form-login" class="w-full space-y-3">
+            <h2 id="auth-title" class="text-2xl font-extrabold tracking-tight text-white mb-1">MT5 iOS Pro</h2>
+            <p id="auth-subtitle" class="text-xs text-gray-400 text-center mb-6 leading-relaxed">Platform Trading Forex & Kripto Realtime dengan Tampilan Liquid iOS Premium.</p>
+
+            <!-- TOGGLE LOGIN / REGISTER -->
+            <div class="flex w-full bg-black/50 p-1 rounded-2xl mb-5 border border-white/10 backdrop-blur-md">
+                <button id="tab-login-btn" onclick="switchAuthTab('login')" class="flex-1 py-2 text-xs font-bold rounded-xl liquid-btn-blue text-white transition-all">Masuk</button>
+                <button id="tab-register-btn" onclick="switchAuthTab('register')" class="flex-1 py-2 text-xs font-semibold rounded-xl text-gray-400 hover:text-white transition-all">Daftar Akun</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="form-login" onsubmit="event.preventDefault(); handleLogin();" class="w-full space-y-3.5">
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Username</label>
-                    <input type="text" id="login-username" placeholder="Masukkan username" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 shadow-inner">
+                    <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Username</label>
+                    <input type="text" id="login-username" required placeholder="Masukkan username" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-blue transition shadow-inner">
                 </div>
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Password</label>
-                    <input type="password" id="login-password" placeholder="Masukkan password" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 shadow-inner">
+                    <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Password</label>
+                    <input type="password" id="login-password" required placeholder="Masukkan password" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-blue transition shadow-inner">
                 </div>
-                <button onclick="handleLogin()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-95 transition-all font-semibold text-sm shadow-lg shadow-blue-600/40 text-white mt-2">
-                    Masuk Platform
+                <button type="submit" class="w-full py-3.5 rounded-2xl liquid-btn-blue font-bold text-sm text-white transition active:scale-95 mt-2">
+                    Masuk ke Platform
                 </button>
-            </div>
+            </form>
 
-            <!-- FORM REGISTER (DAFTAR) -->
-            <div id="form-register" class="w-full space-y-3 hidden">
+            <!-- REGISTER FORM -->
+            <form id="form-register" onsubmit="event.preventDefault(); handleRegister();" class="w-full space-y-3.5 hidden">
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Nama Lengkap</label>
-                    <input type="text" id="reg-fullname" placeholder="Contoh: John Doe" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 shadow-inner">
+                    <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Nama Lengkap</label>
+                    <input type="text" id="reg-fullname" required placeholder="Contoh: Alex Rivers" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
                 </div>
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Username Unik</label>
-                    <input type="text" id="reg-username" placeholder="Contoh: trader99" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 shadow-inner">
+                    <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Username Unik</label>
+                    <input type="text" id="reg-username" required placeholder="Contoh: trader88" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
                 </div>
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Password</label>
-                    <input type="password" id="reg-password" placeholder="Buat password aman" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 shadow-inner">
+                    <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Password</label>
+                    <input type="password" id="reg-password" required placeholder="Buat password aman" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
                 </div>
-                <button onclick="handleRegister()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-95 transition-all font-semibold text-sm shadow-lg shadow-emerald-600/40 text-white mt-2">
-                    Daftar & Klaim $100
+                <button type="submit" class="w-full py-3.5 rounded-2xl liquid-btn-green font-bold text-sm text-white transition active:scale-95 mt-2">
+                    Daftar & Bonus Demo $100.00
                 </button>
-            </div>
+            </form>
 
-            <div id="auth-error" class="text-xs text-red-400 mt-3 text-center font-medium hidden"></div>
+            <div id="auth-error" class="text-xs text-ios-red mt-3 text-center font-semibold hidden"></div>
         </div>
     </div>
 
-    <!-- TOP HEADER -->
-    <header class="ios-glass sticky top-0 z-30 px-4 py-3 flex items-center justify-between border-b border-white/10 shrink-0">
+    <!-- TOP HEADER BAR -->
+    <header class="liquid-glass sticky top-0 z-30 px-4 py-3 flex items-center justify-between border-b border-white/10 shrink-0">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-2xl bg-blue-600/30 border border-blue-500/40 flex items-center justify-center text-blue-400 font-bold text-sm overflow-hidden shadow-md" id="header-avatar-box">
+            <div class="w-10 h-10 rounded-2xl bg-ios-blue/20 border border-ios-blue/40 flex items-center justify-center text-ios-blue font-extrabold text-sm overflow-hidden shadow-md" id="header-avatar-box">
                 <span id="user-avatar">U</span>
+                <img id="header-avatar-img" class="w-full h-full object-cover hidden" />
             </div>
             <div>
-                <h1 id="header-username" class="text-sm font-bold text-white leading-tight">Trader</h1>
-                <p class="text-[10px] text-emerald-400 flex items-center gap-1 font-medium mt-0.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Terhubung Realtime Firebase
+                <h1 id="header-username" class="text-sm font-extrabold text-white leading-tight">Trader</h1>
+                <p class="text-[10px] text-ios-green flex items-center gap-1 font-semibold mt-0.5">
+                    <span class="w-2 h-2 rounded-full bg-ios-green animate-pulse"></span> Firebase Realtime Live
                 </p>
             </div>
         </div>
         <div class="flex items-center space-x-2">
-            <button onclick="openDepositModal()" class="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center gap-1.5 active:scale-95 transition shadow-md shadow-emerald-500/10">
+            <button onclick="openDepositModal()" class="px-3.5 py-2 rounded-xl bg-ios-green/20 border border-ios-green/40 text-ios-green text-xs font-bold flex items-center gap-1.5 active:scale-95 transition shadow-lg shadow-ios-green/10">
                 <i data-lucide="wallet" class="w-3.5 h-3.5"></i> Deposit
             </button>
         </div>
     </header>
 
-    <!-- MAIN APP CONTAINER -->
-    <main class="flex-1 overflow-y-auto pb-24 pt-3 px-3 space-y-3" id="main-content">
-        <!-- QUOTES TAB -->
-        <div id="tab-quotes" class="tab-pane space-y-3 animate-ios">
+    <!-- MAIN APP VIEWPORT -->
+    <main class="flex-1 overflow-y-auto pb-24 pt-3 px-3 relative z-10" id="main-content">
+
+        <!-- TAB 1: QUOTES (MARKET WATCH) -->
+        <div id="tab-quotes" class="tab-pane space-y-3">
             <div class="flex items-center justify-between px-1 py-1">
-                <h2 class="text-lg font-bold text-white tracking-tight">Market Watch</h2>
-                <span class="text-[11px] text-gray-400 font-medium">Spread Rendah</span>
-            </div>
-            <div id="market-list" class="space-y-2.5 pb-4"></div>
-        </div>
-
-        <!-- CHART TAB -->
-        <div id="tab-chart" class="tab-pane space-y-3 hidden animate-ios">
-            <div class="flex items-center justify-between ios-glass-card p-3.5 rounded-2xl">
                 <div>
-                    <select id="chart-symbol-select" onchange="switchChartSymbol(this.value)" class="bg-black/50 border border-white/15 rounded-xl px-3 py-1.5 text-sm font-bold text-white focus:outline-none shadow-inner">
-                        <option value="EURUSD">EURUSD</option>
-                        <option value="GBPUSD">GBPUSD</option>
-                        <option value="USDJPY">USDJPY</option>
-                        <option value="XAUUSD">XAUUSD (Gold)</option>
-                        <option value="BTCUSD">BTCUSD</option>
-                    </select>
-                    <div id="chart-price-display" class="text-xs text-gray-400 mt-1 font-medium">Bid: 0.00 | Ask: 0.00</div>
+                    <h2 class="text-xl font-black text-white tracking-tight">Market Watch</h2>
+                    <p class="text-[11px] text-gray-400">Harga langsung dari pasar global</p>
                 </div>
-                <div class="flex gap-2">
-                    <button onclick="openTradeModal('BUY')" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 font-bold text-xs shadow-lg shadow-blue-600/30 active:scale-95 transition">BUY</button>
-                    <button onclick="openTradeModal('SELL')" class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 font-bold text-xs shadow-lg shadow-red-600/30 active:scale-95 transition">SELL</button>
+                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 text-gray-300 border border-white/15">
+                    Spread Rendah
+                </span>
+            </div>
+            <div id="market-list" class="space-y-2.5 pb-6"></div>
+        </div>
+
+        <!-- TAB 2: CHART (REALTIME MT5 CANDLESTICK) -->
+        <div id="tab-chart" class="tab-pane space-y-3 hidden">
+            
+            <!-- SYMBOL & TIMEFRAME HEADER -->
+            <div class="liquid-glass-card p-3 rounded-2xl space-y-2">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <select id="chart-symbol-select" onchange="switchChartSymbol(this.value)" class="bg-black/60 border border-white/20 rounded-xl px-3 py-1.5 text-xs font-extrabold text-white focus:outline-none shadow-inner">
+                            <option value="EURUSD">EURUSD (Forex)</option>
+                            <option value="GBPUSD">GBPUSD (Forex)</option>
+                            <option value="USDJPY">USDJPY (Forex)</option>
+                            <option value="XAUUSD">XAUUSD (Gold)</option>
+                            <option value="BTCUSD">BTCUSD (Bitcoin)</option>
+                        </select>
+                        <span id="chart-timeframe-tag" class="text-[10px] font-bold px-2 py-1 rounded-lg bg-ios-blue/20 text-ios-blue border border-ios-blue/30">M1</span>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button onclick="openTradeModal('BUY')" class="px-4 py-2 rounded-xl liquid-btn-blue font-extrabold text-xs text-white active:scale-95 transition">BUY</button>
+                        <button onclick="openTradeModal('SELL')" class="px-4 py-2 rounded-xl liquid-btn-red font-extrabold text-xs text-white active:scale-95 transition">SELL</button>
+                    </div>
+                </div>
+
+                <!-- TIMEFRAME SELECTOR -->
+                <div class="flex items-center justify-between border-t border-white/10 pt-2 text-[11px] font-bold">
+                    <div class="flex gap-1.5" id="timeframe-buttons">
+                        <button onclick="setTimeframe('M1')" class="tf-btn px-2.5 py-1 rounded-lg bg-ios-blue text-white shadow" data-tf="M1">M1</button>
+                        <button onclick="setTimeframe('M5')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="M5">M5</button>
+                        <button onclick="setTimeframe('M15')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="M15">M15</button>
+                        <button onclick="setTimeframe('H1')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="H1">H1</button>
+                    </div>
+                    <div id="chart-bid-ask" class="text-[10px] text-gray-300 font-mono">Bid: - | Ask: -</div>
                 </div>
             </div>
-            <div class="ios-glass-card rounded-2xl p-3.5 relative">
-                <div class="flex justify-between items-center mb-2 text-xs text-gray-400 font-medium px-1">
-                    <span id="active-symbol-title" class="font-bold text-white">EURUSD - M1 Chart</span>
-                    <span class="text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Live Candle Engine</span>
+
+            <!-- CANVAS CONTAINER -->
+            <div class="liquid-glass-card rounded-2xl p-2.5 relative">
+                <div class="flex justify-between items-center mb-1.5 text-[11px] text-gray-400 font-semibold px-1">
+                    <span id="active-symbol-title" class="font-extrabold text-white">EURUSD - M1 Candle Engine</span>
+                    <span class="text-ios-green flex items-center gap-1 font-mono text-[10px]">
+                        <span class="w-1.5 h-1.5 rounded-full bg-ios-green animate-ping"></span> SMA(14) Active
+                    </span>
                 </div>
-                <div class="w-full h-80 relative bg-black/60 rounded-xl overflow-hidden border border-white/10 shadow-inner">
-                    <canvas id="trading-canvas" class="w-full h-full cursor-crosshair"></canvas>
+
+                <!-- CANVAS ELEMENT -->
+                <div class="w-full h-80 relative bg-black/70 rounded-xl overflow-hidden border border-white/10 shadow-inner">
+                    <canvas id="trading-canvas" class="w-full h-full cursor-crosshair touch-none"></canvas>
+                    <div id="chart-crosshair-badge" class="absolute hidden px-2 py-0.5 rounded text-[10px] font-mono bg-ios-blue text-white shadow pointer-events-none z-20"></div>
+                </div>
+
+                <!-- CANVAS TOOLBAR / ZOOM CONTROLS -->
+                <div class="flex items-center justify-between mt-2 px-1 text-[11px] text-gray-400 font-semibold">
+                    <div class="flex gap-2">
+                        <button onclick="zoomChart(1.2)" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-white active:scale-95 transition"><i data-lucide="zoom-in" class="w-3.5 h-3.5 inline"></i></button>
+                        <button onclick="zoomChart(0.8)" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-white active:scale-95 transition"><i data-lucide="zoom-out" class="w-3.5 h-3.5 inline"></i></button>
+                        <button onclick="resetChartZoom()" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-white active:scale-95 transition">Reset</button>
+                    </div>
+                    <span class="text-[10px] text-gray-400">Geser grafik untuk pan/zoom</span>
                 </div>
             </div>
         </div>
 
-        <!-- TRADE TAB -->
-        <div id="tab-trade" class="tab-pane space-y-4 hidden animate-ios">
-            <div class="ios-glass-card p-4.5 rounded-3xl">
-                <div class="text-xs text-gray-400 uppercase font-bold tracking-wider mb-3">Account Summary</div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-black/30 p-3 rounded-2xl border border-white/5">
-                        <div class="text-[11px] text-gray-400">Balance</div>
-                        <div id="summary-balance" class="text-base font-bold text-white mt-0.5">$100.00</div>
+        <!-- TAB 3: TRADE (POSITIONS & ACCOUNT SUMMARY) -->
+        <div id="tab-trade" class="tab-pane space-y-4 hidden">
+            <!-- ACCOUNT SUMMARY CARD -->
+            <div class="liquid-glass-card p-4 rounded-3xl space-y-3">
+                <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                    <span class="text-xs font-black text-white uppercase tracking-wider">Account Metrics</span>
+                    <span id="account-status-badge" class="text-[10px] font-bold px-2 py-0.5 rounded bg-ios-green/20 text-ios-green border border-ios-green/30">Healthy</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-black/40 p-3 rounded-2xl border border-white/5">
+                        <div class="text-[10px] text-gray-400 font-medium">Balance</div>
+                        <div id="summary-balance" class="text-base font-extrabold text-white mt-0.5">$100.00</div>
                     </div>
-                    <div class="bg-black/30 p-3 rounded-2xl border border-white/5">
-                        <div class="text-[11px] text-gray-400">Equity</div>
-                        <div id="summary-equity" class="text-base font-bold text-emerald-400 mt-0.5">$100.00</div>
+                    <div class="bg-black/40 p-3 rounded-2xl border border-white/5">
+                        <div class="text-[10px] text-gray-400 font-medium">Equity</div>
+                        <div id="summary-equity" class="text-base font-extrabold text-ios-green mt-0.5">$100.00</div>
                     </div>
-                    <div class="bg-black/30 p-3 rounded-2xl border border-white/5">
-                        <div class="text-[11px] text-gray-400">Floating P/L</div>
-                        <div id="summary-pl" class="text-sm font-bold text-gray-300 mt-0.5">$0.00</div>
+                    <div class="bg-black/40 p-3 rounded-2xl border border-white/5">
+                        <div class="text-[10px] text-gray-400 font-medium">Floating P/L</div>
+                        <div id="summary-pl" class="text-sm font-extrabold text-gray-300 mt-0.5">$0.00</div>
                     </div>
-                    <div class="bg-black/30 p-3 rounded-2xl border border-white/5">
-                        <div class="text-[11px] text-gray-400">Margin Level</div>
-                        <div id="summary-margin" class="text-sm font-bold text-blue-400 mt-0.5">0.00%</div>
+                    <div class="bg-black/40 p-3 rounded-2xl border border-white/5">
+                        <div class="text-[10px] text-gray-400 font-medium">Margin Level</div>
+                        <div id="summary-margin" class="text-sm font-extrabold text-ios-blue mt-0.5">0.00%</div>
                     </div>
                 </div>
             </div>
+
+            <!-- OPEN POSITIONS LIST -->
             <div>
-                <h3 class="text-sm font-bold text-white mb-2.5 px-1">Open Positions</h3>
-                <div id="positions-list" class="space-y-2.5 pb-4">
-                    <div class="text-center py-10 text-gray-500 text-xs">Tidak ada posisi terbuka</div>
+                <div class="flex justify-between items-center mb-2.5 px-1">
+                    <h3 class="text-sm font-black text-white">Posisi Terbuka</h3>
+                    <span id="open-positions-count" class="text-xs text-gray-400 font-semibold">0 Posisi</span>
+                </div>
+                <div id="positions-list" class="space-y-2.5 pb-6">
+                    <div class="text-center py-12 text-gray-500 text-xs">Belum ada posisi terbuka</div>
                 </div>
             </div>
         </div>
 
-        <!-- HISTORY TAB -->
-        <div id="tab-history" class="tab-pane space-y-3 hidden animate-ios">
-            <h2 class="text-lg font-bold text-white mb-2 px-1">Riwayat Trading</h2>
-            <div id="history-list" class="space-y-2.5 pb-4">
-                <div class="text-center py-10 text-gray-500 text-xs">Belum ada riwayat transaksi</div>
+        <!-- TAB 4: HISTORY -->
+        <div id="tab-history" class="tab-pane space-y-3 hidden">
+            <div class="flex justify-between items-center mb-2 px-1">
+                <h2 class="text-xl font-black text-white">Riwayat Trading</h2>
+                <div id="history-total-profit" class="text-xs font-bold text-ios-green">$0.00</div>
+            </div>
+            <div id="history-list" class="space-y-2.5 pb-6">
+                <div class="text-center py-12 text-gray-500 text-xs">Belum ada riwayat transaksi</div>
             </div>
         </div>
 
-        <!-- SETTINGS TAB -->
-        <div id="tab-settings" class="tab-pane space-y-4 hidden animate-ios pb-6">
-            <div class="ios-glass-card p-6 rounded-[32px] flex flex-col items-center text-center shadow-xl">
+        <!-- TAB 5: SETTINGS & PROFILE -->
+        <div id="tab-settings" class="tab-pane space-y-4 hidden pb-6">
+            <div class="liquid-glass-card p-6 rounded-[32px] flex flex-col items-center text-center shadow-xl">
                 <div class="relative mb-4">
-                    <div id="profile-avatar-container" class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-blue-600 to-indigo-600 border-2 border-white/20 flex items-center justify-center text-3xl font-bold text-white overflow-hidden shadow-xl">
+                    <div id="profile-avatar-container" class="w-24 h-24 rounded-3xl liquid-btn-blue border-2 border-white/20 flex items-center justify-center text-3xl font-extrabold text-white overflow-hidden shadow-xl">
                         <span id="profile-initial">U</span>
                         <img id="profile-img-preview" class="w-full h-full object-cover hidden" />
                     </div>
-                    <label for="avatar-file-input" class="absolute -bottom-1 -right-1 bg-blue-600 hover:bg-blue-500 p-2 rounded-2xl cursor-pointer shadow-lg transition active:scale-90">
+                    <label for="avatar-file-input" class="absolute -bottom-1 -right-1 bg-ios-blue hover:bg-blue-500 p-2 rounded-2xl cursor-pointer shadow-lg transition active:scale-90">
                         <i data-lucide="camera" class="w-4 h-4 text-white"></i>
                     </label>
                     <input type="file" id="avatar-file-input" accept="image/*" class="hidden" onchange="handleAvatarUpload(event)">
                 </div>
 
                 <div id="profile-display-name" class="text-lg font-bold text-white tracking-tight">Trader Pro</div>
-                <div id="settings-username" class="text-xs text-gray-400 mb-5 font-medium">@username</div>
+                <div id="settings-username" class="text-xs text-gray-400 mb-5 font-semibold">@username</div>
 
                 <div class="w-full space-y-3.5 text-left border-t border-white/10 pt-4">
                     <div>
-                        <label class="text-[11px] text-gray-400 font-semibold block mb-1.5 uppercase tracking-wider">Nama Lengkap (Dapat Diubah)</label>
+                        <label class="text-[10px] text-gray-400 font-bold block mb-1.5 uppercase tracking-wider">Nama Lengkap (Dapat Diubah)</label>
                         <div class="flex gap-2">
-                            <input type="text" id="edit-fullname-input" class="w-full bg-black/50 border border-white/15 rounded-2xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500 shadow-inner">
-                            <button onclick="saveFullName()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 active:scale-95 rounded-2xl text-xs font-semibold text-white shadow-md shadow-blue-600/30 transition">Simpan</button>
+                            <input type="text" id="edit-fullname-input" class="w-full bg-black/50 border border-white/15 rounded-2xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-ios-blue shadow-inner">
+                            <button onclick="saveFullName()" class="px-5 py-2.5 liquid-btn-blue rounded-2xl text-xs font-bold text-white transition active:scale-95">Simpan</button>
                         </div>
                     </div>
                     <div>
-                        <label class="text-[11px] text-gray-400 font-semibold block mb-1.5 uppercase tracking-wider">Username Unik (Permanen)</label>
+                        <label class="text-[10px] text-gray-400 font-bold block mb-1.5 uppercase tracking-wider">Username (Permanen)</label>
                         <input type="text" id="locked-username-input" disabled class="w-full bg-black/70 border border-white/5 rounded-2xl px-3.5 py-2.5 text-xs text-gray-500 cursor-not-allowed">
                     </div>
                 </div>
             </div>
 
-            <div class="ios-glass-card p-5 rounded-[32px] space-y-3.5 shadow-xl">
-                <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                    <i data-lucide="pie-chart" class="w-4 h-4 text-emerald-400"></i> Portofolio Akun
+            <!-- PORTFOLIO SUMMARY CARD -->
+            <div class="liquid-glass-card p-5 rounded-[32px] space-y-3.5 shadow-xl">
+                <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
+                    <i data-lucide="pie-chart" class="w-4 h-4 text-ios-green"></i> Portofolio & Saldo
                 </h3>
                 <div class="grid grid-cols-2 gap-3">
                     <div class="bg-black/40 p-3.5 rounded-2xl border border-white/5">
@@ -253,62 +423,102 @@
                         <div id="portfolio-balance" class="text-base font-bold text-white mt-0.5">$100.00</div>
                     </div>
                     <div class="bg-black/40 p-3.5 rounded-2xl border border-white/5">
-                        <div class="text-[10px] text-gray-400 font-medium">Total Nilai Equity</div>
-                        <div id="portfolio-equity" class="text-base font-bold text-emerald-400 mt-0.5">$100.00</div>
+                        <div class="text-[10px] text-gray-400 font-medium">Total Equity</div>
+                        <div id="portfolio-equity" class="text-base font-bold text-ios-green mt-0.5">$100.00</div>
                     </div>
                 </div>
-                <button onclick="openDepositModal()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-xs font-bold text-white shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 active:scale-95 transition">
-                    <i data-lucide="wallet" class="w-4 h-4"></i> Top-Up / Deposit Saldo via Admin
+                <button onclick="openDepositModal()" class="w-full py-3.5 rounded-2xl liquid-btn-green text-xs font-bold text-white flex items-center justify-center gap-2 active:scale-95 transition">
+                    <i data-lucide="wallet" class="w-4 h-4"></i> Top-Up / Deposit via Admin Telegram
                 </button>
             </div>
 
-            <button onclick="logout()" class="w-full py-3.5 rounded-2xl bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-semibold active:scale-95 transition shadow-lg shadow-red-500/10">Keluar Akun</button>
+            <button onclick="logout()" class="w-full py-3.5 rounded-2xl bg-ios-red/20 text-ios-red border border-ios-red/30 text-xs font-bold active:scale-95 transition shadow-lg">
+                Keluar Akun
+            </button>
         </div>
     </main>
 
-    <!-- NAVIGATION BAR -->
-    <nav class="ios-glass fixed bottom-0 left-0 right-0 z-40 px-3 py-2.5 flex justify-around items-center border-t border-white/10 shrink-0 shadow-2xl">
-        <button onclick="switchTab('quotes')" class="nav-btn flex flex-col items-center text-blue-500 transition active:scale-90" data-target="tab-quotes"><i data-lucide="list" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-semibold">Quotes</span></button>
-        <button onclick="switchTab('chart')" class="nav-btn flex flex-col items-center text-gray-400 transition active:scale-90" data-target="tab-chart"><i data-lucide="line-chart" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-semibold">Chart</span></button>
-        <button onclick="switchTab('trade')" class="nav-btn flex flex-col items-center text-gray-400 transition active:scale-90" data-target="tab-trade"><i data-lucide="arrow-left-right" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-semibold">Trade</span></button>
-        <button onclick="switchTab('history')" class="nav-btn flex flex-col items-center text-gray-400 transition active:scale-90" data-target="tab-history"><i data-lucide="clock" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-semibold">History</span></button>
-        <button onclick="switchTab('settings')" class="nav-btn flex flex-col items-center text-gray-400 transition active:scale-90" data-target="tab-settings"><i data-lucide="user" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-semibold">Settings</span></button>
+    <!-- FLOATING LIQUID BOTTOM NAVBAR -->
+    <nav class="liquid-glass fixed bottom-0 left-0 right-0 z-40 px-3 py-2 flex justify-around items-center border-t border-white/10 shrink-0 shadow-2xl">
+        <button onclick="switchTab('quotes')" class="nav-btn flex flex-col items-center text-ios-blue transition-all active:scale-90" data-target="tab-quotes">
+            <i data-lucide="list" class="w-5 h-5 mb-0.5"></i>
+            <span class="text-[10px] font-bold">Quotes</span>
+        </button>
+        <button onclick="switchTab('chart')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white transition-all active:scale-90" data-target="tab-chart">
+            <i data-lucide="line-chart" class="w-5 h-5 mb-0.5"></i>
+            <span class="text-[10px] font-bold">Chart</span>
+        </button>
+        <button onclick="switchTab('trade')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white transition-all active:scale-90" data-target="tab-trade">
+            <i data-lucide="arrow-left-right" class="w-5 h-5 mb-0.5"></i>
+            <span class="text-[10px] font-bold">Trade</span>
+        </button>
+        <button onclick="switchTab('history')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white transition-all active:scale-90" data-target="tab-history">
+            <i data-lucide="clock" class="w-5 h-5 mb-0.5"></i>
+            <span class="text-[10px] font-bold">History</span>
+        </button>
+        <button onclick="switchTab('settings')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white transition-all active:scale-90" data-target="tab-settings">
+            <i data-lucide="user" class="w-5 h-5 mb-0.5"></i>
+            <span class="text-[10px] font-bold">Settings</span>
+        </button>
     </nav>
 
     <!-- TRADE MODAL -->
-    <div id="trade-modal" class="fixed inset-0 z-50 flex items-end justify-center bg-black/70 backdrop-blur-md hidden transition-all duration-300">
-        <div class="ios-glass-modal w-full max-w-md rounded-t-[36px] p-6 shadow-2xl border-t border-white/20 animate-ios">
+    <div id="trade-modal" class="fixed inset-0 z-50 flex items-end justify-center bg-black/75 backdrop-blur-md hidden transition-all duration-300">
+        <div class="liquid-glass-modal w-full max-w-md rounded-t-[36px] p-6 shadow-2xl border-t border-white/20">
             <div class="flex justify-between items-center mb-5">
-                <h3 id="trade-modal-title" class="text-base font-bold text-white tracking-tight">Order</h3>
-                <button onclick="closeTradeModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+                <h3 id="trade-modal-title" class="text-base font-extrabold text-white tracking-tight">Order Execution</h3>
+                <button onclick="closeTradeModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:text-white transition">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
             </div>
             <div class="space-y-4">
                 <div>
-                    <label class="text-[11px] font-semibold text-gray-300 mb-1.5 block uppercase tracking-wider">Lot Size</label>
-                    <input type="number" id="trade-lots" value="0.10" step="0.01" min="0.01" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 shadow-inner">
+                    <label class="text-[10px] font-bold text-gray-300 mb-1.5 block uppercase tracking-wider">Lot Size</label>
+                    <div class="flex items-center gap-2">
+                        <button onclick="adjustLotSize(-0.1)" class="px-3 py-3 rounded-2xl bg-white/10 font-bold text-xs text-white hover:bg-white/20 transition">-0.1</button>
+                        <button onclick="adjustLotSize(-0.01)" class="px-2.5 py-3 rounded-2xl bg-white/10 font-bold text-xs text-white hover:bg-white/20 transition">-0.01</button>
+                        <input type="number" id="trade-lots" value="0.10" step="0.01" min="0.01" max="10.0" class="w-full bg-black/60 border border-white/15 rounded-2xl px-4 py-3 text-center font-bold text-base text-white focus:outline-none focus:border-ios-blue shadow-inner">
+                        <button onclick="adjustLotSize(0.01)" class="px-2.5 py-3 rounded-2xl bg-white/10 font-bold text-xs text-white hover:bg-white/20 transition">+0.01</button>
+                        <button onclick="adjustLotSize(0.1)" class="px-3 py-3 rounded-2xl bg-white/10 font-bold text-xs text-white hover:bg-white/20 transition">+0.1</button>
+                    </div>
                 </div>
-                <button id="execute-order-btn" onclick="executeOrder()" class="w-full py-4 rounded-2xl font-bold text-sm text-white shadow-lg transition active:scale-95">Eksekusi Order</button>
+
+                <div class="bg-black/30 p-3 rounded-2xl border border-white/5 space-y-1 text-xs">
+                    <div class="flex justify-between text-gray-400">
+                        <span>Harga Eksekusi:</span>
+                        <span id="modal-exec-price" class="font-bold text-white">-</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400">
+                        <span>Margin Dibutuhkan:</span>
+                        <span id="modal-margin-required" class="font-bold text-ios-blue">-</span>
+                    </div>
+                </div>
+
+                <button id="execute-order-btn" onclick="executeOrder()" class="w-full py-4 rounded-2xl font-black text-sm text-white transition active:scale-95 shadow-lg">
+                    Eksekusi Order
+                </button>
             </div>
         </div>
     </div>
 
     <!-- DEPOSIT MODAL -->
-    <div id="deposit-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md hidden p-4 transition-all duration-300">
-        <div class="ios-glass-modal w-full max-w-sm rounded-[32px] p-6 shadow-2xl text-center animate-ios">
-            <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mx-auto mb-4 text-emerald-400 shadow-lg">
+    <div id="deposit-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md hidden p-4 transition-all duration-300">
+        <div class="liquid-glass-modal w-full max-w-sm rounded-[36px] p-6 text-center shadow-2xl">
+            <div class="w-16 h-16 rounded-2xl bg-ios-green/20 border border-ios-green/30 flex items-center justify-center mx-auto mb-4 text-ios-green shadow-lg">
                 <i data-lucide="wallet" class="w-8 h-8"></i>
             </div>
-            <h3 class="text-lg font-bold text-white mb-2">Deposit Saldo</h3>
-            <p class="text-xs text-gray-300 mb-5 leading-relaxed">Saldo Anda habis atau ingin top-up? Silakan hubungi admin utama kami via Telegram di bawah ini:</p>
-            <a href="https://t.me/manzxsync" target="_blank" class="w-full py-3.5 rounded-2xl bg-sky-500 hover:bg-sky-400 font-bold text-xs text-white flex items-center justify-center gap-2 mb-3 shadow-lg shadow-sky-500/30 transition active:scale-95">
+            <h3 class="text-lg font-extrabold text-white mb-2">Deposit & Top-Up Saldo</h3>
+            <p class="text-xs text-gray-300 mb-5 leading-relaxed">Untuk melakukan isi ulang saldo demo/real akun trading Anda, hubungi Admin Telegram resmi di bawah ini:</p>
+            <a href="https://t.me/manzxsync" target="_blank" class="w-full py-3.5 rounded-2xl bg-sky-500 hover:bg-sky-400 font-extrabold text-xs text-white flex items-center justify-center gap-2 mb-3 shadow-lg shadow-sky-500/30 transition active:scale-95">
                 <i data-lucide="send" class="w-4 h-4"></i> Chat Admin (@manzxsync)
             </a>
             <button onclick="closeDepositModal()" class="w-full py-3 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-gray-300 transition">Tutup</button>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT APP ENGINE -->
     <script>
+        // CONFIG & STATE
         const FIREBASE_URL = "https://manzsmodz-default-rtdb.firebaseio.com";
         let currentUser = null;
         let fullName = "Trader Pro";
@@ -318,20 +528,25 @@
         let openPositions = [];
         let tradeHistory = [];
         let globalMarketForce = { market: "ALL", force: "NORMAL" };
-        let isSyncing = false; // Mencegah konflik race condition saat sinkronisasi realtime
+        let isSyncing = false;
 
+        // SYMBOL SPECIFICATIONS & MULTIPLIERS
         const markets = {
-            "EURUSD": { name: "EUR/USD", bid: 1.08450, ask: 1.08462, change: +0.25, decimals: 5 },
-            "GBPUSD": { name: "GBP/USD", bid: 1.26720, ask: 1.26735, change: -0.12, decimals: 5 },
-            "USDJPY": { name: "USD/JPY", bid: 154.820, ask: 154.835, change: +0.45, decimals: 3 },
-            "XAUUSD": { name: "XAU/USD (Gold)", bid: 2332.50, ask: 2332.90, change: +1.15, decimals: 2 },
-            "BTCUSD": { name: "BTC/USD", bid: 67450.0, ask: 67475.0, change: -0.85, decimals: 1 }
+            "EURUSD": { name: "EUR/USD", bid: 1.08450, ask: 1.08462, change: +0.25, decimals: 5, lotSize: 100000, pipMultiplier: 10000 },
+            "GBPUSD": { name: "GBP/USD", bid: 1.26720, ask: 1.26735, change: -0.12, decimals: 5, lotSize: 100000, pipMultiplier: 10000 },
+            "USDJPY": { name: "USD/JPY", bid: 154.820, ask: 154.835, change: +0.45, decimals: 3, lotSize: 100000, pipMultiplier: 100 },
+            "XAUUSD": { name: "XAU/USD (Gold)", bid: 2332.50, ask: 2332.90, change: +1.15, decimals: 2, lotSize: 100, pipMultiplier: 100 },
+            "BTCUSD": { name: "BTC/USD", bid: 67450.0, ask: 67475.0, change: -0.85, decimals: 1, lotSize: 1, pipMultiplier: 1 }
         };
 
         let selectedSymbol = "EURUSD";
+        let selectedTimeframe = "M1";
         let tradeActionType = "BUY";
         let candleHistory = {};
+        let chartZoomLevel = 1.0;
+        let chartPanOffset = 0;
 
+        // INITIALIZE CANDLE DATA
         Object.keys(markets).forEach(sym => {
             candleHistory[sym] = generateInitialCandles(markets[sym].bid);
         });
@@ -339,18 +554,20 @@
         function generateInitialCandles(basePrice) {
             let candles = [];
             let price = basePrice;
-            for(let i = 0; i < 50; i++) {
+            let now = Date.now();
+            for(let i = 0; i < 60; i++) {
                 let open = price;
-                let change = (Math.random() - 0.48) * (basePrice * 0.001);
+                let change = (Math.random() - 0.49) * (basePrice * 0.0008);
                 let close = open + change;
-                let high = Math.max(open, close) + Math.random() * (basePrice * 0.0005);
-                let low = Math.min(open, close) - Math.random() * (basePrice * 0.0005);
-                candles.push({ open, high, low, close });
+                let high = Math.max(open, close) + Math.random() * (basePrice * 0.0004);
+                let low = Math.min(open, close) - Math.random() * (basePrice * 0.0004);
+                candles.push({ open, high, low, close, time: now - (60 - i) * 60000 });
                 price = close;
             }
             return candles;
         }
 
+        // INITIALIZATION
         window.addEventListener("DOMContentLoaded", () => {
             lucide.createIcons();
             renderQuotes();
@@ -363,8 +580,39 @@
             } else {
                 document.getElementById("auth-screen").style.display = "flex";
             }
+
+            setupChartInteractivity();
         });
 
+        // TOAST NOTIFICATION HELPER
+        function showToast(title, message, type = 'info') {
+            const container = document.getElementById("toast-container");
+            if (!container) return;
+
+            const toast = document.createElement("div");
+            let borderCol = type === 'success' ? 'border-ios-green/40' : type === 'error' ? 'border-ios-red/40' : 'border-ios-blue/40';
+            let bgCol = type === 'success' ? 'bg-ios-green/20 text-ios-green' : type === 'error' ? 'bg-ios-red/20 text-ios-red' : 'bg-ios-blue/20 text-ios-blue';
+
+            toast.className = `liquid-glass pointer-events-auto p-3.5 rounded-2xl flex items-center gap-3 border ${borderCol} shadow-xl animate-ios transition-all duration-300 transform translate-y-0 opacity-100`;
+            toast.innerHTML = `
+                <div class="w-8 h-8 rounded-xl ${bgCol} flex items-center justify-center shrink-0">
+                    <i data-lucide="${type === 'success' ? 'check-circle' : type === 'error' ? 'alert-triangle' : 'info'}" class="w-4 h-4"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="text-xs font-extrabold text-white">${title}</div>
+                    <div class="text-[11px] text-gray-300 font-medium">${message}</div>
+                </div>
+            `;
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => {
+                toast.classList.add("opacity-0", "-translate-y-2");
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // AUTHENTICATION TAB SWITCHING
         function switchAuthTab(tab) {
             const loginBtn = document.getElementById("tab-login-btn");
             const regBtn = document.getElementById("tab-register-btn");
@@ -374,13 +622,13 @@
             errDiv.classList.add("hidden");
 
             if (tab === 'login') {
-                loginBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-blue-600 text-white shadow-md transition";
-                regBtn.className = "flex-1 py-2 text-xs font-semibold rounded-xl text-gray-400 hover:text-white transition";
+                loginBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl liquid-btn-blue text-white shadow transition-all";
+                regBtn.className = "flex-1 py-2 text-xs font-semibold rounded-xl text-gray-400 hover:text-white transition-all";
                 formLogin.classList.remove("hidden");
                 formReg.classList.add("hidden");
             } else {
-                regBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl bg-emerald-600 text-white shadow-md transition";
-                loginBtn.className = "flex-1 py-2 text-xs font-semibold rounded-xl text-gray-400 hover:text-white transition";
+                regBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl liquid-btn-green text-white shadow transition-all";
+                loginBtn.className = "flex-1 py-2 text-xs font-semibold rounded-xl text-gray-400 hover:text-white transition-all";
                 formReg.classList.remove("hidden");
                 formLogin.classList.add("hidden");
             }
@@ -401,7 +649,7 @@
                 let res = await fetch(`${FIREBASE_URL}/users/${u}.json`);
                 let data = await res.json();
                 if (!data) {
-                    errDiv.textContent = "Akun tidak ditemukan. Silakan daftar terlebih dahulu!";
+                    errDiv.textContent = "Akun tidak ditemukan. Silakan daftar dulu!";
                     errDiv.classList.remove("hidden");
                     return;
                 }
@@ -415,8 +663,9 @@
                 localStorage.setItem("mt5_username", currentUser);
                 document.getElementById("auth-screen").style.display = "none";
                 initUserSession();
+                showToast("Selamat Datang!", `Login berhasil sebagai @${currentUser}`, "success");
             } catch(e) {
-                errDiv.textContent = "Koneksi ke database gagal!";
+                errDiv.textContent = "Koneksi ke database Firebase gagal!";
                 errDiv.classList.remove("hidden");
             }
         }
@@ -437,7 +686,7 @@
                 let res = await fetch(`${FIREBASE_URL}/users/${u}.json`);
                 let data = await res.json();
                 if (data) {
-                    errDiv.textContent = "Username sudah terdaftar! Gunakan username lain.";
+                    errDiv.textContent = "Username sudah terdaftar! Gunakan nama lain.";
                     errDiv.classList.remove("hidden");
                     return;
                 }
@@ -453,6 +702,7 @@
 
                 await fetch(`${FIREBASE_URL}/users/${u}.json`, {
                     method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(initData)
                 });
 
@@ -461,8 +711,9 @@
                 localStorage.setItem("mt5_username", currentUser);
                 document.getElementById("auth-screen").style.display = "none";
                 initUserSession();
+                showToast("Pendaftaran Berhasil!", "Akun baru dibuat dengan saldo demo $100.00", "success");
             } catch(e) {
-                errDiv.textContent = "Gagal membuat akun ke database!";
+                errDiv.textContent = "Gagal mendaftarkan akun!";
                 errDiv.classList.remove("hidden");
             }
         }
@@ -477,8 +728,6 @@
             await fetchUserData();
             renderQuotes();
             startMarketEngine();
-            
-            // Realtime polling aman setiap 1.5 detik
             setInterval(fetchUserData, 1500);
         }
 
@@ -488,27 +737,25 @@
                 let res = await fetch(`${FIREBASE_URL}/users/${currentUser}.json`);
                 let data = await res.json();
                 if (data) {
-                    // Jika user baru di-reset admin atau tambah saldo dari telegram
-                    if (typeof data.balance === 'number') {
-                        currentBalance = data.balance;
-                    }
+                    if (typeof data.balance === 'number') currentBalance = data.balance;
                     fullName = data.fullName || fullName;
                     avatarBase64 = data.avatar || null;
-                    
-                    // Ambil posisi jika tidak sedang melakukan transaksi lokal
-                    if (data.positions && Array.isArray(data.positions)) {
-                        openPositions = data.positions;
-                    }
-                    if (data.history && Array.isArray(data.history)) {
-                        tradeHistory = data.history;
-                    }
-                    
+
+                    if (data.positions && Array.isArray(data.positions)) openPositions = data.positions;
+                    if (data.history && Array.isArray(data.history)) tradeHistory = data.history;
+
                     document.getElementById("profile-display-name").textContent = fullName;
+                    document.getElementById("edit-fullname-input").value = fullName;
+
                     if (avatarBase64) {
-                        let img = document.getElementById("profile-img-preview");
-                        img.src = avatarBase64;
-                        img.classList.remove("hidden");
+                        let img1 = document.getElementById("profile-img-preview");
+                        let img2 = document.getElementById("header-avatar-img");
+                        img1.src = avatarBase64;
+                        img2.src = avatarBase64;
+                        img1.classList.remove("hidden");
+                        img2.classList.remove("hidden");
                         document.getElementById("profile-initial").classList.add("hidden");
+                        document.getElementById("user-avatar").classList.add("hidden");
                     }
                 }
             } catch(e) {}
@@ -524,9 +771,8 @@
             if (val) {
                 fullName = val;
                 document.getElementById("profile-display-name").textContent = fullName;
-                document.getElementById("header-username").textContent = fullName;
                 syncFirebaseData();
-                alert("Nama lengkap berhasil diperbarui!");
+                showToast("Profil Diperbarui", "Nama lengkap berhasil disimpan", "success");
             }
         }
 
@@ -536,11 +782,16 @@
                 let reader = new FileReader();
                 reader.onload = function(e) {
                     avatarBase64 = e.target.result;
-                    let img = document.getElementById("profile-img-preview");
-                    img.src = avatarBase64;
-                    img.classList.remove("hidden");
+                    let img1 = document.getElementById("profile-img-preview");
+                    let img2 = document.getElementById("header-avatar-img");
+                    img1.src = avatarBase64;
+                    img2.src = avatarBase64;
+                    img1.classList.remove("hidden");
+                    img2.classList.remove("hidden");
                     document.getElementById("profile-initial").classList.add("hidden");
+                    document.getElementById("user-avatar").classList.add("hidden");
                     syncFirebaseData();
+                    showToast("Avatar Diperbarui", "Foto profil berhasil diunggah", "success");
                 };
                 reader.readAsDataURL(file);
             }
@@ -549,190 +800,413 @@
         function switchTab(tabId) {
             document.querySelectorAll(".tab-pane").forEach(el => el.classList.add("hidden"));
             document.getElementById("tab-" + tabId).classList.remove("hidden");
+
             document.querySelectorAll(".nav-btn").forEach(btn => {
-                btn.classList.remove("text-blue-500");
+                btn.classList.remove("text-ios-blue");
                 btn.classList.add("text-gray-400");
             });
-            event.currentTarget.classList.remove("text-gray-400");
-            event.currentTarget.classList.add("text-blue-500");
-            if (tabId === 'chart') drawChart();
+
+            const activeBtn = document.querySelector(`.nav-btn[data-target="tab-${tabId}"]`);
+            if (activeBtn) {
+                activeBtn.classList.remove("text-gray-400");
+                activeBtn.classList.add("text-ios-blue");
+            }
+
+            if (tabId === 'chart') {
+                setTimeout(drawChart, 50);
+            } else if (tabId === 'history') {
+                renderHistory();
+            }
         }
 
         function renderQuotes() {
             const list = document.getElementById("market-list");
             if (!list) return;
-            list.innerHTML = "";
+            
+            let html = "";
             Object.keys(markets).forEach(sym => {
                 let m = markets[sym];
                 let isGreen = m.change >= 0;
-                list.innerHTML += `
-                    <div onclick="selectMarket('${sym}')" class="ios-glass-card p-4 rounded-2xl flex items-center justify-between cursor-pointer active:scale-98 transition shadow-lg">
+                let spreadPips = ((m.ask - m.bid) * m.pipMultiplier).toFixed(1);
+
+                html += `
+                    <div onclick="selectMarket('${sym}')" id="quote-card-${sym}" class="liquid-glass-card p-4 rounded-2xl flex items-center justify-between cursor-pointer transition-all active:scale-98">
                         <div>
-                            <div class="text-sm font-bold text-white">${sym}</div>
-                            <div class="text-[11px] text-gray-400 font-medium">${m.name}</div>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <div class="text-right">
-                                <div class="text-sm font-bold text-white">${m.bid.toFixed(m.decimals)}</div>
-                                <div class="text-[11px] text-gray-400">Ask: ${m.ask.toFixed(m.decimals)}</div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm font-extrabold text-white">${sym}</span>
+                                <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-white/10 text-gray-300">Spread: ${spreadPips}</span>
                             </div>
-                            <div class="px-3 py-1 rounded-xl text-xs font-semibold ${isGreen ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}">
+                            <div class="text-[11px] text-gray-400 font-medium mt-0.5">${m.name}</div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="text-right">
+                                <div class="text-sm font-extrabold text-white font-mono">${m.bid.toFixed(m.decimals)}</div>
+                                <div class="text-[11px] text-gray-400 font-mono">Ask: ${m.ask.toFixed(m.decimals)}</div>
+                            </div>
+                            <div class="px-2.5 py-1 rounded-xl text-xs font-bold ${isGreen ? 'bg-ios-green/20 text-ios-green border border-ios-green/30' : 'bg-ios-red/20 text-ios-red border border-ios-red/30'}">
                                 ${isGreen ? '+' : ''}${m.change}%
                             </div>
                         </div>
                     </div>
                 `;
             });
+            list.innerHTML = html;
         }
 
         function selectMarket(sym) {
             selectedSymbol = sym;
             document.getElementById("chart-symbol-select").value = sym;
             switchTab('chart');
-            setTimeout(drawChart, 50);
         }
 
         function switchChartSymbol(sym) {
             selectedSymbol = sym;
+            document.getElementById("active-symbol-title").textContent = `${selectedSymbol} - ${selectedTimeframe} Candle Engine`;
             drawChart();
         }
 
+        function setTimeframe(tf) {
+            selectedTimeframe = tf;
+            document.querySelectorAll(".tf-btn").forEach(btn => {
+                if (btn.getAttribute("data-tf") === tf) {
+                    btn.className = "tf-btn px-2.5 py-1 rounded-lg bg-ios-blue text-white shadow font-bold";
+                } else {
+                    btn.className = "tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-bold";
+                }
+            });
+            document.getElementById("chart-timeframe-tag").textContent = tf;
+            document.getElementById("active-symbol-title").textContent = `${selectedSymbol} - ${selectedTimeframe} Candle Engine`;
+            drawChart();
+        }
+
+        // START REALTIME MARKET SIMULATION ENGINE
         function startMarketEngine() {
             setInterval(async () => {
+                // Fetch Global Trend Control from Firebase
                 try {
                     let res = await fetch(`${FIREBASE_URL}/marketForce.json`);
                     let data = await res.json();
                     if (data) {
-                        if (typeof data === 'string') {
-                            globalMarketForce = { market: "ALL", force: data };
-                        } else {
-                            globalMarketForce = data;
-                        }
+                        globalMarketForce = typeof data === 'string' ? { market: "ALL", force: data } : data;
                     }
                 } catch(e) {}
 
+                // Update prices for all pairs
                 Object.keys(markets).forEach(sym => {
                     let m = markets[sym];
-                    let step = m.bid * 0.0003;
+                    let step = m.bid * 0.00025;
                     let rand = (Math.random() - 0.49);
 
                     let targetForce = "NORMAL";
-                    if (globalMarketForce.market === "ALL") {
-                        targetForce = globalMarketForce.force;
-                    } else if (globalMarketForce.market === sym) {
+                    if (globalMarketForce.market === "ALL" || globalMarketForce.market === sym) {
                         targetForce = globalMarketForce.force;
                     }
 
-                    if (targetForce === "LONG") {
-                        rand = Math.abs(rand) + 0.3; 
-                    } else if (targetForce === "SHORT") {
-                        rand = -(Math.abs(rand) + 0.3); 
-                    }
+                    if (targetForce === "LONG") rand = Math.abs(rand) + 0.35;
+                    else if (targetForce === "SHORT") rand = -(Math.abs(rand) + 0.35);
 
                     let diff = rand * step;
+                    let oldBid = m.bid;
                     m.bid += diff;
-                    m.ask = m.bid + (m.bid * 0.0001);
-                    m.change = +(m.change + (diff * 10)).toFixed(2);
+                    m.ask = m.bid + (m.bid * 0.00012);
+                    m.change = +(m.change + (diff * 12)).toFixed(2);
 
+                    // Flash UI card on tick
+                    let card = document.getElementById(`quote-card-${sym}`);
+                    if (card) {
+                        card.classList.remove("tick-up", "tick-down");
+                        void card.offsetWidth; // trigger reflow
+                        card.classList.add(m.bid >= oldBid ? "tick-up" : "tick-down");
+                    }
+
+                    // Update candlestick history
                     let candles = candleHistory[sym];
                     if (candles && candles.length > 0) {
                         let last = candles[candles.length - 1];
                         last.close = m.bid;
                         if (m.bid > last.high) last.high = m.bid;
                         if (m.bid < last.low) last.low = m.bid;
-                        if (Math.random() < 0.25) {
-                            candles.push({ open: m.bid, high: m.bid, low: m.bid, close: m.bid });
-                            if (candles.length > 60) candles.shift();
+
+                        // Create new candle every ~25 ticks
+                        if (Math.random() < 0.20) {
+                            candles.push({ open: m.bid, high: m.bid, low: m.bid, close: m.bid, time: Date.now() });
+                            if (candles.length > 80) candles.shift();
                         }
                     }
                 });
 
                 renderQuotes();
-                if (!document.getElementById("tab-chart").classList.contains("hidden")) drawChart();
+                if (!document.getElementById("tab-chart").classList.contains("hidden")) {
+                    drawChart();
+                }
                 calculateOpenPositions();
             }, 1000);
         }
 
+        // CANVAS CHART RENDER ENGINE WITH SMA & ORDERS
         function drawChart() {
             const canvas = document.getElementById("trading-canvas");
             if (!canvas) return;
+
+            const rect = canvas.parentElement.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+
             const ctx = canvas.getContext("2d");
-            canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = canvas.parentElement.clientHeight;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.scale(dpr, dpr);
+            const width = rect.width;
+            const height = rect.height;
+
+            ctx.clearRect(0, 0, width, height);
 
             let candles = candleHistory[selectedSymbol];
-            if (!candles) return;
+            if (!candles || candles.length === 0) return;
             let m = markets[selectedSymbol];
-            document.getElementById("chart-price-display").textContent = `Bid: ${m.bid.toFixed(m.decimals)} | Ask: ${m.ask.toFixed(m.decimals)}`;
-            
-            let maxPrice = Math.max(...candles.map(c => c.high));
-            let minPrice = Math.min(...candles.map(c => c.low));
-            let range = maxPrice - minPrice || 1;
-            let candleWidth = Math.max(4, (canvas.width / candles.length) - 3);
 
-            candles.forEach((c, i) => {
-                let x = i * (candleWidth + 3) + 10;
+            document.getElementById("chart-bid-ask").textContent = `Bid: ${m.bid.toFixed(m.decimals)} | Ask: ${m.ask.toFixed(m.decimals)}`;
+
+            // Visible Slice with Zoom & Pan
+            let visibleCount = Math.floor(35 / chartZoomLevel);
+            let endIndex = Math.max(visibleCount, candles.length + chartPanOffset);
+            let startIndex = Math.max(0, endIndex - visibleCount);
+            let visibleCandles = candles.slice(startIndex, endIndex);
+
+            if (visibleCandles.length === 0) return;
+
+            let maxPrice = Math.max(...visibleCandles.map(c => c.high));
+            let minPrice = Math.min(...visibleCandles.map(c => c.low));
+            let pricePadding = (maxPrice - minPrice) * 0.08 || 0.001;
+            maxPrice += pricePadding;
+            minPrice -= pricePadding;
+            let range = maxPrice - minPrice;
+
+            const rightPadding = 55;
+            const chartWidth = width - rightPadding;
+
+            // DRAW GRID LINES & PRICE AXIS
+            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
+            ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+            ctx.font = "9px 'Plus Jakarta Sans', sans-serif";
+
+            const gridSteps = 5;
+            for (let i = 0; i <= gridSteps; i++) {
+                let y = (height / gridSteps) * i;
+                let price = maxPrice - (range / gridSteps) * i;
+
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(chartWidth, y);
+                ctx.stroke();
+
+                ctx.fillText(price.toFixed(m.decimals), chartWidth + 6, y + 3);
+            }
+
+            // CALCULATE SMA (14)
+            let smaValues = [];
+            for (let i = 0; i < visibleCandles.length; i++) {
+                let fullIdx = startIndex + i;
+                if (fullIdx >= 13) {
+                    let sum = 0;
+                    for (let k = 0; k < 14; k++) sum += candles[fullIdx - k].close;
+                    smaValues.push({ xIdx: i, val: sum / 14 });
+                }
+            }
+
+            // DRAW CANDLESTICKS
+            let candleWidth = Math.max(3, (chartWidth / visibleCandles.length) - 3);
+
+            visibleCandles.forEach((c, i) => {
+                let x = i * (candleWidth + 3) + 5;
                 let isGreen = c.close >= c.open;
-                let color = isGreen ? '#10b981' : '#ef4444';
-                let yHigh = canvas.height - ((c.high - minPrice) / range) * canvas.height;
-                let yLow = canvas.height - ((c.low - minPrice) / range) * canvas.height;
-                let yOpen = canvas.height - ((c.open - minPrice) / range) * canvas.height;
-                let yClose = canvas.height - ((c.close - minPrice) / range) * canvas.height;
+                let color = isGreen ? '#30D158' : '#FF453A';
 
+                let yHigh = height - ((c.high - minPrice) / range) * height;
+                let yLow = height - ((c.low - minPrice) / range) * height;
+                let yOpen = height - ((c.open - minPrice) / range) * height;
+                let yClose = height - ((c.close - minPrice) / range) * height;
+
+                // Wick
                 ctx.strokeStyle = color;
-                ctx.lineWidth = 1.5;
+                ctx.lineWidth = 1.2;
                 ctx.beginPath();
                 ctx.moveTo(x + candleWidth / 2, yHigh);
                 ctx.lineTo(x + candleWidth / 2, yLow);
                 ctx.stroke();
 
+                // Body
                 ctx.fillStyle = color;
-                ctx.fillRect(x, Math.min(yOpen, yClose), candleWidth, Math.max(2, Math.abs(yClose - yOpen)));
+                let bodyY = Math.min(yOpen, yClose);
+                let bodyH = Math.max(2, Math.abs(yClose - yOpen));
+                ctx.fillRect(x, bodyY, candleWidth, bodyH);
             });
+
+            // DRAW SMA LINE
+            if (smaValues.length > 1) {
+                ctx.beginPath();
+                ctx.strokeStyle = "#FFD60A";
+                ctx.lineWidth = 1.5;
+                smaValues.forEach((pt, idx) => {
+                    let x = pt.xIdx * (candleWidth + 3) + 5 + candleWidth / 2;
+                    let y = height - ((pt.val - minPrice) / range) * height;
+                    if (idx === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                });
+                ctx.stroke();
+            }
+
+            // DRAW ACTIVE OPEN POSITIONS LINES ON CHART
+            openPositions.forEach(p => {
+                if (p.symbol === selectedSymbol) {
+                    let yPos = height - ((p.openPrice - minPrice) / range) * height;
+                    if (yPos >= 0 && yPos <= height) {
+                        ctx.strokeStyle = p.type === 'BUY' ? '#0A84FF' : '#FF453A';
+                        ctx.lineWidth = 1;
+                        ctx.setLineDash([4, 4]);
+                        ctx.beginPath();
+                        ctx.moveTo(0, yPos);
+                        ctx.lineTo(chartWidth, yPos);
+                        ctx.stroke();
+                        ctx.setLineDash([]);
+
+                        // Label badge
+                        ctx.fillStyle = p.type === 'BUY' ? '#0A84FF' : '#FF453A';
+                        ctx.fillRect(5, yPos - 10, 85, 14);
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.font = "bold 9px sans-serif";
+                        ctx.fillText(`${p.type} ${p.lots}L @ ${p.openPrice.toFixed(m.decimals)}`, 8, yPos + 1);
+                    }
+                }
+            });
+
+            // DRAW CURRENT LIVE PRICE HIGHLIGHT
+            let currentY = height - ((m.bid - minPrice) / range) * height;
+            ctx.strokeStyle = '#30D158';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            ctx.beginPath();
+            ctx.moveTo(0, currentY);
+            ctx.lineTo(chartWidth, currentY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Price highlight badge
+            ctx.fillStyle = '#30D158';
+            ctx.fillRect(chartWidth, currentY - 8, rightPadding, 16);
+            ctx.fillStyle = '#000000';
+            ctx.font = "bold 9px 'Plus Jakarta Sans', sans-serif";
+            ctx.fillText(m.bid.toFixed(m.decimals), chartWidth + 4, currentY + 4);
+        }
+
+        function zoomChart(factor) {
+            chartZoomLevel *= factor;
+            chartZoomLevel = Math.max(0.5, Math.min(3.0, chartZoomLevel));
+            drawChart();
+        }
+
+        function resetChartZoom() {
+            chartZoomLevel = 1.0;
+            chartPanOffset = 0;
+            drawChart();
+        }
+
+        function setupChartInteractivity() {
+            const canvas = document.getElementById("trading-canvas");
+            if (!canvas) return;
+
+            let isDragging = false;
+            let startX = 0;
+
+            canvas.addEventListener("pointerdown", (e) => {
+                isDragging = true;
+                startX = e.clientX;
+            });
+
+            canvas.addEventListener("pointermove", (e) => {
+                if (isDragging) {
+                    let dx = e.clientX - startX;
+                    if (Math.abs(dx) > 10) {
+                        chartPanOffset += dx > 0 ? 1 : -1;
+                        startX = e.clientX;
+                        drawChart();
+                    }
+                }
+            });
+
+            canvas.addEventListener("pointerup", () => isDragging = false);
+            canvas.addEventListener("pointerleave", () => isDragging = false);
+        }
+
+        // ORDER EXECUTION LOGIC
+        function adjustLotSize(delta) {
+            let input = document.getElementById("trade-lots");
+            let val = parseFloat(input.value) || 0.1;
+            val = Math.max(0.01, Math.min(10.0, val + delta));
+            input.value = val.toFixed(2);
+            updateModalMarginRequirement();
+        }
+
+        function updateModalMarginRequirement() {
+            let lots = parseFloat(document.getElementById("trade-lots").value) || 0.1;
+            let m = markets[selectedSymbol];
+            let execPrice = tradeActionType === 'BUY' ? m.ask : m.bid;
+            let margin = (lots * m.lotSize * execPrice) / 100; // 1:100 leverage
+            document.getElementById("modal-exec-price").textContent = execPrice.toFixed(m.decimals);
+            document.getElementById("modal-margin-required").textContent = `$${margin.toFixed(2)}`;
         }
 
         function openTradeModal(type) {
             if (currentBalance <= 0) {
-                alert("Saldo Anda sudah habis ($0). Silakan lakukan deposit/top-up ke admin terlebih dahulu.");
+                showToast("Saldo Habis", "Saldo akun $0.00. Lakukan deposit terlebih dahulu.", "error");
                 openDepositModal();
                 return;
             }
+
             tradeActionType = type;
             let m = markets[selectedSymbol];
-            document.getElementById("trade-modal-title").textContent = `${type} ${selectedSymbol} (Bid: ${m.bid.toFixed(m.decimals)})`;
+            document.getElementById("trade-modal-title").textContent = `Order ${type} ${selectedSymbol}`;
+
             let btn = document.getElementById("execute-order-btn");
-            btn.textContent = `Eksekusi ${type}`;
-            btn.className = `w-full py-4 rounded-2xl font-bold text-sm text-white shadow-lg transition active:scale-95 ${type === 'BUY' ? 'bg-blue-600 shadow-blue-600/30' : 'bg-red-600 shadow-red-600/30'}`;
+            btn.textContent = `Konfirmasi ${type} ${selectedSymbol}`;
+            btn.className = `w-full py-4 rounded-2xl font-black text-sm text-white transition active:scale-95 shadow-lg ${type === 'BUY' ? 'liquid-btn-blue' : 'liquid-btn-red'}`;
+
+            updateModalMarginRequirement();
             document.getElementById("trade-modal").classList.remove("hidden");
         }
 
-        function closeTradeModal() { document.getElementById("trade-modal").classList.add("hidden"); }
+        function closeTradeModal() {
+            document.getElementById("trade-modal").classList.add("hidden");
+        }
 
         function executeOrder() {
             if (currentBalance <= 0) {
-                alert("Saldo Anda $0. Tidak dapat membuka posisi baru!");
+                showToast("Transaksi Gagal", "Saldo $0.00 tidak mencukupi", "error");
                 closeTradeModal();
                 return;
             }
+
             let lots = parseFloat(document.getElementById("trade-lots").value) || 0.1;
             let m = markets[selectedSymbol];
-            
+            let openPrice = tradeActionType === 'BUY' ? m.ask : m.bid;
+
             openPositions.push({
                 id: 'pos_' + Date.now(),
                 symbol: selectedSymbol,
                 type: tradeActionType,
                 lots: lots,
-                openPrice: tradeActionType === 'BUY' ? m.ask : m.bid,
+                openPrice: openPrice,
                 time: new Date().toLocaleTimeString(),
                 pl: 0
             });
-            
+
             closeTradeModal();
             renderPositions();
             syncFirebaseData();
+            showToast("Order Berhasil", `${tradeActionType} ${lots} Lot ${selectedSymbol} @ ${openPrice.toFixed(m.decimals)}`, "success");
         }
 
+        // REALTIME POSITIONS EVALUATION & MARGIN CALL PROTECTION
         function calculateOpenPositions() {
             let totalPL = 0;
             openPositions.forEach(p => {
@@ -740,23 +1214,34 @@
                 if (!m) return;
                 let currentMarketPrice = p.type === 'BUY' ? m.bid : m.ask;
                 let diff = p.type === 'BUY' ? (currentMarketPrice - p.openPrice) : (p.openPrice - currentMarketPrice);
-                p.pl = diff * p.lots * 10000;
+
+                // Precise Lot Multiplier
+                p.pl = diff * p.lots * m.lotSize;
                 totalPL += p.pl;
             });
 
             currentEquity = currentBalance + totalPL;
 
-            // Logika Margin Call diperbaiki agar tidak trigger saat saldo $100 dan belum minus parah
-            if (currentEquity <= 0 && openPositions.length > 0 && currentBalance <= 0) {
-                currentBalance = 0;
+            // Margin Call Protection Trigger
+            if (currentEquity <= 0 && openPositions.length > 0) {
                 openPositions.forEach(p => {
-                    tradeHistory.unshift({ symbol: p.symbol, type: p.type, lots: p.lots, profit: p.pl, time: new Date().toLocaleTimeString() });
+                    tradeHistory.unshift({
+                        symbol: p.symbol,
+                        type: p.type,
+                        lots: p.lots,
+                        profit: p.pl,
+                        time: new Date().toLocaleTimeString()
+                    });
                 });
                 openPositions = [];
-                alert("Margin Call! Saldo dan Equity Anda habis. Seluruh posisi ditutup otomatis.");
+                currentBalance = 0;
+                currentEquity = 0;
+                syncFirebaseData();
+                showToast("MARGIN CALL!", "Equity habis. Semua posisi ditutup otomatis.", "error");
                 openDepositModal();
             }
 
+            // Update Account Summary Displays
             document.getElementById("summary-balance").textContent = `$${currentBalance.toFixed(2)}`;
             document.getElementById("summary-equity").textContent = `$${currentEquity.toFixed(2)}`;
             document.getElementById("portfolio-balance").textContent = `$${currentBalance.toFixed(2)}`;
@@ -764,9 +1249,9 @@
 
             let plEl = document.getElementById("summary-pl");
             plEl.textContent = `${totalPL >= 0 ? '+' : ''}$${totalPL.toFixed(2)}`;
-            plEl.className = `text-sm font-bold mt-0.5 ${totalPL >= 0 ? 'text-emerald-400' : 'text-red-400'}`;
+            plEl.className = `text-sm font-extrabold mt-0.5 ${totalPL >= 0 ? 'text-ios-green' : 'text-ios-red'}`;
 
-            let marginLevel = openPositions.length > 0 ? ((currentEquity / (openPositions.length * 10)) * 100).toFixed(2) + '%' : '0.00%';
+            let marginLevel = openPositions.length > 0 ? ((currentEquity / (openPositions.length * 50)) * 100).toFixed(1) + '%' : '0.00%';
             document.getElementById("summary-margin").textContent = marginLevel;
 
             renderPositions();
@@ -774,85 +1259,120 @@
 
         function renderPositions() {
             const list = document.getElementById("positions-list");
+            const countBadge = document.getElementById("open-positions-count");
+
+            if (countBadge) countBadge.textContent = `${openPositions.length} Posisi`;
             if (!list) return;
+
             if (openPositions.length === 0) {
-                list.innerHTML = `<div class="text-center py-10 text-gray-500 text-xs">Tidak ada posisi terbuka</div>`;
+                list.innerHTML = `<div class="text-center py-12 text-gray-500 text-xs font-semibold">Belum ada posisi terbuka</div>`;
                 return;
             }
-            list.innerHTML = "";
+
+            let html = "";
             openPositions.forEach((p, idx) => {
                 let isProf = (p.pl || 0) >= 0;
-                list.innerHTML += `
-                    <div class="ios-glass-card p-4 rounded-2xl flex items-center justify-between shadow-md">
+                let m = markets[p.symbol];
+
+                html += `
+                    <div class="liquid-glass-card p-4 rounded-2xl flex items-center justify-between shadow-lg">
                         <div>
                             <div class="flex items-center gap-2">
-                                <span class="text-xs font-bold px-2 py-0.5 rounded-lg ${p.type === 'BUY' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}">${p.type}</span>
-                                <span class="text-xs font-bold text-white">${p.symbol}</span>
-                                <span class="text-[10px] text-gray-400 font-medium">(${p.lots} Lot)</span>
+                                <span class="text-xs font-extrabold px-2 py-0.5 rounded-lg ${p.type === 'BUY' ? 'bg-ios-blue/20 text-ios-blue border border-ios-blue/30' : 'bg-ios-red/20 text-ios-red border border-ios-red/30'}">${p.type}</span>
+                                <span class="text-xs font-extrabold text-white">${p.symbol}</span>
+                                <span class="text-[10px] text-gray-400 font-bold">(${p.lots} Lot)</span>
                             </div>
-                            <div class="text-[11px] text-gray-400 mt-1 font-medium">Open: ${p.openPrice.toFixed(markets[p.symbol].decimals)}</div>
+                            <div class="text-[11px] text-gray-400 mt-1 font-mono">Open: ${p.openPrice.toFixed(m ? m.decimals : 5)}</div>
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="text-right">
-                                <div class="text-xs font-bold ${isProf ? 'text-emerald-400' : 'text-red-400'}">${isProf ? '+' : ''}${(p.pl || 0).toFixed(2)}</div>
+                                <div class="text-xs font-black font-mono ${isProf ? 'text-ios-green' : 'text-ios-red'}">${isProf ? '+' : ''}$${(p.pl || 0).toFixed(2)}</div>
                             </div>
-                            <button onclick="closePosition(${idx})" class="px-3 py-1.5 rounded-xl bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 text-[11px] font-semibold active:scale-95 transition">Tutup</button>
+                            <button onclick="closePosition(${idx})" class="px-3 py-1.5 rounded-xl bg-ios-red/20 hover:bg-ios-red/30 text-ios-red border border-ios-red/30 text-[11px] font-bold active:scale-95 transition">Tutup</button>
                         </div>
                     </div>
                 `;
             });
+            list.innerHTML = html;
         }
 
         function closePosition(idx) {
             let p = openPositions[idx];
-            currentBalance += (p.pl || 0);
+            let pnl = p.pl || 0;
+            currentBalance += pnl;
             if (currentBalance < 0) currentBalance = 0;
-            tradeHistory.unshift({ symbol: p.symbol, type: p.type, lots: p.lots, profit: (p.pl || 0), time: new Date().toLocaleTimeString() });
+
+            tradeHistory.unshift({
+                symbol: p.symbol,
+                type: p.type,
+                lots: p.lots,
+                profit: pnl,
+                time: new Date().toLocaleTimeString()
+            });
+
             openPositions.splice(idx, 1);
             renderPositions();
             renderHistory();
             syncFirebaseData();
+            showToast("Posisi Ditutup", `Hasil: ${pnl >= 0 ? '+' : ''}$${pnl.toFixed(2)}`, pnl >= 0 ? "success" : "error");
         }
 
         function renderHistory() {
             const list = document.getElementById("history-list");
+            const totalProfitEl = document.getElementById("history-total-profit");
             if (!list) return;
+
+            let totalPnl = tradeHistory.reduce((acc, h) => acc + (h.profit || 0), 0);
+            if (totalProfitEl) {
+                totalProfitEl.textContent = `${totalPnl >= 0 ? '+' : ''}$${totalPnl.toFixed(2)}`;
+                totalProfitEl.className = `text-xs font-extrabold ${totalPnl >= 0 ? 'text-ios-green' : 'text-ios-red'}`;
+            }
+
             if (!Array.isArray(tradeHistory) || tradeHistory.length === 0) {
-                list.innerHTML = `<div class="text-center py-10 text-gray-500 text-xs">Belum ada riwayat transaksi</div>`;
+                list.innerHTML = `<div class="text-center py-12 text-gray-500 text-xs font-semibold">Belum ada riwayat transaksi</div>`;
                 return;
             }
-            list.innerHTML = "";
+
+            let html = "";
             tradeHistory.forEach(h => {
                 let isProf = h.profit >= 0;
-                list.innerHTML += `
-                    <div class="ios-glass-card p-4 rounded-2xl flex items-center justify-between shadow-md">
+                html += `
+                    <div class="liquid-glass-card p-4 rounded-2xl flex items-center justify-between shadow-md">
                         <div>
-                            <div class="text-xs font-bold text-white">${h.symbol} <span class="text-gray-400 font-normal">(${h.type})</span></div>
-                            <div class="text-[10px] text-gray-400 mt-0.5">${h.time}</div>
+                            <div class="text-xs font-extrabold text-white">${h.symbol} <span class="text-gray-400 font-normal">(${h.type})</span></div>
+                            <div class="text-[10px] text-gray-400 mt-0.5">${h.time} | ${h.lots} Lot</div>
                         </div>
                         <div class="text-right">
-                            <div class="text-xs font-bold ${isProf ? 'text-emerald-400' : 'text-red-400'}">${isProf ? '+' : ''}$${h.profit.toFixed(2)}</div>
+                            <div class="text-xs font-black font-mono ${isProf ? 'text-ios-green' : 'text-ios-red'}">${isProf ? '+' : ''}$${h.profit.toFixed(2)}</div>
                         </div>
                     </div>
                 `;
             });
+            list.innerHTML = html;
         }
 
-        function openDepositModal() { document.getElementById("deposit-modal").classList.remove("hidden"); }
-        function closeDepositModal() { document.getElementById("deposit-modal").classList.add("hidden"); }
+        function openDepositModal() {
+            document.getElementById("deposit-modal").classList.remove("hidden");
+        }
 
+        function closeDepositModal() {
+            document.getElementById("deposit-modal").classList.add("hidden");
+        }
+
+        // SYNC DATA TO FIREBASE RTDB
         async function syncFirebaseData() {
             if (!currentUser) return;
             isSyncing = true;
             try {
                 await fetch(`${FIREBASE_URL}/users/${currentUser}.json`, {
                     method: 'PATCH',
-                    body: JSON.stringify({ 
-                        balance: currentBalance, 
-                        fullName: fullName, 
-                        avatar: avatarBase64, 
-                        positions: openPositions, 
-                        history: tradeHistory 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        balance: currentBalance,
+                        fullName: fullName,
+                        avatar: avatarBase64,
+                        positions: openPositions,
+                        history: tradeHistory
                     })
                 });
             } catch(e) {}
