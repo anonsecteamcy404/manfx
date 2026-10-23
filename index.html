@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>MetaTrader 5 - Liquid iOS Edition</title>
-    <!-- Tailwind CSS, Lucide Icons, Plus Jakarta Sans / SF Pro aesthetic font -->
+    <!-- Tailwind CSS, Lucide Icons, Plus Jakarta Sans Font -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -54,12 +54,12 @@
             padding: 0;
         }
 
-        /* LIQUID GLASS DESIGN SYSTEM */
+        /* ULTRA-LUXURIOUS LIQUID GLASS DESIGN SYSTEM */
         .liquid-bg-blob {
             position: fixed;
             border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.45;
+            filter: blur(100px);
+            opacity: 0.5;
             pointer-events: none;
             z-index: 0;
             animation: floatBlob 18s ease-in-out infinite alternate;
@@ -68,16 +68,16 @@
         .blob-1 {
             top: -10%;
             left: -10%;
-            width: 320px;
-            height: 320px;
+            width: 350px;
+            height: 350px;
             background: radial-gradient(circle, #0A84FF 0%, #BF5AF2 100%);
         }
 
         .blob-2 {
             bottom: -10%;
             right: -10%;
-            width: 380px;
-            height: 380px;
+            width: 400px;
+            height: 400px;
             background: radial-gradient(circle, #30D158 0%, #0A84FF 100%);
             animation-delay: -9s;
         }
@@ -85,77 +85,76 @@
         .blob-3 {
             top: 40%;
             right: 15%;
-            width: 260px;
-            height: 260px;
+            width: 280px;
+            height: 280px;
             background: radial-gradient(circle, #FF453A 0%, #7D2AE8 100%);
             animation-delay: -5s;
         }
 
         @keyframes floatBlob {
             0% { transform: translate(0px, 0px) scale(1); }
-            50% { transform: translate(30px, -40px) scale(1.12); }
-            100% { transform: translate(-20px, 30px) scale(0.95); }
+            50% { transform: translate(35px, -45px) scale(1.15); }
+            100% { transform: translate(-25px, 35px) scale(0.92); }
         }
 
         .liquid-glass {
-            background: rgba(18, 18, 28, 0.65);
-            backdrop-filter: blur(30px) saturate(200%);
-            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            background: rgba(18, 18, 28, 0.68);
+            backdrop-filter: blur(32px) saturate(210%);
+            -webkit-backdrop-filter: blur(32px) saturate(210%);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.18);
         }
 
         .liquid-glass-card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.045);
+            backdrop-filter: blur(22px) saturate(190%);
+            -webkit-backdrop-filter: blur(22px) saturate(190%);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
         }
 
         .liquid-glass-card:hover {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.075);
+            border-color: rgba(255, 255, 255, 0.18);
         }
 
         .liquid-glass-modal {
-            background: rgba(14, 14, 22, 0.88);
-            backdrop-filter: blur(40px) saturate(210%);
-            -webkit-backdrop-filter: blur(40px) saturate(210%);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+            background: rgba(14, 14, 24, 0.92);
+            backdrop-filter: blur(45px) saturate(220%);
+            -webkit-backdrop-filter: blur(45px) saturate(220%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.3);
         }
 
         .liquid-btn-blue {
             background: linear-gradient(135deg, #0A84FF 0%, #0055FF 100%);
-            box-shadow: 0 8px 24px rgba(10, 132, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(10, 132, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35);
         }
 
         .liquid-btn-green {
             background: linear-gradient(135deg, #30D158 0%, #159938 100%);
-            box-shadow: 0 8px 24px rgba(48, 209, 88, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(48, 209, 88, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35);
         }
 
         .liquid-btn-red {
             background: linear-gradient(135deg, #FF453A 0%, #C91A0E 100%);
-            box-shadow: 0 8px 24px rgba(255, 69, 58, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(255, 69, 58, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35);
         }
 
         /* TICK GLOW EFFECTS */
         .tick-glow-up {
-            text-shadow: 0 0 12px rgba(48, 209, 88, 0.8);
+            text-shadow: 0 0 14px rgba(48, 209, 88, 0.85);
             color: #30D158 !important;
             transition: color 0.15s ease, text-shadow 0.15s ease;
         }
         .tick-glow-down {
-            text-shadow: 0 0 12px rgba(255, 69, 58, 0.8);
+            text-shadow: 0 0 14px rgba(255, 69, 58, 0.85);
             color: #FF453A !important;
             transition: color 0.15s ease, text-shadow 0.15s ease;
         }
 
-        /* CUSTOM SCROLLBAR */
         ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.22); border-radius: 10px; }
         ::-webkit-scrollbar-track { background: transparent; }
 
         .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -164,7 +163,7 @@
 </head>
 <body class="flex flex-col h-screen w-screen relative overflow-hidden text-gray-100 select-none">
 
-    <!-- AMBIENT LIQUID GLOWING BLOBS -->
+    <!-- AMBIENT GLOW BLOBS -->
     <div class="liquid-bg-blob blob-1"></div>
     <div class="liquid-bg-blob blob-2"></div>
     <div class="liquid-bg-blob blob-3"></div>
@@ -172,62 +171,62 @@
     <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 w-11/12 max-w-md pointer-events-none"></div>
 
-    <!-- AUTHENTICATION OVERLAY (LOGIN & REGISTER) -->
+    <!-- AUTHENTICATION SCREEN -->
     <div id="auth-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl" style="display: flex;">
-        <div class="liquid-glass-modal w-full max-w-sm rounded-[36px] p-7 flex flex-col items-center relative overflow-hidden transition-all duration-300">
+        <div class="liquid-glass-modal w-full max-w-sm rounded-[38px] p-7 flex flex-col items-center relative overflow-hidden transition-all duration-300">
             
-            <div class="w-16 h-16 rounded-2xl liquid-btn-blue flex items-center justify-center mb-4 text-white shadow-lg">
+            <div class="w-16 h-16 rounded-3xl liquid-btn-blue flex items-center justify-center mb-4 text-white shadow-xl border border-white/20">
                 <i data-lucide="candlestick-chart" class="w-8 h-8"></i>
             </div>
 
-            <h2 id="auth-title" class="text-2xl font-extrabold tracking-tight text-white mb-1">MT5 iOS Pro</h2>
-            <p id="auth-subtitle" class="text-xs text-gray-400 text-center mb-6 leading-relaxed">Platform Trading Forex & Kripto Realtime dengan Tampilan Liquid iOS Premium.</p>
+            <h2 id="auth-title" class="text-2xl font-black tracking-tight text-white mb-1">MT5 iOS Pro</h2>
+            <p id="auth-subtitle" class="text-xs text-gray-400 text-center mb-6 leading-relaxed">Platform Trading Realtime dengan Desain Liquid Glassmorphism Premium.</p>
 
             <!-- TOGGLE LOGIN / REGISTER -->
-            <div class="flex w-full bg-black/50 p-1 rounded-2xl mb-5 border border-white/10 backdrop-blur-md">
-                <button id="tab-login-btn" onclick="switchAuthTab('login')" class="flex-1 py-2 text-xs font-bold rounded-xl liquid-btn-blue text-white transition-all">Masuk</button>
-                <button id="tab-register-btn" onclick="switchAuthTab('register')" class="flex-1 py-2 text-xs font-semibold rounded-xl text-gray-400 hover:text-white transition-all">Daftar Akun</button>
+            <div class="flex w-full bg-black/60 p-1 rounded-2xl mb-5 border border-white/10 backdrop-blur-md">
+                <button id="tab-login-btn" onclick="switchAuthTab('login')" class="flex-1 py-2 text-xs font-extrabold rounded-xl liquid-btn-blue text-white transition-all">Masuk</button>
+                <button id="tab-register-btn" onclick="switchAuthTab('register')" class="flex-1 py-2 text-xs font-bold rounded-xl text-gray-400 hover:text-white transition-all">Daftar Akun</button>
             </div>
 
             <!-- LOGIN FORM -->
             <form id="form-login" onsubmit="event.preventDefault(); handleLogin();" class="w-full space-y-3.5">
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Username</label>
-                    <input type="text" id="login-username" required placeholder="Masukkan username" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-blue transition shadow-inner">
+                    <label class="text-[10px] font-extrabold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Username</label>
+                    <input type="text" id="login-username" required placeholder="Masukkan username" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-blue transition shadow-inner">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Password</label>
-                    <input type="password" id="login-password" required placeholder="Masukkan password" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-blue transition shadow-inner">
+                    <label class="text-[10px] font-extrabold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Password</label>
+                    <input type="password" id="login-password" required placeholder="Masukkan password" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-blue transition shadow-inner">
                 </div>
-                <button type="submit" id="btn-login-submit" class="w-full py-3.5 rounded-2xl liquid-btn-blue font-bold text-sm text-white transition active:scale-95 mt-2">
-                    Masuk ke Platform
+                <button type="submit" id="btn-login-submit" class="w-full py-3.5 rounded-2xl liquid-btn-blue font-extrabold text-sm text-white transition active:scale-95 mt-2">
+                    Masuk Platform
                 </button>
             </form>
 
             <!-- REGISTER FORM -->
             <form id="form-register" onsubmit="event.preventDefault(); handleRegister();" class="w-full space-y-3.5 hidden">
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Nama Lengkap</label>
-                    <input type="text" id="reg-fullname" required placeholder="Contoh: Alex Rivers" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
+                    <label class="text-[10px] font-extrabold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Nama Lengkap</label>
+                    <input type="text" id="reg-fullname" required placeholder="Contoh: Alex Rivers" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Username Unik (Huruf, Angka, _)</label>
-                    <input type="text" id="reg-username" required placeholder="Contoh: trader88" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
+                    <label class="text-[10px] font-extrabold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Username Unik</label>
+                    <input type="text" id="reg-username" required placeholder="Contoh: trader88" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Password</label>
-                    <input type="password" id="reg-password" required placeholder="Buat password aman" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
+                    <label class="text-[10px] font-extrabold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Password</label>
+                    <input type="password" id="reg-password" required placeholder="Buat password aman" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
                 </div>
-                <button type="submit" id="btn-register-submit" class="w-full py-3.5 rounded-2xl liquid-btn-green font-bold text-sm text-white transition active:scale-95 mt-2">
-                    Daftar Akun Baru
+                <button type="submit" id="btn-register-submit" class="w-full py-3.5 rounded-2xl liquid-btn-green font-extrabold text-sm text-white transition active:scale-95 mt-2">
+                    Daftar Akun Baru ($0.00)
                 </button>
             </form>
 
-            <div id="auth-error" class="text-xs text-ios-red mt-3 text-center font-semibold p-2.5 rounded-xl bg-ios-red/10 border border-ios-red/30 hidden w-full"></div>
+            <div id="auth-error" class="text-xs text-ios-red mt-3 text-center font-bold p-2.5 rounded-xl bg-ios-red/10 border border-ios-red/30 hidden w-full"></div>
         </div>
     </div>
 
-    <!-- TOP HEADER BAR -->
+    <!-- TOP HEADER -->
     <header class="liquid-glass sticky top-0 z-30 px-4 py-3 flex items-center justify-between border-b border-white/10 shrink-0">
         <div class="flex items-center space-x-3">
             <div class="w-10 h-10 rounded-2xl bg-ios-blue/20 border border-ios-blue/40 flex items-center justify-center text-ios-blue font-extrabold text-sm overflow-hidden shadow-md" id="header-avatar-box">
@@ -241,17 +240,15 @@
                 </p>
             </div>
         </div>
-        <div class="flex items-center space-x-2">
-            <button onclick="openDepositModal()" class="px-3.5 py-2 rounded-xl bg-ios-green/20 border border-ios-green/40 text-ios-green text-xs font-bold flex items-center gap-1.5 active:scale-95 transition shadow-lg shadow-ios-green/10">
-                <i data-lucide="wallet" class="w-3.5 h-3.5"></i> Deposit
-            </button>
-        </div>
+        <button onclick="openDepositModal()" class="px-3.5 py-2 rounded-xl bg-ios-green/20 border border-ios-green/40 text-ios-green text-xs font-bold flex items-center gap-1.5 active:scale-95 transition shadow-lg shadow-ios-green/10">
+            <i data-lucide="wallet" class="w-3.5 h-3.5"></i> Deposit
+        </button>
     </header>
 
-    <!-- MAIN APP VIEWPORT -->
+    <!-- MAIN VIEWPORT CONTAINER -->
     <main class="flex-1 overflow-y-auto pb-24 pt-3 px-3 relative z-10" id="main-content">
 
-        <!-- TAB 1: QUOTES (MARKET WATCH) -->
+        <!-- TAB 1: QUOTES -->
         <div id="tab-quotes" class="tab-pane space-y-3">
             <div class="flex items-center justify-between px-1 py-1">
                 <div>
@@ -259,16 +256,14 @@
                     <p class="text-[11px] text-gray-400">Harga langsung dari pasar global</p>
                 </div>
                 <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 text-gray-300 border border-white/15">
-                    Spread Rendah
+                    Low Spread
                 </span>
             </div>
             <div id="market-list" class="space-y-2.5 pb-6"></div>
         </div>
 
-        <!-- TAB 2: CHART (REALTIME MT5 CANDLESTICK) -->
+        <!-- TAB 2: CHART -->
         <div id="tab-chart" class="tab-pane space-y-3 hidden">
-            
-            <!-- SYMBOL & TIMEFRAME HEADER -->
             <div class="liquid-glass-card p-3 rounded-2xl space-y-2">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
@@ -288,15 +283,15 @@
                     </div>
                 </div>
 
-                <!-- TIMEFRAME SELECTOR -->
+                <!-- TIMEFRAME SWITCHER -->
                 <div class="flex items-center justify-between border-t border-white/10 pt-2 text-[11px] font-bold">
                     <div class="flex gap-1 overflow-x-auto hide-scrollbar" id="timeframe-buttons">
-                        <button onclick="setTimeframe('M1')" class="tf-btn px-2 py-1 rounded-lg bg-ios-blue text-white shadow" data-tf="M1">M1</button>
-                        <button onclick="setTimeframe('M5')" class="tf-btn px-2 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="M5">M5</button>
-                        <button onclick="setTimeframe('M15')" class="tf-btn px-2 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="M15">M15</button>
-                        <button onclick="setTimeframe('M30')" class="tf-btn px-2 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="M30">M30</button>
-                        <button onclick="setTimeframe('H1')" class="tf-btn px-2 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="H1">H1</button>
-                        <button onclick="setTimeframe('D1')" class="tf-btn px-2 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="D1">D1</button>
+                        <button onclick="setTimeframe('M1')" class="tf-btn px-2.5 py-1 rounded-lg bg-ios-blue text-white shadow font-extrabold" data-tf="M1">M1</button>
+                        <button onclick="setTimeframe('M5')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-extrabold" data-tf="M5">M5</button>
+                        <button onclick="setTimeframe('M15')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-extrabold" data-tf="M15">M15</button>
+                        <button onclick="setTimeframe('M30')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-extrabold" data-tf="M30">M30</button>
+                        <button onclick="setTimeframe('H1')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-extrabold" data-tf="H1">H1</button>
+                        <button onclick="setTimeframe('D1')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-extrabold" data-tf="D1">D1</button>
                     </div>
                     <div id="chart-bid-ask" class="text-[10px] text-gray-300 font-mono shrink-0 ml-2">Bid: - | Ask: -</div>
                 </div>
@@ -311,26 +306,23 @@
                     </span>
                 </div>
 
-                <!-- CANVAS ELEMENT -->
                 <div class="w-full h-80 relative bg-black/70 rounded-xl overflow-hidden border border-white/10 shadow-inner">
                     <canvas id="trading-canvas" class="w-full h-full cursor-crosshair touch-none"></canvas>
                 </div>
 
-                <!-- CANVAS TOOLBAR / ZOOM CONTROLS -->
                 <div class="flex items-center justify-between mt-2 px-1 text-[11px] text-gray-400 font-semibold">
                     <div class="flex gap-2">
                         <button onclick="zoomChart(1.2)" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-white active:scale-95 transition"><i data-lucide="zoom-in" class="w-3.5 h-3.5 inline"></i></button>
                         <button onclick="zoomChart(0.8)" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-white active:scale-95 transition"><i data-lucide="zoom-out" class="w-3.5 h-3.5 inline"></i></button>
                         <button onclick="resetChartZoom()" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-white active:scale-95 transition">Reset</button>
                     </div>
-                    <span class="text-[10px] text-gray-400">Geser grafik untuk pan/zoom</span>
+                    <span class="text-[10px] text-gray-400">Geser chart untuk pan/zoom</span>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 3: TRADE (POSITIONS & ACCOUNT SUMMARY) -->
+        <!-- TAB 3: TRADE -->
         <div id="tab-trade" class="tab-pane space-y-4 hidden">
-            <!-- ACCOUNT SUMMARY CARD -->
             <div class="liquid-glass-card p-4 rounded-3xl space-y-3">
                 <div class="flex justify-between items-center border-b border-white/10 pb-2">
                     <span class="text-xs font-black text-white uppercase tracking-wider">Account Metrics</span>
@@ -356,7 +348,6 @@
                 </div>
             </div>
 
-            <!-- OPEN POSITIONS LIST -->
             <div>
                 <div class="flex justify-between items-center mb-2.5 px-1">
                     <div class="flex items-center gap-2">
@@ -384,7 +375,7 @@
             </div>
         </div>
 
-        <!-- TAB 5: SETTINGS & PROFILE -->
+        <!-- TAB 5: SETTINGS -->
         <div id="tab-settings" class="tab-pane space-y-4 hidden pb-6">
             <div class="liquid-glass-card p-6 rounded-[32px] flex flex-col items-center text-center shadow-xl">
                 <div class="relative mb-4">
@@ -416,10 +407,9 @@
                 </div>
             </div>
 
-            <!-- PORTFOLIO SUMMARY CARD -->
             <div class="liquid-glass-card p-5 rounded-[32px] space-y-3.5 shadow-xl">
                 <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
-                    <i data-lucide="pie-chart" class="w-4 h-4 text-ios-green"></i> Portofolio & Saldo
+                    <i data-lucide="pie-chart" class="w-4 h-4 text-ios-green"></i> Portofolio Akun
                 </h3>
                 <div class="grid grid-cols-2 gap-3">
                     <div class="bg-black/40 p-3.5 rounded-2xl border border-white/5">
@@ -442,7 +432,7 @@
         </div>
     </main>
 
-    <!-- FLOATING LIQUID BOTTOM NAVBAR -->
+    <!-- FLOATING BOTTOM NAVIGATION -->
     <nav class="liquid-glass fixed bottom-0 left-0 right-0 z-40 px-3 py-2 flex justify-around items-center border-t border-white/10 shrink-0 shadow-2xl">
         <button onclick="switchTab('quotes')" class="nav-btn flex flex-col items-center text-ios-blue transition-all active:scale-90" data-target="tab-quotes">
             <i data-lucide="list" class="w-5 h-5 mb-0.5"></i>
@@ -477,7 +467,7 @@
             </div>
             <div class="space-y-4">
                 <div>
-                    <label class="text-[10px] font-bold text-gray-300 mb-1.5 block uppercase tracking-wider">Lot Size</label>
+                    <label class="text-[10px] font-bold text-gray-300 mb-1.5 block uppercase tracking-wider">Lot Size (Max 10.0)</label>
                     <div class="flex items-center gap-2">
                         <button onclick="adjustLotSize(-0.1)" class="px-3 py-3 rounded-2xl bg-white/10 font-bold text-xs text-white hover:bg-white/20 transition">-0.1</button>
                         <button onclick="adjustLotSize(-0.01)" class="px-2.5 py-3 rounded-2xl bg-white/10 font-bold text-xs text-white hover:bg-white/20 transition">-0.01</button>
@@ -511,8 +501,8 @@
             <div class="w-16 h-16 rounded-2xl bg-ios-green/20 border border-ios-green/30 flex items-center justify-center mx-auto mb-4 text-ios-green shadow-lg">
                 <i data-lucide="wallet" class="w-8 h-8"></i>
             </div>
-            <h3 class="text-lg font-extrabold text-white mb-2">Deposit & Top-Up Saldo</h3>
-            <p class="text-xs text-gray-300 mb-5 leading-relaxed">Untuk melakukan isi ulang saldo demo/real akun trading Anda, hubungi Admin Telegram resmi di bawah ini:</p>
+            <h3 class="text-lg font-extrabold text-white mb-2">Deposit Saldo</h3>
+            <p class="text-xs text-gray-300 mb-5 leading-relaxed">Deposit saldo dilakukan melalui admin Telegram utama kami. Hubungi admin untuk isi saldo:</p>
             <a href="https://t.me/manzxsync" target="_blank" class="w-full py-3.5 rounded-2xl bg-sky-500 hover:bg-sky-400 font-extrabold text-xs text-white flex items-center justify-center gap-2 mb-3 shadow-lg shadow-sky-500/30 transition active:scale-95">
                 <i data-lucide="send" class="w-4 h-4"></i> Chat Admin (@manzxsync)
             </a>
@@ -520,9 +510,8 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT APP ENGINE -->
+    <!-- JAVASCRIPT ENGINE -->
     <script>
-        // CONFIG & STATE
         const FIREBASE_URL = "https://manzsmodz-default-rtdb.firebaseio.com";
         let currentUser = null;
         let fullName = "Trader Pro";
@@ -533,21 +522,20 @@
         let tradeHistory = [];
         let globalMarketForce = { market: "ALL", force: "NORMAL" };
         let isSyncing = false;
-        let lastLocalMutation = 0; // Lock timestamp to prevent race condition overwrites from polling
+        let lastLocalMutation = 0;
 
-        // SANITIZE USERNAME TO SAFE FIREBASE KEY FORMAT
         function sanitizeUsername(input) {
             if (!input) return "";
             return input.toLowerCase().trim().replace(/[^a-z0-9_]/g, "");
         }
 
-        // SYMBOL SPECIFICATIONS & MULTIPLIERS WITH LERP TARGETS
+        // OFFICIAL CONTRACT SIZES & PIP MULTIPLIERS
         const markets = {
-            "EURUSD": { name: "EUR/USD", bid: 1.08450, targetBid: 1.08450, ask: 1.08462, change: +0.25, decimals: 5, lotSize: 100000, pipMultiplier: 10000 },
-            "GBPUSD": { name: "GBP/USD", bid: 1.26720, targetBid: 1.26720, ask: 1.26735, change: -0.12, decimals: 5, lotSize: 100000, pipMultiplier: 10000 },
-            "USDJPY": { name: "USD/JPY", bid: 154.820, targetBid: 154.820, ask: 154.835, change: +0.45, decimals: 3, lotSize: 100000, pipMultiplier: 100 },
-            "XAUUSD": { name: "XAU/USD (Gold)", bid: 2332.50, targetBid: 2332.50, ask: 2332.90, change: +1.15, decimals: 2, lotSize: 100, pipMultiplier: 100 },
-            "BTCUSD": { name: "BTC/USD", bid: 67450.0, targetBid: 67450.0, ask: 67475.0, change: -0.85, decimals: 1, lotSize: 1, pipMultiplier: 1 }
+            "EURUSD": { name: "EUR/USD", bid: 1.08450, targetBid: 1.08450, baseBid: 1.08450, ask: 1.08462, change: +0.25, decimals: 5, lotSize: 100000, pipMultiplier: 10000 },
+            "GBPUSD": { name: "GBP/USD", bid: 1.26720, targetBid: 1.26720, baseBid: 1.26720, ask: 1.26735, change: -0.12, decimals: 5, lotSize: 100000, pipMultiplier: 10000 },
+            "USDJPY": { name: "USD/JPY", bid: 154.820, targetBid: 154.820, baseBid: 154.820, ask: 154.835, change: +0.45, decimals: 3, lotSize: 100000, pipMultiplier: 100 },
+            "XAUUSD": { name: "XAU/USD (Gold)", bid: 2332.50, targetBid: 2332.50, baseBid: 2332.50, ask: 2332.90, change: +1.15, decimals: 2, lotSize: 100, pipMultiplier: 100 },
+            "BTCUSD": { name: "BTC/USD", bid: 67450.0, targetBid: 67450.0, baseBid: 67450.0, ask: 67475.0, change: -0.85, decimals: 1, lotSize: 1, pipMultiplier: 1 }
         };
 
         const tfMinutesMap = {
@@ -565,11 +553,8 @@
         let candleHistory = {};
         let chartZoomLevel = 1.0;
         let chartPanOffset = 0;
-
-        // CROSSHAIR STATE
         let crosshairPos = { x: -1, y: -1, active: false };
 
-        // INITIALIZE CANDLE DATA FOR ALL TIMEFRAMES
         Object.keys(markets).forEach(sym => {
             candleHistory[sym] = {};
             Object.keys(tfMinutesMap).forEach(tf => {
@@ -597,7 +582,6 @@
             return candles;
         }
 
-        // INITIALIZATION
         window.addEventListener("DOMContentLoaded", () => {
             try { lucide.createIcons(); } catch(e){}
             renderQuotes();
@@ -615,7 +599,6 @@
             start60FpsEngine();
         });
 
-        // TOAST NOTIFICATION HELPER
         function showToast(title, message, type = 'info') {
             const container = document.getElementById("toast-container");
             if (!container) return;
@@ -643,7 +626,6 @@
             }, 3200);
         }
 
-        // DISPLAY AUTH ERROR IN UI
         function showAuthError(msg) {
             const errDiv = document.getElementById("auth-error");
             if (errDiv) {
@@ -657,7 +639,6 @@
             if (errDiv) errDiv.classList.add("hidden");
         }
 
-        // AUTHENTICATION TAB SWITCHING
         function switchAuthTab(tab) {
             const loginBtn = document.getElementById("tab-login-btn");
             const regBtn = document.getElementById("tab-register-btn");
@@ -666,19 +647,18 @@
             hideAuthError();
 
             if (tab === 'login') {
-                loginBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl liquid-btn-blue text-white shadow transition-all";
-                regBtn.className = "flex-1 py-2 text-xs font-semibold rounded-xl text-gray-400 hover:text-white transition-all";
+                loginBtn.className = "flex-1 py-2 text-xs font-extrabold rounded-xl liquid-btn-blue text-white shadow transition-all";
+                regBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-400 hover:text-white transition-all";
                 formLogin.classList.remove("hidden");
                 formReg.classList.add("hidden");
             } else {
-                regBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl liquid-btn-green text-white shadow transition-all";
-                loginBtn.className = "flex-1 py-2 text-xs font-semibold rounded-xl text-gray-400 hover:text-white transition-all";
+                regBtn.className = "flex-1 py-2 text-xs font-extrabold rounded-xl liquid-btn-green text-white shadow transition-all";
+                loginBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-400 hover:text-white transition-all";
                 formReg.classList.remove("hidden");
                 formLogin.classList.add("hidden");
             }
         }
 
-        // LOGIN HANDLER (ROBUST & ERROR-FREE)
         async function handleLogin() {
             hideAuthError();
             const rawUser = document.getElementById("login-username").value;
@@ -715,13 +695,12 @@
                 initUserSession();
                 showToast("Selamat Datang!", `Login berhasil sebagai @${currentUser}`, "success");
             } catch(e) {
-                showAuthError("Koneksi gagal! Periksa koneksi internet Anda.");
+                showAuthError("Koneksi gagal! Periksa jaringan Anda.");
             } finally {
                 if (btn) btn.disabled = false;
             }
         }
 
-        // REGISTER HANDLER (SANITY CHECK + ZERO INITIAL BALANCE)
         async function handleRegister() {
             hideAuthError();
             const fname = document.getElementById("reg-fullname").value.trim();
@@ -735,7 +714,7 @@
             }
 
             if (u.length < 3) {
-                showAuthError("Username minimal 3 karakter (huruf/angka/_).");
+                showAuthError("Username minimal 3 karakter.");
                 return;
             }
 
@@ -748,7 +727,7 @@
 
                 let data = await res.json();
                 if (data) {
-                    showAuthError("Username sudah terdaftar! Gunakan username lain.");
+                    showAuthError("Username sudah terdaftar!");
                     if (btn) btn.disabled = false;
                     return;
                 }
@@ -775,10 +754,10 @@
                 localStorage.setItem("mt5_username", currentUser);
                 document.getElementById("auth-screen").style.display = "none";
                 initUserSession();
-                showToast("Pendaftaran Berhasil!", "Akun dibuat dengan saldo $0.00. Silakan hubungi admin untuk top-up.", "info");
+                showToast("Pendaftaran Berhasil!", "Akun baru dibuat ($0.00). Silakan hubungi Telegram Admin untuk isi saldo.", "info");
                 openDepositModal();
             } catch(e) {
-                showAuthError("Gagal mendaftarkan akun! Periksa koneksi.");
+                showAuthError("Gagal mendaftarkan akun!");
             } finally {
                 if (btn) btn.disabled = false;
             }
@@ -795,7 +774,7 @@
             renderQuotes();
             setInterval(fetchUserData, 2000);
             setInterval(fetchMarketForce, 1500);
-            setInterval(generateNewMarketTargets, 400); // Micro target generator
+            setInterval(generateNewMarketTargets, 400);
         }
 
         async function fetchMarketForce() {
@@ -818,7 +797,6 @@
                     fullName = data.fullName || fullName;
                     avatarBase64 = data.avatar || null;
 
-                    // Only update positions and history from remote if no local mutation occurred in last 3.5s
                     if (Date.now() - lastLocalMutation > 3500) {
                         openPositions = Array.isArray(data.positions) ? data.positions : [];
                         tradeHistory = Array.isArray(data.history) ? data.history : [];
@@ -946,9 +924,9 @@
             selectedTimeframe = tf;
             document.querySelectorAll(".tf-btn").forEach(btn => {
                 if (btn.getAttribute("data-tf") === tf) {
-                    btn.className = "tf-btn px-2 py-1 rounded-lg bg-ios-blue text-white shadow font-bold";
+                    btn.className = "tf-btn px-2.5 py-1 rounded-lg bg-ios-blue text-white shadow font-extrabold";
                 } else {
-                    btn.className = "tf-btn px-2 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-bold";
+                    btn.className = "tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-extrabold";
                 }
             });
             document.getElementById("chart-timeframe-tag").textContent = tf;
@@ -956,7 +934,6 @@
             drawChart();
         }
 
-        // DYNAMIC HIGH-FREQUENCY TARGET GENERATOR ACCELERATED BY MARKET FORCE
         function generateNewMarketTargets() {
             Object.keys(markets).forEach(sym => {
                 let m = markets[sym];
@@ -971,16 +948,16 @@
                 let rand = (Math.random() - 0.49);
 
                 if (targetForce === "LONG") {
-                    rand = Math.abs(rand) + 0.65; // Rapid aggressive upward movement
+                    rand = Math.abs(rand) + 0.65;
                 } else if (targetForce === "SHORT") {
-                    rand = -(Math.abs(rand) + 0.65); // Rapid aggressive downward movement
+                    rand = -(Math.abs(rand) + 0.65);
                 }
 
                 m.targetBid += rand * baseStep;
+                m.targetBid += (m.baseBid - m.targetBid) * 0.005; // Gentle mean reversion anchor
             });
         }
 
-        // 60 FPS ULTRA-SMOOTH LERP & ANIMATION LOOP WITH DYNAMIC SPEED
         let lastFrameTime = performance.now();
         let domUpdateCounter = 0;
 
@@ -1002,7 +979,6 @@
                     let diff = m.bid - oldBid;
                     m.change = +(m.change + (diff * (isFastMarket ? 45 : 20))).toFixed(2);
 
-                    // Update Active Candles for all timeframes smoothly
                     Object.keys(tfMinutesMap).forEach(tf => {
                         let candles = candleHistory[sym][tf];
                         if (candles && candles.length > 0) {
@@ -1014,7 +990,6 @@
                             let tfMins = tfMinutesMap[tf] || 1;
                             let candleDuration = isFastMarket ? (tfMins * 8000) : (tfMins * 30000);
 
-                            // Create new candle bar when time interval elapses
                             if (now - (last.time || 0) > candleDuration) {
                                 candles.push({ open: m.bid, high: m.bid, low: m.bid, close: m.bid, time: now });
                                 if (candles.length > 80) candles.shift();
@@ -1023,15 +998,12 @@
                     });
                 });
 
-                // RENDER CANVAS CHART AT 60 FPS
                 if (!document.getElementById("tab-chart").classList.contains("hidden")) {
                     drawChart();
                 }
 
-                // CALCULATE POSITIONS AT 60 FPS FOR SMOOTH P/L
                 calculateOpenPositions();
 
-                // THROTTLE DOM TICKER UPDATES
                 domUpdateCounter++;
                 if (domUpdateCounter % (isFastMarket ? 1 : 3) === 0) {
                     updatePriceTickerDOM();
@@ -1075,7 +1047,6 @@
             }
         }
 
-        // CANVAS CHART RENDER ENGINE WITH TIMEFRAME SUPPORT
         function drawChart() {
             const canvas = document.getElementById("trading-canvas");
             if (!canvas) return;
@@ -1096,7 +1067,6 @@
             if (!candles || candles.length === 0) return;
             let m = markets[selectedSymbol];
 
-            // Visible Slice with Zoom & Pan
             let visibleCount = Math.floor(35 / chartZoomLevel);
             let endIndex = Math.max(visibleCount, candles.length + chartPanOffset);
             let startIndex = Math.max(0, endIndex - visibleCount);
@@ -1114,7 +1084,6 @@
             const rightPadding = 58;
             const chartWidth = width - rightPadding;
 
-            // DRAW GRID LINES & PRICE AXIS
             ctx.lineWidth = 0.5;
             ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
             ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
@@ -1133,7 +1102,6 @@
                 ctx.fillText(price.toFixed(m.decimals), chartWidth + 6, y + 3);
             }
 
-            // CALCULATE SMA (14) FOR CURRENT TIMEFRAME
             let smaValues = [];
             for (let i = 0; i < visibleCandles.length; i++) {
                 let fullIdx = startIndex + i;
@@ -1144,7 +1112,6 @@
                 }
             }
 
-            // DRAW CANDLESTICKS FOR SELECTED TIMEFRAME
             let candleWidth = Math.max(3, (chartWidth / visibleCandles.length) - 3);
 
             visibleCandles.forEach((c, i) => {
@@ -1157,7 +1124,6 @@
                 let yOpen = height - ((c.open - minPrice) / range) * height;
                 let yClose = height - ((c.close - minPrice) / range) * height;
 
-                // Wick
                 ctx.strokeStyle = color;
                 ctx.lineWidth = 1.2;
                 ctx.beginPath();
@@ -1165,14 +1131,12 @@
                 ctx.lineTo(x + candleWidth / 2, yLow);
                 ctx.stroke();
 
-                // Body
                 ctx.fillStyle = color;
                 let bodyY = Math.min(yOpen, yClose);
                 let bodyH = Math.max(2, Math.abs(yClose - yOpen));
                 ctx.fillRect(x, bodyY, candleWidth, bodyH);
             });
 
-            // DRAW SMA LINE
             if (smaValues.length > 1) {
                 ctx.beginPath();
                 ctx.strokeStyle = "#FFD60A";
@@ -1186,7 +1150,6 @@
                 ctx.stroke();
             }
 
-            // DRAW ACTIVE OPEN POSITIONS LINES ON CHART
             openPositions.forEach(p => {
                 if (p.symbol === selectedSymbol) {
                     let yPos = height - ((p.openPrice - minPrice) / range) * height;
@@ -1200,7 +1163,6 @@
                         ctx.stroke();
                         ctx.setLineDash([]);
 
-                        // Label badge
                         ctx.fillStyle = p.type === 'BUY' ? '#0A84FF' : '#FF453A';
                         ctx.fillRect(5, yPos - 10, 85, 14);
                         ctx.fillStyle = '#FFFFFF';
@@ -1210,7 +1172,6 @@
                 }
             });
 
-            // DRAW CURRENT LIVE PRICE HIGHLIGHT WITH GLOW
             let currentY = height - ((m.bid - minPrice) / range) * height;
 
             let glowGrad = ctx.createLinearGradient(0, currentY - 8, 0, currentY + 8);
@@ -1235,7 +1196,6 @@
             ctx.font = "bold 9.5px 'Plus Jakarta Sans', sans-serif";
             ctx.fillText(m.bid.toFixed(m.decimals), chartWidth + 4, currentY + 4);
 
-            // CROSSHAIR RENDER
             if (crosshairPos.active && crosshairPos.x <= chartWidth && crosshairPos.y <= height) {
                 ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
                 ctx.lineWidth = 0.8;
@@ -1310,7 +1270,6 @@
             });
         }
 
-        // ORDER EXECUTION LOGIC
         function adjustLotSize(delta) {
             let input = document.getElementById("trade-lots");
             let val = parseFloat(input.value) || 0.1;
@@ -1323,14 +1282,14 @@
             let lots = parseFloat(document.getElementById("trade-lots").value) || 0.1;
             let m = markets[selectedSymbol];
             let execPrice = tradeActionType === 'BUY' ? m.ask : m.bid;
-            let margin = (lots * m.lotSize * execPrice) / 100; // 1:100 leverage
+            let margin = (lots * m.lotSize * execPrice) / 100; // 1:100 leverage estimate
             document.getElementById("modal-exec-price").textContent = execPrice.toFixed(m.decimals);
             document.getElementById("modal-margin-required").textContent = `$${margin.toFixed(2)}`;
         }
 
         function openTradeModal(type) {
             if (currentBalance <= 0) {
-                showToast("Saldo Habis", "Saldo akun $0.00. Lakukan deposit terlebih dahulu.", "error");
+                showToast("Saldo Habis", "Saldo akun $0.00. Silakan isi saldo melalui Telegram Admin.", "error");
                 openDepositModal();
                 return;
             }
@@ -1353,14 +1312,26 @@
 
         function executeOrder() {
             if (currentBalance <= 0) {
-                showToast("Transaksi Gagal", "Saldo $0.00 tidak mencukupi", "error");
+                showToast("Order Gagal", "Saldo $0.00 tidak mencukupi untuk trading.", "error");
                 closeTradeModal();
                 return;
             }
 
             let lots = parseFloat(document.getElementById("trade-lots").value) || 0.1;
+            if (lots > 10.0) {
+                showToast("Batas Lot Eksed", "Maksimal Lot Size adalah 10.0 Lot.", "error");
+                return;
+            }
+
             let m = markets[selectedSymbol];
             let openPrice = tradeActionType === 'BUY' ? m.ask : m.bid;
+            
+            // STRICT MARGIN VALIDATION CHECK
+            let requiredMargin = (lots * m.lotSize * openPrice) / 100; // 1:100 leverage
+            if (currentEquity < requiredMargin) {
+                showToast("Free Margin Tidak Cukup", `Diperlukan margin $${requiredMargin.toFixed(2)} untuk membuka ${lots} Lot ${selectedSymbol}.`, "error");
+                return;
+            }
 
             lastLocalMutation = Date.now();
             openPositions.push({
@@ -1379,7 +1350,7 @@
             showToast("Order Berhasil", `${tradeActionType} ${lots} Lot ${selectedSymbol} @ ${openPrice.toFixed(m.decimals)}`, "success");
         }
 
-        // REALTIME POSITIONS EVALUATION & MARGIN CALL PROTECTION
+        // ACCURATE CONTRACT SIZE & MARGIN CALCULATIONS
         function calculateOpenPositions() {
             let totalPL = 0;
             openPositions.forEach(p => {
@@ -1388,17 +1359,23 @@
                 let currentMarketPrice = p.type === 'BUY' ? m.bid : m.ask;
                 let diff = p.type === 'BUY' ? (currentMarketPrice - p.openPrice) : (p.openPrice - currentMarketPrice);
 
-                if (p.symbol === 'USDJPY') {
-                    p.pl = (diff / currentMarketPrice) * p.lots * m.lotSize;
+                // EXACT MT5 CONTRACT FORMULAS
+                if (p.symbol === 'XAUUSD') {
+                    p.pl = diff * p.lots * 100; // 1 Lot = 100 oz ($1.00 diff = $100)
+                } else if (p.symbol === 'BTCUSD') {
+                    p.pl = diff * p.lots * 1;   // 1 Lot = 1 BTC ($1.00 diff = $1)
+                } else if (p.symbol === 'USDJPY') {
+                    p.pl = (diff / currentMarketPrice) * p.lots * 100000;
                 } else {
-                    p.pl = diff * p.lots * m.lotSize;
+                    p.pl = diff * p.lots * 100000; // EURUSD / GBPUSD Standard Forex Contract
                 }
+
                 totalPL += p.pl;
             });
 
             currentEquity = currentBalance + totalPL;
 
-            // Margin Call Protection Trigger
+            // STRICT MARGIN CALL: TRIGGERS ONLY IF EQUITY <= 0
             if (currentEquity <= 0 && openPositions.length > 0) {
                 lastLocalMutation = Date.now();
                 openPositions.forEach(p => {
@@ -1414,11 +1391,10 @@
                 currentBalance = 0;
                 currentEquity = 0;
                 syncFirebaseData();
-                showToast("MARGIN CALL!", "Equity habis. Semua posisi ditutup otomatis.", "error");
+                showToast("MARGIN CALL!", "Equity habis. Seluruh posisi ditutup otomatis.", "error");
                 openDepositModal();
             }
 
-            // Update Account Summary Displays
             let balEl = document.getElementById("summary-balance");
             let eqEl = document.getElementById("summary-equity");
             let portBalEl = document.getElementById("portfolio-balance");
@@ -1435,7 +1411,7 @@
                 plEl.className = `text-sm font-extrabold mt-0.5 ${totalPL >= 0 ? 'text-ios-green' : 'text-ios-red'}`;
             }
 
-            let marginLevel = openPositions.length > 0 ? ((currentEquity / (openPositions.length * 50)) * 100).toFixed(1) + '%' : '0.00%';
+            let marginLevel = openPositions.length > 0 ? Math.max(0, ((currentEquity / (openPositions.length * 50)) * 100)).toFixed(1) + '%' : '0.00%';
             let marginEl = document.getElementById("summary-margin");
             if (marginEl) marginEl.textContent = marginLevel;
 
@@ -1539,7 +1515,7 @@
             renderPositions();
             renderHistory();
             syncFirebaseData();
-            showToast("Semua Posisi Ditutup", `${count} posisi berhasil ditutup (${totalPnl >= 0 ? '+' : ''}$${totalPnl.toFixed(2)})`, totalPnl >= 0 ? "success" : "error");
+            showToast("Semua Posisi Ditutup", `${count} posisi ditutup (${totalPnl >= 0 ? '+' : ''}$${totalPnl.toFixed(2)})`, totalPnl >= 0 ? "success" : "error");
         }
 
         function renderHistory() {
@@ -1584,7 +1560,6 @@
             document.getElementById("deposit-modal").classList.add("hidden");
         }
 
-        // SYNC DATA TO FIREBASE RTDB
         async function syncFirebaseData() {
             if (!currentUser) return;
             isSyncing = true;
