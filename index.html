@@ -19,7 +19,7 @@
                     },
                     colors: {
                         ios: {
-                            bg: '#050508',
+                            bg: '#040406',
                             card: 'rgba(255, 255, 255, 0.04)',
                             cardHover: 'rgba(255, 255, 255, 0.07)',
                             glass: 'rgba(18, 18, 26, 0.65)',
@@ -141,21 +141,7 @@
             box-shadow: 0 8px 24px rgba(255, 69, 58, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
-        /* FLASH ANIMATIONS FOR PRICE TICKS */
-        @keyframes flashUp {
-            0% { background-color: rgba(48, 209, 88, 0.35); }
-            100% { background-color: transparent; }
-        }
-
-        @keyframes flashDown {
-            0% { background-color: rgba(255, 69, 58, 0.35); }
-            100% { background-color: transparent; }
-        }
-
-        .tick-up { animation: flashUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        .tick-down { animation: flashDown 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-
-        /* SMOOTH TICK PULSE & GLOW EFFECTS */
+        /* TICK GLOW EFFECTS */
         .tick-glow-up {
             text-shadow: 0 0 12px rgba(48, 209, 88, 0.8);
             color: #30D158 !important;
@@ -213,7 +199,7 @@
                     <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Password</label>
                     <input type="password" id="login-password" required placeholder="Masukkan password" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-blue transition shadow-inner">
                 </div>
-                <button type="submit" class="w-full py-3.5 rounded-2xl liquid-btn-blue font-bold text-sm text-white transition active:scale-95 mt-2">
+                <button type="submit" id="btn-login-submit" class="w-full py-3.5 rounded-2xl liquid-btn-blue font-bold text-sm text-white transition active:scale-95 mt-2">
                     Masuk ke Platform
                 </button>
             </form>
@@ -225,19 +211,19 @@
                     <input type="text" id="reg-fullname" required placeholder="Contoh: Alex Rivers" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Username Unik</label>
+                    <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Username Unik (Huruf, Angka, _)</label>
                     <input type="text" id="reg-username" required placeholder="Contoh: trader88" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
                 </div>
                 <div>
                     <label class="text-[10px] font-bold text-gray-400 ml-1 mb-1 block uppercase tracking-wider">Password</label>
                     <input type="password" id="reg-password" required placeholder="Buat password aman" class="w-full bg-black/40 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
                 </div>
-                <button type="submit" class="w-full py-3.5 rounded-2xl liquid-btn-green font-bold text-sm text-white transition active:scale-95 mt-2">
-                    Daftar & Bonus Demo $100.00
+                <button type="submit" id="btn-register-submit" class="w-full py-3.5 rounded-2xl liquid-btn-green font-bold text-sm text-white transition active:scale-95 mt-2">
+                    Daftar Akun Baru
                 </button>
             </form>
 
-            <div id="auth-error" class="text-xs text-ios-red mt-3 text-center font-semibold hidden"></div>
+            <div id="auth-error" class="text-xs text-ios-red mt-3 text-center font-semibold p-2.5 rounded-xl bg-ios-red/10 border border-ios-red/30 hidden w-full"></div>
         </div>
     </div>
 
@@ -304,13 +290,15 @@
 
                 <!-- TIMEFRAME SELECTOR -->
                 <div class="flex items-center justify-between border-t border-white/10 pt-2 text-[11px] font-bold">
-                    <div class="flex gap-1.5" id="timeframe-buttons">
-                        <button onclick="setTimeframe('M1')" class="tf-btn px-2.5 py-1 rounded-lg bg-ios-blue text-white shadow" data-tf="M1">M1</button>
-                        <button onclick="setTimeframe('M5')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="M5">M5</button>
-                        <button onclick="setTimeframe('M15')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="M15">M15</button>
-                        <button onclick="setTimeframe('H1')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="H1">H1</button>
+                    <div class="flex gap-1 overflow-x-auto hide-scrollbar" id="timeframe-buttons">
+                        <button onclick="setTimeframe('M1')" class="tf-btn px-2 py-1 rounded-lg bg-ios-blue text-white shadow" data-tf="M1">M1</button>
+                        <button onclick="setTimeframe('M5')" class="tf-btn px-2 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="M5">M5</button>
+                        <button onclick="setTimeframe('M15')" class="tf-btn px-2 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="M15">M15</button>
+                        <button onclick="setTimeframe('M30')" class="tf-btn px-2 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="M30">M30</button>
+                        <button onclick="setTimeframe('H1')" class="tf-btn px-2 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="H1">H1</button>
+                        <button onclick="setTimeframe('D1')" class="tf-btn px-2 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white" data-tf="D1">D1</button>
                     </div>
-                    <div id="chart-bid-ask" class="text-[10px] text-gray-300 font-mono">Bid: - | Ask: -</div>
+                    <div id="chart-bid-ask" class="text-[10px] text-gray-300 font-mono shrink-0 ml-2">Bid: - | Ask: -</div>
                 </div>
             </div>
 
@@ -326,7 +314,6 @@
                 <!-- CANVAS ELEMENT -->
                 <div class="w-full h-80 relative bg-black/70 rounded-xl overflow-hidden border border-white/10 shadow-inner">
                     <canvas id="trading-canvas" class="w-full h-full cursor-crosshair touch-none"></canvas>
-                    <div id="chart-crosshair-badge" class="absolute hidden px-2 py-0.5 rounded text-[10px] font-mono bg-ios-blue text-white shadow pointer-events-none z-20"></div>
                 </div>
 
                 <!-- CANVAS TOOLBAR / ZOOM CONTROLS -->
@@ -352,11 +339,11 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div class="bg-black/40 p-3 rounded-2xl border border-white/5">
                         <div class="text-[10px] text-gray-400 font-medium">Balance</div>
-                        <div id="summary-balance" class="text-base font-extrabold text-white mt-0.5">$100.00</div>
+                        <div id="summary-balance" class="text-base font-extrabold text-white mt-0.5">$0.00</div>
                     </div>
                     <div class="bg-black/40 p-3 rounded-2xl border border-white/5">
                         <div class="text-[10px] text-gray-400 font-medium">Equity</div>
-                        <div id="summary-equity" class="text-base font-extrabold text-ios-green mt-0.5">$100.00</div>
+                        <div id="summary-equity" class="text-base font-extrabold text-ios-green mt-0.5">$0.00</div>
                     </div>
                     <div class="bg-black/40 p-3 rounded-2xl border border-white/5">
                         <div class="text-[10px] text-gray-400 font-medium">Floating P/L</div>
@@ -437,11 +424,11 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div class="bg-black/40 p-3.5 rounded-2xl border border-white/5">
                         <div class="text-[10px] text-gray-400 font-medium">Total Saldo</div>
-                        <div id="portfolio-balance" class="text-base font-bold text-white mt-0.5">$100.00</div>
+                        <div id="portfolio-balance" class="text-base font-bold text-white mt-0.5">$0.00</div>
                     </div>
                     <div class="bg-black/40 p-3.5 rounded-2xl border border-white/5">
                         <div class="text-[10px] text-gray-400 font-medium">Total Equity</div>
-                        <div id="portfolio-equity" class="text-base font-bold text-ios-green mt-0.5">$100.00</div>
+                        <div id="portfolio-equity" class="text-base font-bold text-ios-green mt-0.5">$0.00</div>
                     </div>
                 </div>
                 <button onclick="openDepositModal()" class="w-full py-3.5 rounded-2xl liquid-btn-green text-xs font-bold text-white flex items-center justify-center gap-2 active:scale-95 transition">
@@ -540,13 +527,19 @@
         let currentUser = null;
         let fullName = "Trader Pro";
         let avatarBase64 = null;
-        let currentBalance = 100.00;
-        let currentEquity = 100.00;
+        let currentBalance = 0.00;
+        let currentEquity = 0.00;
         let openPositions = [];
         let tradeHistory = [];
         let globalMarketForce = { market: "ALL", force: "NORMAL" };
         let isSyncing = false;
         let lastLocalMutation = 0; // Lock timestamp to prevent race condition overwrites from polling
+
+        // SANITIZE USERNAME TO SAFE FIREBASE KEY FORMAT
+        function sanitizeUsername(input) {
+            if (!input) return "";
+            return input.toLowerCase().trim().replace(/[^a-z0-9_]/g, "");
+        }
 
         // SYMBOL SPECIFICATIONS & MULTIPLIERS WITH LERP TARGETS
         const markets = {
@@ -555,6 +548,15 @@
             "USDJPY": { name: "USD/JPY", bid: 154.820, targetBid: 154.820, ask: 154.835, change: +0.45, decimals: 3, lotSize: 100000, pipMultiplier: 100 },
             "XAUUSD": { name: "XAU/USD (Gold)", bid: 2332.50, targetBid: 2332.50, ask: 2332.90, change: +1.15, decimals: 2, lotSize: 100, pipMultiplier: 100 },
             "BTCUSD": { name: "BTC/USD", bid: 67450.0, targetBid: 67450.0, ask: 67475.0, change: -0.85, decimals: 1, lotSize: 1, pipMultiplier: 1 }
+        };
+
+        const tfMinutesMap = {
+            'M1': 1,
+            'M5': 5,
+            'M15': 15,
+            'M30': 30,
+            'H1': 60,
+            'D1': 1440
         };
 
         let selectedSymbol = "EURUSD";
@@ -567,22 +569,29 @@
         // CROSSHAIR STATE
         let crosshairPos = { x: -1, y: -1, active: false };
 
-        // INITIALIZE CANDLE DATA
+        // INITIALIZE CANDLE DATA FOR ALL TIMEFRAMES
         Object.keys(markets).forEach(sym => {
-            candleHistory[sym] = generateInitialCandles(markets[sym].bid);
+            candleHistory[sym] = {};
+            Object.keys(tfMinutesMap).forEach(tf => {
+                candleHistory[sym][tf] = generateInitialCandlesForTF(markets[sym].bid, tf);
+            });
         });
 
-        function generateInitialCandles(basePrice) {
+        function generateInitialCandlesForTF(basePrice, tf) {
             let candles = [];
             let price = basePrice;
             let now = Date.now();
+            let tfMins = tfMinutesMap[tf] || 1;
+            let intervalMs = tfMins * 60000;
+            let volatility = (basePrice * 0.0008) * Math.sqrt(tfMins);
+
             for(let i = 0; i < 60; i++) {
                 let open = price;
-                let change = (Math.random() - 0.49) * (basePrice * 0.0008);
+                let change = (Math.random() - 0.49) * volatility;
                 let close = open + change;
-                let high = Math.max(open, close) + Math.random() * (basePrice * 0.0004);
-                let low = Math.min(open, close) - Math.random() * (basePrice * 0.0004);
-                candles.push({ open, high, low, close, time: now - (60 - i) * 60000 });
+                let high = Math.max(open, close) + Math.random() * (volatility * 0.4);
+                let low = Math.min(open, close) - Math.random() * (volatility * 0.4);
+                candles.push({ open, high, low, close, time: now - (60 - i) * intervalMs });
                 price = close;
             }
             return candles;
@@ -590,12 +599,12 @@
 
         // INITIALIZATION
         window.addEventListener("DOMContentLoaded", () => {
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch(e){}
             renderQuotes();
 
             const savedUser = localStorage.getItem("mt5_username");
             if (savedUser && savedUser.trim() !== "") {
-                currentUser = savedUser;
+                currentUser = sanitizeUsername(savedUser);
                 document.getElementById("auth-screen").style.display = "none";
                 initUserSession();
             } else {
@@ -615,7 +624,7 @@
             let borderCol = type === 'success' ? 'border-ios-green/40' : type === 'error' ? 'border-ios-red/40' : 'border-ios-blue/40';
             let bgCol = type === 'success' ? 'bg-ios-green/20 text-ios-green' : type === 'error' ? 'bg-ios-red/20 text-ios-red' : 'bg-ios-blue/20 text-ios-blue';
 
-            toast.className = `liquid-glass pointer-events-auto p-3.5 rounded-2xl flex items-center gap-3 border ${borderCol} shadow-xl animate-ios transition-all duration-300 transform translate-y-0 opacity-100`;
+            toast.className = `liquid-glass pointer-events-auto p-3.5 rounded-2xl flex items-center gap-3 border ${borderCol} shadow-xl transition-all duration-300 transform translate-y-0 opacity-100`;
             toast.innerHTML = `
                 <div class="w-8 h-8 rounded-xl ${bgCol} flex items-center justify-center shrink-0">
                     <i data-lucide="${type === 'success' ? 'check-circle' : type === 'error' ? 'alert-triangle' : 'info'}" class="w-4 h-4"></i>
@@ -626,12 +635,26 @@
                 </div>
             `;
             container.appendChild(toast);
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch(e){}
 
             setTimeout(() => {
                 toast.classList.add("opacity-0", "-translate-y-2");
                 setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            }, 3200);
+        }
+
+        // DISPLAY AUTH ERROR IN UI
+        function showAuthError(msg) {
+            const errDiv = document.getElementById("auth-error");
+            if (errDiv) {
+                errDiv.textContent = msg;
+                errDiv.classList.remove("hidden");
+            }
+        }
+
+        function hideAuthError() {
+            const errDiv = document.getElementById("auth-error");
+            if (errDiv) errDiv.classList.add("hidden");
         }
 
         // AUTHENTICATION TAB SWITCHING
@@ -640,8 +663,7 @@
             const regBtn = document.getElementById("tab-register-btn");
             const formLogin = document.getElementById("form-login");
             const formReg = document.getElementById("form-register");
-            const errDiv = document.getElementById("auth-error");
-            errDiv.classList.add("hidden");
+            hideAuthError();
 
             if (tab === 'login') {
                 loginBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl liquid-btn-blue text-white shadow transition-all";
@@ -656,28 +678,34 @@
             }
         }
 
+        // LOGIN HANDLER (ROBUST & ERROR-FREE)
         async function handleLogin() {
-            const u = document.getElementById("login-username").value.trim().toLowerCase();
+            hideAuthError();
+            const rawUser = document.getElementById("login-username").value;
             const p = document.getElementById("login-password").value.trim();
-            const errDiv = document.getElementById("auth-error");
+            const u = sanitizeUsername(rawUser);
 
             if (!u || !p) {
-                errDiv.textContent = "Username dan password wajib diisi!";
-                errDiv.classList.remove("hidden");
+                showAuthError("Username dan password wajib diisi!");
                 return;
             }
 
+            const btn = document.getElementById("btn-login-submit");
+            if (btn) btn.disabled = true;
+
             try {
                 let res = await fetch(`${FIREBASE_URL}/users/${u}.json`);
+                if (!res.ok) throw new Error("Gagal terhubung ke server");
+
                 let data = await res.json();
                 if (!data) {
-                    errDiv.textContent = "Akun tidak ditemukan. Silakan daftar dulu!";
-                    errDiv.classList.remove("hidden");
+                    showAuthError("Akun tidak ditemukan. Silakan daftar dulu!");
+                    if (btn) btn.disabled = false;
                     return;
                 }
                 if (data.password && data.password !== p) {
-                    errDiv.textContent = "Password salah!";
-                    errDiv.classList.remove("hidden");
+                    showAuthError("Password salah!");
+                    if (btn) btn.disabled = false;
                     return;
                 }
 
@@ -687,34 +715,46 @@
                 initUserSession();
                 showToast("Selamat Datang!", `Login berhasil sebagai @${currentUser}`, "success");
             } catch(e) {
-                errDiv.textContent = "Koneksi ke database Firebase gagal!";
-                errDiv.classList.remove("hidden");
+                showAuthError("Koneksi gagal! Periksa koneksi internet Anda.");
+            } finally {
+                if (btn) btn.disabled = false;
             }
         }
 
+        // REGISTER HANDLER (SANITY CHECK + ZERO INITIAL BALANCE)
         async function handleRegister() {
+            hideAuthError();
             const fname = document.getElementById("reg-fullname").value.trim();
-            const u = document.getElementById("reg-username").value.trim().toLowerCase();
+            const rawUser = document.getElementById("reg-username").value;
             const p = document.getElementById("reg-password").value.trim();
-            const errDiv = document.getElementById("auth-error");
+            const u = sanitizeUsername(rawUser);
 
             if (!fname || !u || !p) {
-                errDiv.textContent = "Semua kolom wajib diisi!";
-                errDiv.classList.remove("hidden");
+                showAuthError("Semua kolom wajib diisi!");
                 return;
             }
 
+            if (u.length < 3) {
+                showAuthError("Username minimal 3 karakter (huruf/angka/_).");
+                return;
+            }
+
+            const btn = document.getElementById("btn-register-submit");
+            if (btn) btn.disabled = true;
+
             try {
                 let res = await fetch(`${FIREBASE_URL}/users/${u}.json`);
+                if (!res.ok) throw new Error("Gagal terhubung ke server");
+
                 let data = await res.json();
                 if (data) {
-                    errDiv.textContent = "Username sudah terdaftar! Gunakan nama lain.";
-                    errDiv.classList.remove("hidden");
+                    showAuthError("Username sudah terdaftar! Gunakan username lain.");
+                    if (btn) btn.disabled = false;
                     return;
                 }
 
                 let initData = {
-                    balance: 100.00,
+                    balance: 0.00,
                     fullName: fname,
                     password: p,
                     avatar: null,
@@ -722,21 +762,25 @@
                     history: []
                 };
 
-                await fetch(`${FIREBASE_URL}/users/${u}.json`, {
+                let regRes = await fetch(`${FIREBASE_URL}/users/${u}.json`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(initData)
                 });
+
+                if (!regRes.ok) throw new Error("Gagal menyimpan akun baru");
 
                 currentUser = u;
                 fullName = fname;
                 localStorage.setItem("mt5_username", currentUser);
                 document.getElementById("auth-screen").style.display = "none";
                 initUserSession();
-                showToast("Pendaftaran Berhasil!", "Akun baru dibuat dengan saldo demo $100.00", "success");
+                showToast("Pendaftaran Berhasil!", "Akun dibuat dengan saldo $0.00. Silakan hubungi admin untuk top-up.", "info");
+                openDepositModal();
             } catch(e) {
-                errDiv.textContent = "Gagal mendaftarkan akun!";
-                errDiv.classList.remove("hidden");
+                showAuthError("Gagal mendaftarkan akun! Periksa koneksi.");
+            } finally {
+                if (btn) btn.disabled = false;
             }
         }
 
@@ -902,35 +946,41 @@
             selectedTimeframe = tf;
             document.querySelectorAll(".tf-btn").forEach(btn => {
                 if (btn.getAttribute("data-tf") === tf) {
-                    btn.className = "tf-btn px-2.5 py-1 rounded-lg bg-ios-blue text-white shadow font-bold";
+                    btn.className = "tf-btn px-2 py-1 rounded-lg bg-ios-blue text-white shadow font-bold";
                 } else {
-                    btn.className = "tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-bold";
+                    btn.className = "tf-btn px-2 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-bold";
                 }
             });
             document.getElementById("chart-timeframe-tag").textContent = tf;
             document.getElementById("active-symbol-title").textContent = `${selectedSymbol} - ${selectedTimeframe} Candle Engine`;
+            drawChart();
         }
 
-        // HIGH-FREQUENCY TARGET GENERATOR
+        // DYNAMIC HIGH-FREQUENCY TARGET GENERATOR ACCELERATED BY MARKET FORCE
         function generateNewMarketTargets() {
             Object.keys(markets).forEach(sym => {
                 let m = markets[sym];
-                let step = m.bid * 0.00015;
-                let rand = (Math.random() - 0.49);
-
                 let targetForce = "NORMAL";
+
                 if (globalMarketForce.market === "ALL" || globalMarketForce.market === sym) {
                     targetForce = globalMarketForce.force;
                 }
 
-                if (targetForce === "LONG") rand = Math.abs(rand) + 0.35;
-                else if (targetForce === "SHORT") rand = -(Math.abs(rand) + 0.35);
+                let isFast = (targetForce === "LONG" || targetForce === "SHORT");
+                let baseStep = m.bid * (isFast ? 0.0008 : 0.00012);
+                let rand = (Math.random() - 0.49);
 
-                m.targetBid += rand * step;
+                if (targetForce === "LONG") {
+                    rand = Math.abs(rand) + 0.65; // Rapid aggressive upward movement
+                } else if (targetForce === "SHORT") {
+                    rand = -(Math.abs(rand) + 0.65); // Rapid aggressive downward movement
+                }
+
+                m.targetBid += rand * baseStep;
             });
         }
 
-        // 60 FPS ULTRA-SMOOTH LERP & ANIMATION LOOP
+        // 60 FPS ULTRA-SMOOTH LERP & ANIMATION LOOP WITH DYNAMIC SPEED
         let lastFrameTime = performance.now();
         let domUpdateCounter = 0;
 
@@ -939,8 +989,10 @@
                 let dt = Math.min((now - lastFrameTime) / 1000, 0.1);
                 lastFrameTime = now;
 
-                // LERP PRICES AT 60 FPS
-                const lerpFactor = 0.12;
+                let activeForce = globalMarketForce.force;
+                let isFastMarket = (activeForce === "LONG" || activeForce === "SHORT");
+                const lerpFactor = isFastMarket ? 0.38 : 0.12;
+
                 Object.keys(markets).forEach(sym => {
                     let m = markets[sym];
                     let oldBid = m.bid;
@@ -948,22 +1000,27 @@
                     m.ask = m.bid + (m.bid * 0.00012);
 
                     let diff = m.bid - oldBid;
-                    m.change = +(m.change + (diff * 20)).toFixed(2);
+                    m.change = +(m.change + (diff * (isFastMarket ? 45 : 20))).toFixed(2);
 
-                    // Update Active Candle smoothly
-                    let candles = candleHistory[sym];
-                    if (candles && candles.length > 0) {
-                        let last = candles[candles.length - 1];
-                        last.close = m.bid;
-                        if (m.bid > last.high) last.high = m.bid;
-                        if (m.bid < last.low) last.low = m.bid;
+                    // Update Active Candles for all timeframes smoothly
+                    Object.keys(tfMinutesMap).forEach(tf => {
+                        let candles = candleHistory[sym][tf];
+                        if (candles && candles.length > 0) {
+                            let last = candles[candles.length - 1];
+                            last.close = m.bid;
+                            if (m.bid > last.high) last.high = m.bid;
+                            if (m.bid < last.low) last.low = m.bid;
 
-                        // Create new candle periodically
-                        if (now - (last.time || 0) > 30000) {
-                            candles.push({ open: m.bid, high: m.bid, low: m.bid, close: m.bid, time: now });
-                            if (candles.length > 80) candles.shift();
+                            let tfMins = tfMinutesMap[tf] || 1;
+                            let candleDuration = isFastMarket ? (tfMins * 8000) : (tfMins * 30000);
+
+                            // Create new candle bar when time interval elapses
+                            if (now - (last.time || 0) > candleDuration) {
+                                candles.push({ open: m.bid, high: m.bid, low: m.bid, close: m.bid, time: now });
+                                if (candles.length > 80) candles.shift();
+                            }
                         }
-                    }
+                    });
                 });
 
                 // RENDER CANVAS CHART AT 60 FPS
@@ -974,9 +1031,9 @@
                 // CALCULATE POSITIONS AT 60 FPS FOR SMOOTH P/L
                 calculateOpenPositions();
 
-                // THROTTLE DOM TICKER UPDATES TO ~20 FPS TO PREVENT LAYOUT THRASHING
+                // THROTTLE DOM TICKER UPDATES
                 domUpdateCounter++;
-                if (domUpdateCounter % 3 === 0) {
+                if (domUpdateCounter % (isFastMarket ? 1 : 3) === 0) {
                     updatePriceTickerDOM();
                 }
 
@@ -1018,7 +1075,7 @@
             }
         }
 
-        // CANVAS CHART RENDER ENGINE WITH SMOOTH GLOW & CROSSHAIR
+        // CANVAS CHART RENDER ENGINE WITH TIMEFRAME SUPPORT
         function drawChart() {
             const canvas = document.getElementById("trading-canvas");
             if (!canvas) return;
@@ -1035,7 +1092,7 @@
 
             ctx.clearRect(0, 0, width, height);
 
-            let candles = candleHistory[selectedSymbol];
+            let candles = candleHistory[selectedSymbol] ? candleHistory[selectedSymbol][selectedTimeframe] : null;
             if (!candles || candles.length === 0) return;
             let m = markets[selectedSymbol];
 
@@ -1076,7 +1133,7 @@
                 ctx.fillText(price.toFixed(m.decimals), chartWidth + 6, y + 3);
             }
 
-            // CALCULATE SMA (14)
+            // CALCULATE SMA (14) FOR CURRENT TIMEFRAME
             let smaValues = [];
             for (let i = 0; i < visibleCandles.length; i++) {
                 let fullIdx = startIndex + i;
@@ -1087,7 +1144,7 @@
                 }
             }
 
-            // DRAW CANDLESTICKS WITH SMOOTH INTERPOLATION
+            // DRAW CANDLESTICKS FOR SELECTED TIMEFRAME
             let candleWidth = Math.max(3, (chartWidth / visibleCandles.length) - 3);
 
             visibleCandles.forEach((c, i) => {
@@ -1156,7 +1213,6 @@
             // DRAW CURRENT LIVE PRICE HIGHLIGHT WITH GLOW
             let currentY = height - ((m.bid - minPrice) / range) * height;
 
-            // Glowing Gradient
             let glowGrad = ctx.createLinearGradient(0, currentY - 8, 0, currentY + 8);
             glowGrad.addColorStop(0, 'rgba(48, 209, 88, 0.25)');
             glowGrad.addColorStop(0.5, 'rgba(48, 209, 88, 0.8)');
@@ -1169,12 +1225,11 @@
             ctx.lineTo(chartWidth, currentY);
             ctx.stroke();
 
-            // Price highlight badge
             ctx.fillStyle = '#30D158';
             ctx.shadowColor = 'rgba(48, 209, 88, 0.5)';
             ctx.shadowBlur = 8;
             ctx.fillRect(chartWidth, currentY - 9, rightPadding, 18);
-            ctx.shadowBlur = 0; // reset shadow
+            ctx.shadowBlur = 0;
 
             ctx.fillStyle = '#000000';
             ctx.font = "bold 9.5px 'Plus Jakarta Sans', sans-serif";
@@ -1186,13 +1241,11 @@
                 ctx.lineWidth = 0.8;
                 ctx.setLineDash([3, 3]);
 
-                // Vertical Line
                 ctx.beginPath();
                 ctx.moveTo(crosshairPos.x, 0);
                 ctx.lineTo(crosshairPos.x, height);
                 ctx.stroke();
 
-                // Horizontal Line
                 ctx.beginPath();
                 ctx.moveTo(0, crosshairPos.y);
                 ctx.lineTo(chartWidth, crosshairPos.y);
@@ -1200,7 +1253,6 @@
 
                 ctx.setLineDash([]);
 
-                // Crosshair Price Tag on Y-Axis
                 let hoverPrice = maxPrice - (crosshairPos.y / height) * range;
                 ctx.fillStyle = '#0A84FF';
                 ctx.fillRect(chartWidth, crosshairPos.y - 8, rightPadding, 16);
@@ -1336,8 +1388,11 @@
                 let currentMarketPrice = p.type === 'BUY' ? m.bid : m.ask;
                 let diff = p.type === 'BUY' ? (currentMarketPrice - p.openPrice) : (p.openPrice - currentMarketPrice);
 
-                // Precise Lot Multiplier
-                p.pl = diff * p.lots * m.lotSize;
+                if (p.symbol === 'USDJPY') {
+                    p.pl = (diff / currentMarketPrice) * p.lots * m.lotSize;
+                } else {
+                    p.pl = diff * p.lots * m.lotSize;
+                }
                 totalPL += p.pl;
             });
 
