@@ -155,6 +155,18 @@
         .tick-up { animation: flashUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .tick-down { animation: flashDown 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 
+        /* SMOOTH TICK PULSE & GLOW EFFECTS */
+        .tick-glow-up {
+            text-shadow: 0 0 12px rgba(48, 209, 88, 0.8);
+            color: #30D158 !important;
+            transition: color 0.15s ease, text-shadow 0.15s ease;
+        }
+        .tick-glow-down {
+            text-shadow: 0 0 12px rgba(255, 69, 58, 0.8);
+            color: #FF453A !important;
+            transition: color 0.15s ease, text-shadow 0.15s ease;
+        }
+
         /* CUSTOM SCROLLBAR */
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 10px; }
@@ -530,13 +542,13 @@
         let globalMarketForce = { market: "ALL", force: "NORMAL" };
         let isSyncing = false;
 
-        // SYMBOL SPECIFICATIONS & MULTIPLIERS
+        // SYMBOL SPECIFICATIONS & MULTIPLIERS WITH LERP TARGETS
         const markets = {
-            "EURUSD": { name: "EUR/USD", bid: 1.08450, ask: 1.08462, change: +0.25, decimals: 5, lotSize: 100000, pipMultiplier: 10000 },
-            "GBPUSD": { name: "GBP/USD", bid: 1.26720, ask: 1.26735, change: -0.12, decimals: 5, lotSize: 100000, pipMultiplier: 10000 },
-            "USDJPY": { name: "USD/JPY", bid: 154.820, ask: 154.835, change: +0.45, decimals: 3, lotSize: 100000, pipMultiplier: 100 },
-            "XAUUSD": { name: "XAU/USD (Gold)", bid: 2332.50, ask: 2332.90, change: +1.15, decimals: 2, lotSize: 100, pipMultiplier: 100 },
-            "BTCUSD": { name: "BTC/USD", bid: 67450.0, ask: 67475.0, change: -0.85, decimals: 1, lotSize: 1, pipMultiplier: 1 }
+            "EURUSD": { name: "EUR/USD", bid: 1.08450, targetBid: 1.08450, ask: 1.08462, change: +0.25, decimals: 5, lotSize: 100000, pipMultiplier: 10000 },
+            "GBPUSD": { name: "GBP/USD", bid: 1.26720, targetBid: 1.26720, ask: 1.26735, change: -0.12, decimals: 5, lotSize: 100000, pipMultiplier: 10000 },
+            "USDJPY": { name: "USD/JPY", bid: 154.820, targetBid: 154.820, ask: 154.835, change: +0.45, decimals: 3, lotSize: 100000, pipMultiplier: 100 },
+            "XAUUSD": { name: "XAU/USD (Gold)", bid: 2332.50, targetBid: 2332.50, ask: 2332.90, change: +1.15, decimals: 2, lotSize: 100, pipMultiplier: 100 },
+            "BTCUSD": { name: "BTC/USD", bid: 67450.0, targetBid: 67450.0, ask: 67475.0, change: -0.85, decimals: 1, lotSize: 1, pipMultiplier: 1 }
         };
 
         let selectedSymbol = "EURUSD";
@@ -545,6 +557,9 @@
         let candleHistory = {};
         let chartZoomLevel = 1.0;
         let chartPanOffset = 0;
+
+        // CROSSHAIR STATE
+        let crosshairPos = { x: -1, y: -1, active: false };
 
         // INITIALIZE CANDLE DATA
         Object.keys(markets).forEach(sym => {
@@ -582,6 +597,7 @@
             }
 
             setupChartInteractivity();
+            start60FpsEngine();
         });
 
         // TOAST NOTIFICATION HELPER
@@ -727,8 +743,19 @@
 
             await fetchUserData();
             renderQuotes();
-            startMarketEngine();
-            setInterval(fetchUserData, 1500);
+            setInterval(fetchUserData, 2000);
+            setInterval(fetchMarketForce, 1500);
+            setInterval(generateNewMarketTargets, 400); // Micro target generator
+        }
+
+        async function fetchMarketForce() {
+            try {
+                let res = await fetch(`${FIREBASE_URL}/marketForce.json`);
+                let data = await res.json();
+                if (data) {
+                    globalMarketForce = typeof data === 'string' ? { market: "ALL", force: data } : data;
+                }
+            } catch(e) {}
         }
 
         async function fetchUserData() {
@@ -812,9 +839,7 @@
                 activeBtn.classList.add("text-ios-blue");
             }
 
-            if (tabId === 'chart') {
-                setTimeout(drawChart, 50);
-            } else if (tabId === 'history') {
+            if (tabId === 'history') {
                 renderHistory();
             }
         }
@@ -840,10 +865,10 @@
                         </div>
                         <div class="flex items-center space-x-3">
                             <div class="text-right">
-                                <div class="text-sm font-extrabold text-white font-mono">${m.bid.toFixed(m.decimals)}</div>
-                                <div class="text-[11px] text-gray-400 font-mono">Ask: ${m.ask.toFixed(m.decimals)}</div>
+                                <div id="quote-bid-${sym}" class="text-sm font-extrabold text-white font-mono transition-colors">${m.bid.toFixed(m.decimals)}</div>
+                                <div id="quote-ask-${sym}" class="text-[11px] text-gray-400 font-mono">Ask: ${m.ask.toFixed(m.decimals)}</div>
                             </div>
-                            <div class="px-2.5 py-1 rounded-xl text-xs font-bold ${isGreen ? 'bg-ios-green/20 text-ios-green border border-ios-green/30' : 'bg-ios-red/20 text-ios-red border border-ios-red/30'}">
+                            <div id="quote-change-${sym}" class="px-2.5 py-1 rounded-xl text-xs font-bold ${isGreen ? 'bg-ios-green/20 text-ios-green border border-ios-green/30' : 'bg-ios-red/20 text-ios-red border border-ios-red/30'}">
                                 ${isGreen ? '+' : ''}${m.change}%
                             </div>
                         </div>
@@ -862,7 +887,6 @@
         function switchChartSymbol(sym) {
             selectedSymbol = sym;
             document.getElementById("active-symbol-title").textContent = `${selectedSymbol} - ${selectedTimeframe} Candle Engine`;
-            drawChart();
         }
 
         function setTimeframe(tf) {
@@ -876,50 +900,48 @@
             });
             document.getElementById("chart-timeframe-tag").textContent = tf;
             document.getElementById("active-symbol-title").textContent = `${selectedSymbol} - ${selectedTimeframe} Candle Engine`;
-            drawChart();
         }
 
-        // START REALTIME MARKET SIMULATION ENGINE
-        function startMarketEngine() {
-            setInterval(async () => {
-                // Fetch Global Trend Control from Firebase
-                try {
-                    let res = await fetch(`${FIREBASE_URL}/marketForce.json`);
-                    let data = await res.json();
-                    if (data) {
-                        globalMarketForce = typeof data === 'string' ? { market: "ALL", force: data } : data;
-                    }
-                } catch(e) {}
+        // HIGH-FREQUENCY TARGET GENERATOR
+        function generateNewMarketTargets() {
+            Object.keys(markets).forEach(sym => {
+                let m = markets[sym];
+                let step = m.bid * 0.00015;
+                let rand = (Math.random() - 0.49);
 
-                // Update prices for all pairs
+                let targetForce = "NORMAL";
+                if (globalMarketForce.market === "ALL" || globalMarketForce.market === sym) {
+                    targetForce = globalMarketForce.force;
+                }
+
+                if (targetForce === "LONG") rand = Math.abs(rand) + 0.35;
+                else if (targetForce === "SHORT") rand = -(Math.abs(rand) + 0.35);
+
+                m.targetBid += rand * step;
+            });
+        }
+
+        // 60 FPS ULTRA-SMOOTH LERP & ANIMATION LOOP
+        let lastFrameTime = performance.now();
+        let domUpdateCounter = 0;
+
+        function start60FpsEngine() {
+            function loop(now) {
+                let dt = Math.min((now - lastFrameTime) / 1000, 0.1);
+                lastFrameTime = now;
+
+                // LERP PRICES AT 60 FPS
+                const lerpFactor = 0.12;
                 Object.keys(markets).forEach(sym => {
                     let m = markets[sym];
-                    let step = m.bid * 0.00025;
-                    let rand = (Math.random() - 0.49);
-
-                    let targetForce = "NORMAL";
-                    if (globalMarketForce.market === "ALL" || globalMarketForce.market === sym) {
-                        targetForce = globalMarketForce.force;
-                    }
-
-                    if (targetForce === "LONG") rand = Math.abs(rand) + 0.35;
-                    else if (targetForce === "SHORT") rand = -(Math.abs(rand) + 0.35);
-
-                    let diff = rand * step;
                     let oldBid = m.bid;
-                    m.bid += diff;
+                    m.bid += (m.targetBid - m.bid) * lerpFactor;
                     m.ask = m.bid + (m.bid * 0.00012);
-                    m.change = +(m.change + (diff * 12)).toFixed(2);
 
-                    // Flash UI card on tick
-                    let card = document.getElementById(`quote-card-${sym}`);
-                    if (card) {
-                        card.classList.remove("tick-up", "tick-down");
-                        void card.offsetWidth; // trigger reflow
-                        card.classList.add(m.bid >= oldBid ? "tick-up" : "tick-down");
-                    }
+                    let diff = m.bid - oldBid;
+                    m.change = +(m.change + (diff * 20)).toFixed(2);
 
-                    // Update candlestick history
+                    // Update Active Candle smoothly
                     let candles = candleHistory[sym];
                     if (candles && candles.length > 0) {
                         let last = candles[candles.length - 1];
@@ -927,23 +949,67 @@
                         if (m.bid > last.high) last.high = m.bid;
                         if (m.bid < last.low) last.low = m.bid;
 
-                        // Create new candle every ~25 ticks
-                        if (Math.random() < 0.20) {
-                            candles.push({ open: m.bid, high: m.bid, low: m.bid, close: m.bid, time: Date.now() });
+                        // Create new candle periodically
+                        if (now - (last.time || 0) > 30000) {
+                            candles.push({ open: m.bid, high: m.bid, low: m.bid, close: m.bid, time: now });
                             if (candles.length > 80) candles.shift();
                         }
                     }
                 });
 
-                renderQuotes();
+                // RENDER CANVAS CHART AT 60 FPS
                 if (!document.getElementById("tab-chart").classList.contains("hidden")) {
                     drawChart();
                 }
+
+                // CALCULATE POSITIONS AT 60 FPS FOR SMOOTH P/L
                 calculateOpenPositions();
-            }, 1000);
+
+                // THROTTLE DOM TICKER UPDATES TO ~20 FPS TO PREVENT LAYOUT THRASHING
+                domUpdateCounter++;
+                if (domUpdateCounter % 3 === 0) {
+                    updatePriceTickerDOM();
+                }
+
+                requestAnimationFrame(loop);
+            }
+            requestAnimationFrame(loop);
         }
 
-        // CANVAS CHART RENDER ENGINE WITH SMA & ORDERS
+        function updatePriceTickerDOM() {
+            Object.keys(markets).forEach(sym => {
+                let m = markets[sym];
+                let bidEl = document.getElementById(`quote-bid-${sym}`);
+                let askEl = document.getElementById(`quote-ask-${sym}`);
+                let changeEl = document.getElementById(`quote-change-${sym}`);
+
+                if (bidEl) {
+                    let prevVal = parseFloat(bidEl.textContent) || m.bid;
+                    bidEl.textContent = m.bid.toFixed(m.decimals);
+                    if (m.bid > prevVal) {
+                        bidEl.className = "text-sm font-extrabold font-mono tick-glow-up";
+                    } else if (m.bid < prevVal) {
+                        bidEl.className = "text-sm font-extrabold font-mono tick-glow-down";
+                    } else {
+                        bidEl.className = "text-sm font-extrabold text-white font-mono transition-colors";
+                    }
+                }
+                if (askEl) askEl.textContent = `Ask: ${m.ask.toFixed(m.decimals)}`;
+                if (changeEl) {
+                    let isGreen = m.change >= 0;
+                    changeEl.textContent = `${isGreen ? '+' : ''}${m.change}%`;
+                    changeEl.className = `px-2.5 py-1 rounded-xl text-xs font-bold ${isGreen ? 'bg-ios-green/20 text-ios-green border border-ios-green/30' : 'bg-ios-red/20 text-ios-red border border-ios-red/30'}`;
+                }
+            });
+
+            let activeM = markets[selectedSymbol];
+            let chartBidAsk = document.getElementById("chart-bid-ask");
+            if (chartBidAsk && activeM) {
+                chartBidAsk.textContent = `Bid: ${activeM.bid.toFixed(activeM.decimals)} | Ask: ${activeM.ask.toFixed(activeM.decimals)}`;
+            }
+        }
+
+        // CANVAS CHART RENDER ENGINE WITH SMOOTH GLOW & CROSSHAIR
         function drawChart() {
             const canvas = document.getElementById("trading-canvas");
             if (!canvas) return;
@@ -964,8 +1030,6 @@
             if (!candles || candles.length === 0) return;
             let m = markets[selectedSymbol];
 
-            document.getElementById("chart-bid-ask").textContent = `Bid: ${m.bid.toFixed(m.decimals)} | Ask: ${m.ask.toFixed(m.decimals)}`;
-
             // Visible Slice with Zoom & Pan
             let visibleCount = Math.floor(35 / chartZoomLevel);
             let endIndex = Math.max(visibleCount, candles.length + chartPanOffset);
@@ -981,13 +1045,13 @@
             minPrice -= pricePadding;
             let range = maxPrice - minPrice;
 
-            const rightPadding = 55;
+            const rightPadding = 58;
             const chartWidth = width - rightPadding;
 
             // DRAW GRID LINES & PRICE AXIS
             ctx.lineWidth = 0.5;
             ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
-            ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+            ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
             ctx.font = "9px 'Plus Jakarta Sans', sans-serif";
 
             const gridSteps = 5;
@@ -1014,7 +1078,7 @@
                 }
             }
 
-            // DRAW CANDLESTICKS
+            // DRAW CANDLESTICKS WITH SMOOTH INTERPOLATION
             let candleWidth = Math.max(3, (chartWidth / visibleCandles.length) - 3);
 
             visibleCandles.forEach((c, i) => {
@@ -1080,35 +1144,71 @@
                 }
             });
 
-            // DRAW CURRENT LIVE PRICE HIGHLIGHT
+            // DRAW CURRENT LIVE PRICE HIGHLIGHT WITH GLOW
             let currentY = height - ((m.bid - minPrice) / range) * height;
-            ctx.strokeStyle = '#30D158';
-            ctx.lineWidth = 1;
-            ctx.setLineDash([2, 2]);
+
+            // Glowing Gradient
+            let glowGrad = ctx.createLinearGradient(0, currentY - 8, 0, currentY + 8);
+            glowGrad.addColorStop(0, 'rgba(48, 209, 88, 0.25)');
+            glowGrad.addColorStop(0.5, 'rgba(48, 209, 88, 0.8)');
+            glowGrad.addColorStop(1, 'rgba(48, 209, 88, 0.25)');
+
+            ctx.strokeStyle = glowGrad;
+            ctx.lineWidth = 1.5;
             ctx.beginPath();
             ctx.moveTo(0, currentY);
             ctx.lineTo(chartWidth, currentY);
             ctx.stroke();
-            ctx.setLineDash([]);
 
             // Price highlight badge
             ctx.fillStyle = '#30D158';
-            ctx.fillRect(chartWidth, currentY - 8, rightPadding, 16);
+            ctx.shadowColor = 'rgba(48, 209, 88, 0.5)';
+            ctx.shadowBlur = 8;
+            ctx.fillRect(chartWidth, currentY - 9, rightPadding, 18);
+            ctx.shadowBlur = 0; // reset shadow
+
             ctx.fillStyle = '#000000';
-            ctx.font = "bold 9px 'Plus Jakarta Sans', sans-serif";
+            ctx.font = "bold 9.5px 'Plus Jakarta Sans', sans-serif";
             ctx.fillText(m.bid.toFixed(m.decimals), chartWidth + 4, currentY + 4);
+
+            // CROSSHAIR RENDER
+            if (crosshairPos.active && crosshairPos.x <= chartWidth && crosshairPos.y <= height) {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+                ctx.lineWidth = 0.8;
+                ctx.setLineDash([3, 3]);
+
+                // Vertical Line
+                ctx.beginPath();
+                ctx.moveTo(crosshairPos.x, 0);
+                ctx.lineTo(crosshairPos.x, height);
+                ctx.stroke();
+
+                // Horizontal Line
+                ctx.beginPath();
+                ctx.moveTo(0, crosshairPos.y);
+                ctx.lineTo(chartWidth, crosshairPos.y);
+                ctx.stroke();
+
+                ctx.setLineDash([]);
+
+                // Crosshair Price Tag on Y-Axis
+                let hoverPrice = maxPrice - (crosshairPos.y / height) * range;
+                ctx.fillStyle = '#0A84FF';
+                ctx.fillRect(chartWidth, crosshairPos.y - 8, rightPadding, 16);
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = "bold 9px sans-serif";
+                ctx.fillText(hoverPrice.toFixed(m.decimals), chartWidth + 4, crosshairPos.y + 4);
+            }
         }
 
         function zoomChart(factor) {
             chartZoomLevel *= factor;
             chartZoomLevel = Math.max(0.5, Math.min(3.0, chartZoomLevel));
-            drawChart();
         }
 
         function resetChartZoom() {
             chartZoomLevel = 1.0;
             chartPanOffset = 0;
-            drawChart();
         }
 
         function setupChartInteractivity() {
@@ -1118,24 +1218,35 @@
             let isDragging = false;
             let startX = 0;
 
+            const updateCrosshair = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                crosshairPos.x = e.clientX - rect.left;
+                crosshairPos.y = e.clientY - rect.top;
+                crosshairPos.active = true;
+            };
+
             canvas.addEventListener("pointerdown", (e) => {
                 isDragging = true;
                 startX = e.clientX;
+                updateCrosshair(e);
             });
 
             canvas.addEventListener("pointermove", (e) => {
+                updateCrosshair(e);
                 if (isDragging) {
                     let dx = e.clientX - startX;
-                    if (Math.abs(dx) > 10) {
+                    if (Math.abs(dx) > 8) {
                         chartPanOffset += dx > 0 ? 1 : -1;
                         startX = e.clientX;
-                        drawChart();
                     }
                 }
             });
 
             canvas.addEventListener("pointerup", () => isDragging = false);
-            canvas.addEventListener("pointerleave", () => isDragging = false);
+            canvas.addEventListener("pointerleave", () => {
+                isDragging = false;
+                crosshairPos.active = false;
+            });
         }
 
         // ORDER EXECUTION LOGIC
@@ -1242,17 +1353,25 @@
             }
 
             // Update Account Summary Displays
-            document.getElementById("summary-balance").textContent = `$${currentBalance.toFixed(2)}`;
-            document.getElementById("summary-equity").textContent = `$${currentEquity.toFixed(2)}`;
-            document.getElementById("portfolio-balance").textContent = `$${currentBalance.toFixed(2)}`;
-            document.getElementById("portfolio-equity").textContent = `$${currentEquity.toFixed(2)}`;
+            let balEl = document.getElementById("summary-balance");
+            let eqEl = document.getElementById("summary-equity");
+            let portBalEl = document.getElementById("portfolio-balance");
+            let portEqEl = document.getElementById("portfolio-equity");
+
+            if (balEl) balEl.textContent = `$${currentBalance.toFixed(2)}`;
+            if (eqEl) eqEl.textContent = `$${currentEquity.toFixed(2)}`;
+            if (portBalEl) portBalEl.textContent = `$${currentBalance.toFixed(2)}`;
+            if (portEqEl) portEqEl.textContent = `$${currentEquity.toFixed(2)}`;
 
             let plEl = document.getElementById("summary-pl");
-            plEl.textContent = `${totalPL >= 0 ? '+' : ''}$${totalPL.toFixed(2)}`;
-            plEl.className = `text-sm font-extrabold mt-0.5 ${totalPL >= 0 ? 'text-ios-green' : 'text-ios-red'}`;
+            if (plEl) {
+                plEl.textContent = `${totalPL >= 0 ? '+' : ''}$${totalPL.toFixed(2)}`;
+                plEl.className = `text-sm font-extrabold mt-0.5 ${totalPL >= 0 ? 'text-ios-green' : 'text-ios-red'}`;
+            }
 
             let marginLevel = openPositions.length > 0 ? ((currentEquity / (openPositions.length * 50)) * 100).toFixed(1) + '%' : '0.00%';
-            document.getElementById("summary-margin").textContent = marginLevel;
+            let marginEl = document.getElementById("summary-margin");
+            if (marginEl) marginEl.textContent = marginLevel;
 
             renderPositions();
         }
