@@ -3,32 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ManzxSync Market</title>
-    <!-- Tailwind CSS, Lucide Icons, Plus Jakarta Sans Font -->
+    <title>ManzxSync Market - Pro Trading Platform</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'] },
                     colors: {
                         ios: {
-                            bg: '#040406',
-                            card: 'rgba(255, 255, 255, 0.04)',
-                            cardHover: 'rgba(255, 255, 255, 0.07)',
-                            glass: 'rgba(18, 18, 26, 0.65)',
-                            border: 'rgba(255, 255, 255, 0.12)',
-                            blue: '#0A84FF',
-                            green: '#30D158',
-                            red: '#FF453A',
-                            gold: '#FFD60A',
-                            purple: '#BF5AF2'
+                            bg: '#040406', card: 'rgba(255, 255, 255, 0.04)', cardHover: 'rgba(255, 255, 255, 0.07)',
+                            glass: 'rgba(18, 18, 26, 0.65)', border: 'rgba(255, 255, 255, 0.12)',
+                            blue: '#0A84FF', green: '#30D158', red: '#FF453A', gold: '#FFD60A', purple: '#BF5AF2'
                         }
                     }
                 }
@@ -36,159 +28,66 @@
         }
     </script>
     <style>
-        * {
-            -webkit-tap-highlight-color: transparent;
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        body {
-            background-color: #040406;
-            color: #F2F2F7;
-            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* ULTRA-LUXURIOUS LIQUID GLASS DESIGN SYSTEM */
-        .liquid-bg-blob {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.5;
-            pointer-events: none;
-            z-index: 0;
-            animation: floatBlob 18s ease-in-out infinite alternate;
-        }
-
-        .blob-1 {
-            top: -10%;
-            left: -10%;
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, #0A84FF 0%, #BF5AF2 100%);
-        }
-
-        .blob-2 {
-            bottom: -10%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, #30D158 0%, #0A84FF 100%);
-            animation-delay: -9s;
-        }
-
-        .blob-3 {
-            top: 40%;
-            right: 15%;
-            width: 280px;
-            height: 280px;
-            background: radial-gradient(circle, #FF453A 0%, #7D2AE8 100%);
-            animation-delay: -5s;
-        }
-
-        @keyframes floatBlob {
-            0% { transform: translate(0px, 0px) scale(1); }
-            50% { transform: translate(35px, -45px) scale(1.15); }
-            100% { transform: translate(-25px, 35px) scale(0.92); }
-        }
-
-        .liquid-glass {
-            background: rgba(18, 18, 28, 0.68);
-            backdrop-filter: blur(32px) saturate(210%);
-            -webkit-backdrop-filter: blur(32px) saturate(210%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.18);
-        }
-
-        .liquid-glass-card {
-            background: rgba(255, 255, 255, 0.045);
-            backdrop-filter: blur(22px) saturate(190%);
-            -webkit-backdrop-filter: blur(22px) saturate(190%);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-        }
-
-        .liquid-glass-card:hover {
-            background: rgba(255, 255, 255, 0.075);
-            border-color: rgba(255, 255, 255, 0.18);
-        }
-
-        .liquid-glass-modal {
-            background: rgba(14, 14, 24, 0.92);
-            backdrop-filter: blur(45px) saturate(220%);
-            -webkit-backdrop-filter: blur(45px) saturate(220%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.3);
-        }
-
-        .liquid-btn-blue {
-            background: linear-gradient(135deg, #0A84FF 0%, #0055FF 100%);
-            box-shadow: 0 8px 25px rgba(10, 132, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-        }
-
-        .liquid-btn-green {
-            background: linear-gradient(135deg, #30D158 0%, #159938 100%);
-            box-shadow: 0 8px 25px rgba(48, 209, 88, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-        }
-
-        .liquid-btn-red {
-            background: linear-gradient(135deg, #FF453A 0%, #C91A0E 100%);
-            box-shadow: 0 8px 25px rgba(255, 69, 58, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35);
-        }
-
-        /* TICK GLOW EFFECTS */
-        .tick-glow-up {
-            text-shadow: 0 0 14px rgba(48, 209, 88, 0.85);
-            color: #30D158 !important;
-            transition: color 0.15s ease, text-shadow 0.15s ease;
-        }
-        .tick-glow-down {
-            text-shadow: 0 0 14px rgba(255, 69, 58, 0.85);
-            color: #FF453A !important;
-            transition: color 0.15s ease, text-shadow 0.15s ease;
-        }
-
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
+        body { background-color: #040406; color: #F2F2F7; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; overflow: hidden; height: 100vh; width: 100vw; margin: 0; padding: 0; }
+        
+        /* Animated Liquid Blobs */
+        .liquid-bg-blob { position: fixed; border-radius: 50%; filter: blur(100px); opacity: 0.45; pointer-events: none; z-index: 0; animation: floatBlob 18s ease-in-out infinite alternate; }
+        .blob-1 { top: -10%; left: -10%; width: 350px; height: 350px; background: radial-gradient(circle, #0A84FF 0%, #BF5AF2 100%); }
+        .blob-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: radial-gradient(circle, #30D158 0%, #0A84FF 100%); animation-delay: -9s; }
+        .blob-3 { top: 40%; right: 15%; width: 280px; height: 280px; background: radial-gradient(circle, #FF453A 0%, #7D2AE8 100%); animation-delay: -5s; }
+        @keyframes floatBlob { 0% { transform: translate(0px, 0px) scale(1); } 50% { transform: translate(35px, -45px) scale(1.15); } 100% { transform: translate(-25px, 35px) scale(0.92); } }
+        
+        /* Glassmorphism Styles */
+        .liquid-glass { background: rgba(18, 18, 28, 0.72); backdrop-filter: blur(32px) saturate(210%); -webkit-backdrop-filter: blur(32px) saturate(210%); border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.18); }
+        .liquid-glass-card { background: rgba(255, 255, 255, 0.045); backdrop-filter: blur(22px) saturate(190%); -webkit-backdrop-filter: blur(22px) saturate(190%); border: 1px solid rgba(255, 255, 255, 0.09); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12); }
+        .liquid-glass-card:hover { background: rgba(255, 255, 255, 0.075); border-color: rgba(255, 255, 255, 0.18); }
+        .liquid-glass-modal { background: rgba(14, 14, 24, 0.94); backdrop-filter: blur(45px) saturate(220%); -webkit-backdrop-filter: blur(45px) saturate(220%); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 35px 90px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.3); }
+        
+        /* Button Styles */
+        .liquid-btn-blue { background: linear-gradient(135deg, #0A84FF 0%, #0055FF 100%); box-shadow: 0 8px 25px rgba(10, 132, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35); }
+        .liquid-btn-green { background: linear-gradient(135deg, #30D158 0%, #159938 100%); box-shadow: 0 8px 25px rgba(48, 209, 88, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35); }
+        .liquid-btn-red { background: linear-gradient(135deg, #FF453A 0%, #C91A0E 100%); box-shadow: 0 8px 25px rgba(255, 69, 58, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35); }
+        
+        /* Glowing Tickers */
+        .tick-glow-up { text-shadow: 0 0 14px rgba(48, 209, 88, 0.85); color: #30D158 !important; transition: color 0.15s ease, text-shadow 0.15s ease; }
+        .tick-glow-down { text-shadow: 0 0 14px rgba(255, 69, 58, 0.85); color: #FF453A !important; transition: color 0.15s ease, text-shadow 0.15s ease; }
+        
+        /* Scrollbars */
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.22); border-radius: 10px; }
         ::-webkit-scrollbar-track { background: transparent; }
-
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .quick-trade-btn { transition: transform 0.1s; }
+        .quick-trade-btn:active { transform: scale(0.92); }
     </style>
 </head>
 <body class="flex flex-col h-screen w-screen relative overflow-hidden text-gray-100 select-none">
 
-    <!-- AMBIENT GLOW BLOBS -->
+    <!-- Background Art Blobs -->
     <div class="liquid-bg-blob blob-1"></div>
     <div class="liquid-bg-blob blob-2"></div>
     <div class="liquid-bg-blob blob-3"></div>
 
-    <!-- TOAST NOTIFICATION CONTAINER -->
-    <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 w-11/12 max-w-md pointer-events-none"></div>
+    <!-- Notification Toast System -->
+    <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-2 w-11/12 max-w-md pointer-events-none"></div>
 
-    <!-- AUTHENTICATION SCREEN -->
-    <div id="auth-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl" style="display: flex;">
+    <!-- AUTH SCREEN -->
+    <div id="auth-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-2xl" style="display: flex;">
         <div class="liquid-glass-modal w-full max-w-sm rounded-[38px] p-7 flex flex-col items-center relative overflow-hidden transition-all duration-300">
-            
             <div class="w-16 h-16 rounded-3xl liquid-btn-blue flex items-center justify-center mb-4 text-white shadow-xl border border-white/20">
                 <i data-lucide="candlestick-chart" class="w-8 h-8"></i>
             </div>
-
             <h2 id="auth-title" class="text-2xl font-black tracking-tight text-white mb-1">ManzxSync Market</h2>
-            <p id="auth-subtitle" class="text-xs text-gray-400 text-center mb-6 leading-relaxed">Platform Investasi Terpercaya.</p>
-
-            <!-- TOGGLE LOGIN / REGISTER -->
+            <p id="auth-subtitle" class="text-xs text-gray-400 text-center mb-6 leading-relaxed">Platform Trading & Investasi Multi-Asset Terpercaya.</p>
+            
             <div class="flex w-full bg-black/60 p-1 rounded-2xl mb-5 border border-white/10 backdrop-blur-md">
                 <button id="tab-login-btn" onclick="switchAuthTab('login')" class="flex-1 py-2 text-xs font-extrabold rounded-xl liquid-btn-blue text-white transition-all">Masuk</button>
                 <button id="tab-register-btn" onclick="switchAuthTab('register')" class="flex-1 py-2 text-xs font-bold rounded-xl text-gray-400 hover:text-white transition-all">Daftar Akun</button>
             </div>
-
-            <!-- LOGIN FORM -->
+            
             <form id="form-login" onsubmit="event.preventDefault(); handleLogin();" class="w-full space-y-3.5">
                 <div>
                     <label class="text-[10px] font-extrabold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Username</label>
@@ -198,12 +97,9 @@
                     <label class="text-[10px] font-extrabold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Password</label>
                     <input type="password" id="login-password" required placeholder="Masukkan password" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-blue transition shadow-inner">
                 </div>
-                <button type="submit" id="btn-login-submit" class="w-full py-3.5 rounded-2xl liquid-btn-blue font-extrabold text-sm text-white transition active:scale-95 mt-2">
-                    Masuk Platform
-                </button>
+                <button type="submit" id="btn-login-submit" class="w-full py-3.5 rounded-2xl liquid-btn-blue font-extrabold text-sm text-white transition active:scale-95 mt-2">Masuk Platform</button>
             </form>
-
-            <!-- REGISTER FORM -->
+            
             <form id="form-register" onsubmit="event.preventDefault(); handleRegister();" class="w-full space-y-3.5 hidden">
                 <div>
                     <label class="text-[10px] font-extrabold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Nama Lengkap</label>
@@ -217,21 +113,20 @@
                     <label class="text-[10px] font-extrabold text-gray-300 ml-1 mb-1 block uppercase tracking-wider">Password</label>
                     <input type="password" id="reg-password" required placeholder="Buat password aman" class="w-full bg-black/50 border border-white/15 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-ios-green transition shadow-inner">
                 </div>
-                <button type="submit" id="btn-register-submit" class="w-full py-3.5 rounded-2xl liquid-btn-green font-extrabold text-sm text-white transition active:scale-95 mt-2">
-                    Daftar Akun Baru ($0.00)
-                </button>
+                <button type="submit" id="btn-register-submit" class="w-full py-3.5 rounded-2xl liquid-btn-green font-extrabold text-sm text-white transition active:scale-95 mt-2">Daftar Akun Baru ($0.00)</button>
             </form>
-
+            
             <div id="auth-error" class="text-xs text-ios-red mt-3 text-center font-bold p-2.5 rounded-xl bg-ios-red/10 border border-ios-red/30 hidden w-full"></div>
         </div>
     </div>
 
-    <!-- TOP HEADER -->
+    <!-- MAIN APP CONTAINER -->
+    <!-- HEADER -->
     <header class="liquid-glass sticky top-0 z-30 px-4 py-3 flex items-center justify-between border-b border-white/10 shrink-0">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-2xl bg-ios-blue/20 border border-ios-blue/40 flex items-center justify-center text-ios-blue font-extrabold text-sm overflow-hidden shadow-md" id="header-avatar-box">
+            <div class="w-10 h-10 rounded-2xl bg-ios-blue/20 border border-ios-blue/40 flex items-center justify-center text-ios-blue font-extrabold text-sm overflow-hidden shadow-md relative" id="header-avatar-box">
                 <span id="user-avatar">U</span>
-                <img id="header-avatar-img" class="w-full h-full object-cover hidden" />
+                <img id="header-avatar-img" class="w-full h-full object-cover hidden" alt="Avatar"/>
             </div>
             <div>
                 <h1 id="header-username" class="text-sm font-extrabold text-white leading-tight">Trader</h1>
@@ -245,8 +140,8 @@
         </button>
     </header>
 
-    <!-- MAIN VIEWPORT CONTAINER -->
-    <main class="flex-1 overflow-y-auto pb-24 pt-3 px-3 relative z-10" id="main-content">
+    <!-- MAIN CONTENT VIEWPORTS -->
+    <main class="flex-1 overflow-y-auto pb-28 pt-3 px-3 relative z-10" id="main-content">
 
         <!-- TAB 1: QUOTES -->
         <div id="tab-quotes" class="tab-pane space-y-3">
@@ -255,49 +150,43 @@
                     <h2 class="text-xl font-black text-white tracking-tight">Market Watch</h2>
                     <p class="text-[11px] text-gray-400">Harga langsung dari pasar global</p>
                 </div>
-                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 text-gray-300 border border-white/15">
-                    Low Spread
-                </span>
+                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-white/10 text-gray-300 border border-white/15">Low Spread</span>
             </div>
             <div id="market-list" class="space-y-2.5 pb-6"></div>
         </div>
 
-        <!-- TAB 2: CHART -->
+        <!-- TAB 2: CHART (MT5 STYLE CHART + BOTTOM DOCK) -->
         <div id="tab-chart" class="tab-pane space-y-3 hidden">
+            <!-- Timeframe & Symbol Header Control -->
             <div class="liquid-glass-card p-3 rounded-2xl space-y-2">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                         <select id="chart-symbol-select" onchange="switchChartSymbol(this.value)" class="bg-black/60 border border-white/20 rounded-xl px-3 py-1.5 text-xs font-extrabold text-white focus:outline-none shadow-inner">
-                            <option value="EURUSD">EURUSD </option>
-                            <option value="GBPUSD">GBPUSD </option>
-                            <option value="USDJPY">USDJPY </option>
+                            <option value="EURUSD">EURUSD</option>
+                            <option value="GBPUSD">GBPUSD</option>
+                            <option value="USDJPY">USDJPY</option>
                             <option value="XAUUSD">XAUUSD (Gold)</option>
                             <option value="BTCUSD">BTCUSD (Bitcoin)</option>
                         </select>
                         <span id="chart-timeframe-tag" class="text-[10px] font-bold px-2 py-1 rounded-lg bg-ios-blue/20 text-ios-blue border border-ios-blue/30">M1</span>
                     </div>
-
-                    <div class="flex gap-2">
-                        <button onclick="openTradeModal('BUY')" class="px-4 py-2 rounded-xl liquid-btn-blue font-extrabold text-xs text-white active:scale-95 transition">BUY</button>
-                        <button onclick="openTradeModal('SELL')" class="px-4 py-2 rounded-xl liquid-btn-red font-extrabold text-xs text-white active:scale-95 transition">SELL</button>
-                    </div>
+                    <div id="chart-bid-ask" class="text-[11px] text-gray-300 font-mono font-bold shrink-0">Bid: - | Ask: -</div>
                 </div>
-
-                <!-- TIMEFRAME SWITCHER -->
-                <div class="flex items-center justify-between border-t border-white/10 pt-2 text-[11px] font-bold">
-                    <div class="flex gap-1 overflow-x-auto hide-scrollbar" id="timeframe-buttons">
-                        <button onclick="setTimeframe('M1')" class="tf-btn px-2.5 py-1 rounded-lg bg-ios-blue text-white shadow font-extrabold" data-tf="M1">M1</button>
-                        <button onclick="setTimeframe('M5')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-extrabold" data-tf="M5">M5</button>
-                        <button onclick="setTimeframe('M15')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-extrabold" data-tf="M15">M15</button>
-                        <button onclick="setTimeframe('M30')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-extrabold" data-tf="M30">M30</button>
-                        <button onclick="setTimeframe('H1')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-extrabold" data-tf="H1">H1</button>
-                        <button onclick="setTimeframe('D1')" class="tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-extrabold" data-tf="D1">D1</button>
+                
+                <!-- Timeframe Selector Toolbar -->
+                <div class="flex items-center justify-between border-t border-white/10 pt-2">
+                    <div class="flex gap-1 overflow-x-auto hide-scrollbar w-full" id="timeframe-buttons">
+                        <button onclick="setTimeframe('M1')" class="tf-btn px-3 py-1 rounded-lg bg-ios-blue text-white shadow text-xs font-extrabold" data-tf="M1">M1</button>
+                        <button onclick="setTimeframe('M5')" class="tf-btn px-3 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white text-xs font-extrabold" data-tf="M5">M5</button>
+                        <button onclick="setTimeframe('M15')" class="tf-btn px-3 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white text-xs font-extrabold" data-tf="M15">M15</button>
+                        <button onclick="setTimeframe('M30')" class="tf-btn px-3 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white text-xs font-extrabold" data-tf="M30">M30</button>
+                        <button onclick="setTimeframe('H1')" class="tf-btn px-3 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white text-xs font-extrabold" data-tf="H1">H1</button>
+                        <button onclick="setTimeframe('D1')" class="tf-btn px-3 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white text-xs font-extrabold" data-tf="D1">D1</button>
                     </div>
-                    <div id="chart-bid-ask" class="text-[10px] text-gray-300 font-mono shrink-0 ml-2">Bid: - | Ask: -</div>
                 </div>
             </div>
 
-            <!-- CANVAS CONTAINER -->
+            <!-- Canvas Container -->
             <div class="liquid-glass-card rounded-2xl p-2.5 relative">
                 <div class="flex justify-between items-center mb-1.5 text-[11px] text-gray-400 font-semibold px-1">
                     <span id="active-symbol-title" class="font-extrabold text-white">EURUSD - M1 Candle Engine</span>
@@ -305,28 +194,61 @@
                         <span class="w-1.5 h-1.5 rounded-full bg-ios-green animate-ping"></span> SMA(14) Active
                     </span>
                 </div>
-
-                <div class="w-full h-80 relative bg-black/70 rounded-xl overflow-hidden border border-white/10 shadow-inner">
+                
+                <div class="w-full h-72 sm:h-80 relative bg-black/70 rounded-xl overflow-hidden border border-white/10 shadow-inner">
                     <canvas id="trading-canvas" class="w-full h-full cursor-crosshair touch-none"></canvas>
                 </div>
-
+                
+                <!-- Chart Controls Footer -->
                 <div class="flex items-center justify-between mt-2 px-1 text-[11px] text-gray-400 font-semibold">
                     <div class="flex gap-2">
-                        <button onclick="zoomChart(1.2)" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-white active:scale-95 transition"><i data-lucide="zoom-in" class="w-3.5 h-3.5 inline"></i></button>
-                        <button onclick="zoomChart(0.8)" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-white active:scale-95 transition"><i data-lucide="zoom-out" class="w-3.5 h-3.5 inline"></i></button>
+                        <button onclick="zoomChart(1.2)" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-white active:scale-95 transition" title="Zoom In"><i data-lucide="zoom-in" class="w-3.5 h-3.5 inline"></i></button>
+                        <button onclick="zoomChart(0.8)" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-white active:scale-95 transition" title="Zoom Out"><i data-lucide="zoom-out" class="w-3.5 h-3.5 inline"></i></button>
                         <button onclick="resetChartZoom()" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-white active:scale-95 transition">Reset</button>
                     </div>
-                    <span class="text-[10px] text-gray-400">Geser chart untuk pan/zoom</span>
+                    <div id="candle-timer" class="text-xs text-ios-gold font-mono font-extrabold bg-ios-gold/10 px-2.5 py-0.5 rounded-lg border border-ios-gold/20">Next Candle: --:--</div>
+                </div>
+            </div>
+
+            <!-- MT5 STYLE BOTTOM TRADING DOCK -->
+            <div class="liquid-glass-card p-3 rounded-2xl space-y-2 border-t-2 border-ios-blue/40 shadow-2xl">
+                <div class="flex items-center justify-between gap-2">
+                    <div class="flex-1">
+                        <label class="text-[9px] text-gray-400 font-extrabold uppercase block mb-0.5">Lot Size (Max 100)</label>
+                        <div class="flex items-center gap-1 bg-black/50 p-1 rounded-xl border border-white/10">
+                            <button onclick="adjustChartLot(-0.01)" class="w-7 h-7 rounded-lg bg-white/10 text-white font-bold text-xs hover:bg-white/20 active:scale-90">-</button>
+                            <input type="number" id="chart-lot-input" value="0.10" min="0.01" max="100" step="0.01" class="w-full bg-transparent text-center font-extrabold text-xs text-white focus:outline-none font-mono">
+                            <button onclick="adjustChartLot(0.01)" class="w-7 h-7 rounded-lg bg-white/10 text-white font-bold text-xs hover:bg-white/20 active:scale-90">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 pt-3">
+                        <label class="flex items-center gap-1.5 text-[10px] text-gray-300 font-bold cursor-pointer">
+                            <input type="checkbox" id="one-click-toggle" onchange="toggleOneClickMode(this.checked)" class="rounded bg-black border-white/20 text-ios-blue focus:ring-0">
+                            <span>1-Klik Trading</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2.5 pt-1">
+                    <button onclick="handleChartTradeClick('SELL')" class="quick-trade-btn py-3 rounded-2xl liquid-btn-red flex flex-col items-center justify-center shadow-lg active:scale-95">
+                        <span class="text-[10px] font-extrabold text-white/80">SELL</span>
+                        <span id="dock-sell-price" class="text-xs font-black font-mono text-white">-</span>
+                    </button>
+                    <button onclick="handleChartTradeClick('BUY')" class="quick-trade-btn py-3 rounded-2xl liquid-btn-blue flex flex-col items-center justify-center shadow-lg active:scale-95">
+                        <span class="text-[10px] font-extrabold text-white/80">BUY</span>
+                        <span id="dock-buy-price" class="text-xs font-black font-mono text-white">-</span>
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 3: TRADE -->
+        <!-- TAB 3: TRADE POSITIONS -->
         <div id="tab-trade" class="tab-pane space-y-4 hidden">
             <div class="liquid-glass-card p-4 rounded-3xl space-y-3">
                 <div class="flex justify-between items-center border-b border-white/10 pb-2">
-                    <span class="text-xs font-black text-white uppercase tracking-wider">Account Metrics</span>
-                    <span id="account-status-badge" class="text-[10px] font-bold px-2 py-0.5 rounded bg-ios-green/20 text-ios-green border border-ios-green/30">Healthy</span>
+                    <span class="text-xs font-black text-white uppercase tracking-wider">Metrik Akun MT5</span>
+                    <span id="account-status-badge" class="text-[10px] font-bold px-2 py-0.5 rounded bg-ios-green/20 text-ios-green border border-ios-green/30">Aktif</span>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div class="bg-black/40 p-3 rounded-2xl border border-white/5">
@@ -364,34 +286,53 @@
             </div>
         </div>
 
-        <!-- TAB 4: HISTORY -->
-        <div id="tab-history" class="tab-pane space-y-3 hidden">
-            <div class="flex justify-between items-center mb-2 px-1">
-                <h2 class="text-xl font-black text-white">Riwayat Trading</h2>
-                <div id="history-total-profit" class="text-xs font-bold text-ios-green">$0.00</div>
+        <!-- TAB 4: HISTORY (TRADING + DEPOSIT HISTORY) -->
+        <div id="tab-history" class="tab-pane space-y-4 hidden">
+            <!-- Secondary Navigation Sub-Tabs -->
+            <div class="flex bg-black/60 p-1 rounded-2xl border border-white/10">
+                <button id="subtab-trade-btn" onclick="switchHistorySubTab('trades')" class="flex-1 py-2 text-xs font-extrabold rounded-xl liquid-btn-blue text-white transition-all">Riwayat Trading</button>
+                <button id="subtab-deposit-btn" onclick="switchHistorySubTab('deposits')" class="flex-1 py-2 text-xs font-bold rounded-xl text-gray-400 hover:text-white transition-all">Riwayat Deposit</button>
             </div>
-            <div id="history-list" class="space-y-2.5 pb-6">
-                <div class="text-center py-12 text-gray-500 text-xs">Belum ada riwayat transaksi</div>
+
+            <!-- SUBPANEL 1: TRADING HISTORY -->
+            <div id="history-panel-trades" class="space-y-3">
+                <div class="flex justify-between items-center mb-1 px-1">
+                    <h2 class="text-base font-black text-white">Riwayat Transaksi</h2>
+                    <div id="history-total-profit" class="text-xs font-bold text-ios-green">$0.00</div>
+                </div>
+                <div id="history-list" class="space-y-2.5 pb-6">
+                    <div class="text-center py-12 text-gray-500 text-xs">Belum ada riwayat transaksi</div>
+                </div>
+            </div>
+
+            <!-- SUBPANEL 2: DEPOSIT HISTORY -->
+            <div id="history-panel-deposits" class="space-y-3 hidden">
+                <div class="flex justify-between items-center mb-1 px-1">
+                    <h2 class="text-base font-black text-white">Log Top-Up & Deposit</h2>
+                    <button onclick="openDepositModal()" class="text-xs text-ios-green font-bold flex items-center gap-1"><i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Ajukan Deposit</button>
+                </div>
+                <div id="deposit-history-list" class="space-y-2.5 pb-6">
+                    <div class="text-center py-12 text-gray-500 text-xs">Belum ada riwayat deposit</div>
+                </div>
             </div>
         </div>
 
-        <!-- TAB 5: SETTINGS -->
+        <!-- TAB 5: SETTINGS & PROFILE -->
         <div id="tab-settings" class="tab-pane space-y-4 hidden pb-6">
             <div class="liquid-glass-card p-6 rounded-[32px] flex flex-col items-center text-center shadow-xl">
                 <div class="relative mb-4">
                     <div id="profile-avatar-container" class="w-24 h-24 rounded-3xl liquid-btn-blue border-2 border-white/20 flex items-center justify-center text-3xl font-extrabold text-white overflow-hidden shadow-xl">
                         <span id="profile-initial">U</span>
-                        <img id="profile-img-preview" class="w-full h-full object-cover hidden" />
+                        <img id="profile-img-preview" class="w-full h-full object-cover hidden" alt="Preview"/>
                     </div>
                     <label for="avatar-file-input" class="absolute -bottom-1 -right-1 bg-ios-blue hover:bg-blue-500 p-2 rounded-2xl cursor-pointer shadow-lg transition active:scale-90">
                         <i data-lucide="camera" class="w-4 h-4 text-white"></i>
                     </label>
                     <input type="file" id="avatar-file-input" accept="image/*" class="hidden" onchange="handleAvatarUpload(event)">
                 </div>
-
                 <div id="profile-display-name" class="text-lg font-bold text-white tracking-tight">Trader Pro</div>
                 <div id="settings-username" class="text-xs text-gray-400 mb-5 font-semibold">@username</div>
-
+                
                 <div class="w-full space-y-3.5 text-left border-t border-white/10 pt-4">
                     <div>
                         <label class="text-[10px] text-gray-400 font-bold block mb-1.5 uppercase tracking-wider">Nama Lengkap (Dapat Diubah)</label>
@@ -409,7 +350,7 @@
 
             <div class="liquid-glass-card p-5 rounded-[32px] space-y-3.5 shadow-xl">
                 <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
-                    <i data-lucide="pie-chart" class="w-4 h-4 text-ios-green"></i> Portofolio Akun
+                    <i data-lucide="pie-chart" class="w-4 h-4 text-ios-green"></i> Ringkasan Portofolio
                 </h3>
                 <div class="grid grid-cols-2 gap-3">
                     <div class="bg-black/40 p-3.5 rounded-2xl border border-white/5">
@@ -426,92 +367,105 @@
                 </button>
             </div>
 
-            <button onclick="logout()" class="w-full py-3.5 rounded-2xl bg-ios-red/20 text-ios-red border border-ios-red/30 text-xs font-bold active:scale-95 transition shadow-lg">
-                Keluar Akun
-            </button>
+            <button onclick="logout()" class="w-full py-3.5 rounded-2xl bg-ios-red/20 text-ios-red border border-ios-red/30 text-xs font-bold active:scale-95 transition shadow-lg">Keluar Akun</button>
         </div>
     </main>
 
-    <!-- FLOATING BOTTOM NAVIGATION -->
+    <!-- BOTTOM NAVIGATION BAR -->
     <nav class="liquid-glass fixed bottom-0 left-0 right-0 z-40 px-3 py-2 flex justify-around items-center border-t border-white/10 shrink-0 shadow-2xl">
         <button onclick="switchTab('quotes')" class="nav-btn flex flex-col items-center text-ios-blue transition-all active:scale-90" data-target="tab-quotes">
-            <i data-lucide="list" class="w-5 h-5 mb-0.5"></i>
-            <span class="text-[10px] font-bold">Quotes</span>
+            <i data-lucide="list" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-bold">Quotes</span>
         </button>
         <button onclick="switchTab('chart')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white transition-all active:scale-90" data-target="tab-chart">
-            <i data-lucide="line-chart" class="w-5 h-5 mb-0.5"></i>
-            <span class="text-[10px] font-bold">Chart</span>
+            <i data-lucide="line-chart" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-bold">Chart</span>
         </button>
         <button onclick="switchTab('trade')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white transition-all active:scale-90" data-target="tab-trade">
-            <i data-lucide="arrow-left-right" class="w-5 h-5 mb-0.5"></i>
-            <span class="text-[10px] font-bold">Trade</span>
+            <i data-lucide="arrow-left-right" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-bold">Trade</span>
         </button>
         <button onclick="switchTab('history')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white transition-all active:scale-90" data-target="tab-history">
-            <i data-lucide="clock" class="w-5 h-5 mb-0.5"></i>
-            <span class="text-[10px] font-bold">History</span>
+            <i data-lucide="clock" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-bold">History</span>
         </button>
         <button onclick="switchTab('settings')" class="nav-btn flex flex-col items-center text-gray-400 hover:text-white transition-all active:scale-90" data-target="tab-settings">
-            <i data-lucide="user" class="w-5 h-5 mb-0.5"></i>
-            <span class="text-[10px] font-bold">Settings</span>
+            <i data-lucide="user" class="w-5 h-5 mb-0.5"></i><span class="text-[10px] font-bold">Settings</span>
         </button>
     </nav>
 
-    <!-- TRADE MODAL -->
-    <div id="trade-modal" class="fixed inset-0 z-50 flex items-end justify-center bg-black/75 backdrop-blur-md hidden transition-all duration-300">
-        <div class="liquid-glass-modal w-full max-w-md rounded-t-[36px] p-6 shadow-2xl border-t border-white/20">
-            <div class="flex justify-between items-center mb-5">
-                <h3 id="trade-modal-title" class="text-base font-extrabold text-white tracking-tight">Order Execution</h3>
-                <button onclick="closeTradeModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:text-white transition">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
+    <!-- MODAL 1: 1-CLICK AGREEMENT & CONFIRMATION -->
+    <div id="one-click-modal" class="fixed inset-0 z-[70] flex items-center justify-center bg-black/85 backdrop-blur-xl hidden p-4 transition-all duration-200">
+        <div class="liquid-glass-modal w-full max-w-sm rounded-[36px] p-6 shadow-2xl border border-white/20 text-center">
+            <div class="w-14 h-14 rounded-2xl bg-ios-gold/20 border border-ios-gold/40 flex items-center justify-center text-ios-gold mx-auto mb-3 shadow-lg">
+                <i data-lucide="shield-alert" class="w-7 h-7"></i>
             </div>
-            <div class="space-y-4">
-                <div>
-                    <label class="text-[10px] font-bold text-gray-300 mb-1.5 block uppercase tracking-wider">Lot Size (Max 10.0)</label>
-                    <div class="flex items-center gap-2">
-                        <button onclick="adjustLotSize(-0.1)" class="px-3 py-3 rounded-2xl bg-white/10 font-bold text-xs text-white hover:bg-white/20 transition">-0.1</button>
-                        <button onclick="adjustLotSize(-0.01)" class="px-2.5 py-3 rounded-2xl bg-white/10 font-bold text-xs text-white hover:bg-white/20 transition">-0.01</button>
-                        <input type="number" id="trade-lots" value="0.10" step="0.01" min="0.01" max="10.0" class="w-full bg-black/60 border border-white/15 rounded-2xl px-4 py-3 text-center font-bold text-base text-white focus:outline-none focus:border-ios-blue shadow-inner">
-                        <button onclick="adjustLotSize(0.01)" class="px-2.5 py-3 rounded-2xl bg-white/10 font-bold text-xs text-white hover:bg-white/20 transition">+0.01</button>
-                        <button onclick="adjustLotSize(0.1)" class="px-3 py-3 rounded-2xl bg-white/10 font-bold text-xs text-white hover:bg-white/20 transition">+0.1</button>
-                    </div>
-                </div>
+            <h3 class="text-lg font-black text-white">Syarat Trading 1-Klik</h3>
+            <p class="text-xs text-gray-300 mt-2 leading-relaxed text-left bg-black/40 p-3 rounded-2xl border border-white/10">
+                Fitur trading 1-klik memungkinkan Anda membuka order secara instan tanpa konfirmasi ulang. Risiko perubahan harga pasar cepat tetap berlaku penuh.
+            </p>
+            
+            <div class="mt-4 text-left">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" id="agree-terms-checkbox" class="rounded bg-black border-white/30 text-ios-blue focus:ring-0">
+                    <span class="text-xs text-gray-200 font-semibold">Saya memahami dan menyetujui syarat risiko ini.</span>
+                </label>
+            </div>
 
-                <div class="bg-black/30 p-3 rounded-2xl border border-white/5 space-y-1 text-xs">
-                    <div class="flex justify-between text-gray-400">
-                        <span>Harga Eksekusi:</span>
-                        <span id="modal-exec-price" class="font-bold text-white">-</span>
-                    </div>
-                    <div class="flex justify-between text-gray-400">
-                        <span>Margin Dibutuhkan:</span>
-                        <span id="modal-margin-required" class="font-bold text-ios-blue">-</span>
-                    </div>
-                </div>
-
-                <button id="execute-order-btn" onclick="executeOrder()" class="w-full py-4 rounded-2xl font-black text-sm text-white transition active:scale-95 shadow-lg">
-                    Eksekusi Order
-                </button>
+            <div class="grid grid-cols-2 gap-2 mt-5">
+                <button onclick="declineOneClickAgreement()" class="py-3 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-bold text-gray-300 transition active:scale-95">Batal</button>
+                <button id="accept-agreement-btn" onclick="acceptOneClickAgreement()" class="py-3 rounded-2xl liquid-btn-blue text-xs font-extrabold text-white transition active:scale-95">Setujui & Aktifkan</button>
             </div>
         </div>
     </div>
 
-    <!-- DEPOSIT MODAL -->
-    <div id="deposit-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md hidden p-4 transition-all duration-300">
+    <!-- MODAL 2: ORDER EXECUTION CONFIRMATION MODAL -->
+    <div id="order-confirm-modal" class="fixed inset-0 z-[65] flex items-center justify-center bg-black/80 backdrop-blur-xl hidden p-4 transition-all duration-200">
+        <div class="liquid-glass-modal w-full max-w-xs rounded-[32px] p-6 shadow-2xl border-t border-white/20">
+            <div class="text-center mb-4">
+                <div id="qc-icon" class="w-16 h-16 rounded-2xl mx-auto mb-3 flex items-center justify-center"></div>
+                <h3 id="qc-title" class="text-lg font-black text-white">Konfirmasi Order</h3>
+                <p id="qc-subtitle" class="text-xs text-gray-400 mt-1">Order Execution MT5</p>
+            </div>
+            <div class="bg-black/40 rounded-2xl p-3 mb-4 space-y-1.5 text-xs border border-white/10">
+                <div class="flex justify-between"><span class="text-gray-400">Symbol:</span><span id="qc-symbol" class="font-bold text-white">-</span></div>
+                <div class="flex justify-between"><span class="text-gray-400">Tipe:</span><span id="qc-type" class="font-bold">-</span></div>
+                <div class="flex justify-between"><span class="text-gray-400">Lot Size:</span><span id="qc-lots" class="font-bold text-ios-gold">-</span></div>
+                <div class="flex justify-between"><span class="text-gray-400">Harga Est:</span><span id="qc-price" class="font-bold text-white font-mono">-</span></div>
+                <div class="flex justify-between"><span class="text-gray-400">Margin Est:</span><span id="qc-margin" class="font-bold text-ios-blue">-</span></div>
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="closeOrderConfirmModal()" class="py-3 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-bold text-gray-300 transition active:scale-95">Batal</button>
+                <button id="qc-confirm-btn" onclick="executeConfirmedOrder()" class="py-3 rounded-2xl font-black text-xs text-white transition active:scale-95">Eksekusi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: DEPOSIT FORM & ADMIN MODAL -->
+    <div id="deposit-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4 transition-all duration-300">
         <div class="liquid-glass-modal w-full max-w-sm rounded-[36px] p-6 text-center shadow-2xl">
-            <div class="w-16 h-16 rounded-2xl bg-ios-green/20 border border-ios-green/30 flex items-center justify-center mx-auto mb-4 text-ios-green shadow-lg">
+            <div class="w-16 h-16 rounded-2xl bg-ios-green/20 border border-ios-green/30 flex items-center justify-center mx-auto mb-3 text-ios-green shadow-lg">
                 <i data-lucide="wallet" class="w-8 h-8"></i>
             </div>
-            <h3 class="text-lg font-extrabold text-white mb-2">Deposit Saldo</h3>
-            <p class="text-xs text-gray-300 mb-5 leading-relaxed">Deposit saldo dilakukan melalui admin Telegram utama kami. Hubungi admin untuk isi saldo:</p>
-            <a href="https://t.me/manzxsync" target="_blank" class="w-full py-3.5 rounded-2xl bg-sky-500 hover:bg-sky-400 font-extrabold text-xs text-white flex items-center justify-center gap-2 mb-3 shadow-lg shadow-sky-500/30 transition active:scale-95">
-                <i data-lucide="send" class="w-4 h-4"></i> Chat Admin (@manzxsync)
+            <h3 class="text-lg font-extrabold text-white mb-1">Deposit / Top-Up Saldo</h3>
+            <p class="text-xs text-gray-300 mb-4 leading-relaxed">Isi nominal saldo lalu konfirmasikan ke Admin Telegram ManzxSync.</p>
+            
+            <form onsubmit="event.preventDefault(); submitDepositRequest();" class="space-y-3 mb-4 text-left">
+                <div>
+                    <label class="text-[10px] font-bold text-gray-300 block mb-1 uppercase">Nominal Deposit ($ USD)</label>
+                    <input type="number" id="deposit-amount-input" min="5" step="1" value="50" required class="w-full bg-black/60 border border-white/15 rounded-xl px-3.5 py-2.5 text-sm font-bold text-white focus:outline-none focus:border-ios-green font-mono">
+                </div>
+                <button type="submit" class="w-full py-3.5 rounded-2xl liquid-btn-green font-extrabold text-xs text-white flex items-center justify-center gap-2 shadow-lg active:scale-95">
+                    <i data-lucide="send" class="w-4 h-4"></i> Ajukan & Chat Telegram Admin
+                </button>
+            </form>
+
+            <a href="https://t.me/manzxsync" target="_blank" class="block text-xs font-bold text-ios-blue hover:underline mb-3">
+                Hubungi Admin Langsung (@manzxsync)
             </a>
-            <button onclick="closeDepositModal()" class="w-full py-3 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-gray-300 transition">Tutup</button>
+            
+            <button onclick="closeDepositModal()" class="w-full py-2.5 rounded-2xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-gray-300 transition">Tutup</button>
         </div>
     </div>
 
-    <!-- JAVASCRIPT ENGINE -->
     <script>
+        // ================= FIREBASE & GLOBAL APP STATE =================
         const FIREBASE_URL = "https://manzsmodz-default-rtdb.firebaseio.com";
         let currentUser = null;
         let fullName = "Trader Pro";
@@ -520,16 +474,30 @@
         let currentEquity = 0.00;
         let openPositions = [];
         let tradeHistory = [];
+        let depositHistory = [];
         let globalMarketForce = { market: "ALL", force: "NORMAL" };
         let isSyncing = false;
         let lastLocalMutation = 0;
+        let isOneClickEnabled = false;
+        let isOneClickAgreed = false;
+        let pendingOrderData = null;
+
+        // TIMEFRAME MAP — REAL DURATIONS IN MS
+        const tfMinutesMap = { 'M1': 1, 'M5': 5, 'M15': 15, 'M30': 30, 'H1': 60, 'D1': 1440 };
+        const tfDurationMs = {
+            'M1': 60 * 1000,          // 1 Minute
+            'M5': 5 * 60 * 1000,      // 5 Minutes
+            'M15': 15 * 60 * 1000,    // 15 Minutes
+            'M30': 30 * 60 * 1000,    // 30 Minutes
+            'H1': 60 * 60 * 1000,     // 1 Hour
+            'D1': 24 * 60 * 60 * 1000 // 1 Day
+        };
 
         function sanitizeUsername(input) {
             if (!input) return "";
             return input.toLowerCase().trim().replace(/[^a-z0-9_]/g, "");
         }
 
-        // OFFICIAL CONTRACT SIZES & PIP MULTIPLIERS
         const markets = {
             "EURUSD": { name: "EUR/USD", bid: 1.08450, targetBid: 1.08450, baseBid: 1.08450, ask: 1.08462, change: +0.25, decimals: 5, lotSize: 100000, pipMultiplier: 10000 },
             "GBPUSD": { name: "GBP/USD", bid: 1.26720, targetBid: 1.26720, baseBid: 1.26720, ask: 1.26735, change: -0.12, decimals: 5, lotSize: 100000, pipMultiplier: 10000 },
@@ -538,23 +506,14 @@
             "BTCUSD": { name: "BTC/USD", bid: 67450.0, targetBid: 67450.0, baseBid: 67450.0, ask: 67475.0, change: -0.85, decimals: 1, lotSize: 1, pipMultiplier: 1 }
         };
 
-        const tfMinutesMap = {
-            'M1': 1,
-            'M5': 5,
-            'M15': 15,
-            'M30': 30,
-            'H1': 60,
-            'D1': 1440
-        };
-
         let selectedSymbol = "EURUSD";
         let selectedTimeframe = "M1";
-        let tradeActionType = "BUY";
         let candleHistory = {};
         let chartZoomLevel = 1.0;
         let chartPanOffset = 0;
         let crosshairPos = { x: -1, y: -1, active: false };
 
+        // Initialize multi-timeframe candle datasets
         Object.keys(markets).forEach(sym => {
             candleHistory[sym] = {};
             Object.keys(tfMinutesMap).forEach(tf => {
@@ -566,24 +525,25 @@
             let candles = [];
             let price = basePrice;
             let now = Date.now();
-            let tfMins = tfMinutesMap[tf] || 1;
-            let intervalMs = tfMins * 60000;
-            let volatility = (basePrice * 0.0008) * Math.sqrt(tfMins);
+            let intervalMs = tfDurationMs[tf] || 60000;
+            let volatility = (basePrice * 0.0008) * Math.sqrt(tfMinutesMap[tf] || 1);
+            let alignedNow = Math.floor(now / intervalMs) * intervalMs;
 
-            for(let i = 0; i < 60; i++) {
+            for (let i = 0; i < 50; i++) {
                 let open = price;
                 let change = (Math.random() - 0.49) * volatility;
                 let close = open + change;
                 let high = Math.max(open, close) + Math.random() * (volatility * 0.4);
                 let low = Math.min(open, close) - Math.random() * (volatility * 0.4);
-                candles.push({ open, high, low, close, time: now - (60 - i) * intervalMs });
+                candles.push({ open, high, low, close, time: alignedNow - (50 - i) * intervalMs });
                 price = close;
             }
             return candles;
         }
 
+        // ================= APPLICATION ON LOAD =================
         window.addEventListener("DOMContentLoaded", () => {
-            try { lucide.createIcons(); } catch(e){}
+            try { lucide.createIcons(); } catch (e) {}
             renderQuotes();
 
             const savedUser = localStorage.getItem("mt5_username");
@@ -599,14 +559,13 @@
             start60FpsEngine();
         });
 
+        // ================= TOAST NOTIFICATION SYSTEM =================
         function showToast(title, message, type = 'info') {
             const container = document.getElementById("toast-container");
             if (!container) return;
-
             const toast = document.createElement("div");
             let borderCol = type === 'success' ? 'border-ios-green/40' : type === 'error' ? 'border-ios-red/40' : 'border-ios-blue/40';
             let bgCol = type === 'success' ? 'bg-ios-green/20 text-ios-green' : type === 'error' ? 'bg-ios-red/20 text-ios-red' : 'bg-ios-blue/20 text-ios-blue';
-
             toast.className = `liquid-glass pointer-events-auto p-3.5 rounded-2xl flex items-center gap-3 border ${borderCol} shadow-xl transition-all duration-300 transform translate-y-0 opacity-100`;
             toast.innerHTML = `
                 <div class="w-8 h-8 rounded-xl ${bgCol} flex items-center justify-center shrink-0">
@@ -618,8 +577,7 @@
                 </div>
             `;
             container.appendChild(toast);
-            try { lucide.createIcons(); } catch(e){}
-
+            try { lucide.createIcons(); } catch (e) {}
             setTimeout(() => {
                 toast.classList.add("opacity-0", "-translate-y-2");
                 setTimeout(() => toast.remove(), 300);
@@ -628,24 +586,20 @@
 
         function showAuthError(msg) {
             const errDiv = document.getElementById("auth-error");
-            if (errDiv) {
-                errDiv.textContent = msg;
-                errDiv.classList.remove("hidden");
-            }
+            if (errDiv) { errDiv.textContent = msg; errDiv.classList.remove("hidden"); }
         }
-
         function hideAuthError() {
             const errDiv = document.getElementById("auth-error");
             if (errDiv) errDiv.classList.add("hidden");
         }
 
+        // ================= AUTHENTICATION =================
         function switchAuthTab(tab) {
             const loginBtn = document.getElementById("tab-login-btn");
             const regBtn = document.getElementById("tab-register-btn");
             const formLogin = document.getElementById("form-login");
             const formReg = document.getElementById("form-register");
             hideAuthError();
-
             if (tab === 'login') {
                 loginBtn.className = "flex-1 py-2 text-xs font-extrabold rounded-xl liquid-btn-blue text-white shadow transition-all";
                 regBtn.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-400 hover:text-white transition-all";
@@ -664,41 +618,23 @@
             const rawUser = document.getElementById("login-username").value;
             const p = document.getElementById("login-password").value.trim();
             const u = sanitizeUsername(rawUser);
-
-            if (!u || !p) {
-                showAuthError("Username dan password wajib diisi!");
-                return;
-            }
-
+            if (!u || !p) { showAuthError("Username dan password wajib diisi!"); return; }
             const btn = document.getElementById("btn-login-submit");
             if (btn) btn.disabled = true;
-
             try {
                 let res = await fetch(`${FIREBASE_URL}/users/${u}.json`);
                 if (!res.ok) throw new Error("Gagal terhubung ke server");
-
                 let data = await res.json();
-                if (!data) {
-                    showAuthError("Akun tidak ditemukan. Silakan daftar dulu!");
-                    if (btn) btn.disabled = false;
-                    return;
-                }
-                if (data.password && data.password !== p) {
-                    showAuthError("Password salah!");
-                    if (btn) btn.disabled = false;
-                    return;
-                }
-
+                if (!data) { showAuthError("Akun tidak ditemukan. Silakan daftar dulu!"); if (btn) btn.disabled = false; return; }
+                if (data.password && data.password !== p) { showAuthError("Password salah!"); if (btn) btn.disabled = false; return; }
                 currentUser = u;
                 localStorage.setItem("mt5_username", currentUser);
                 document.getElementById("auth-screen").style.display = "none";
                 initUserSession();
                 showToast("Selamat Datang!", `Login berhasil sebagai @${currentUser}`, "success");
-            } catch(e) {
+            } catch (e) {
                 showAuthError("Koneksi gagal! Periksa jaringan Anda.");
-            } finally {
-                if (btn) btn.disabled = false;
-            }
+            } finally { if (btn) btn.disabled = false; }
         }
 
         async function handleRegister() {
@@ -707,60 +643,30 @@
             const rawUser = document.getElementById("reg-username").value;
             const p = document.getElementById("reg-password").value.trim();
             const u = sanitizeUsername(rawUser);
-
-            if (!fname || !u || !p) {
-                showAuthError("Semua kolom wajib diisi!");
-                return;
-            }
-
-            if (u.length < 3) {
-                showAuthError("Username minimal 3 karakter.");
-                return;
-            }
-
+            if (!fname || !u || !p) { showAuthError("Semua kolom wajib diisi!"); return; }
+            if (u.length < 3) { showAuthError("Username minimal 3 karakter."); return; }
             const btn = document.getElementById("btn-register-submit");
             if (btn) btn.disabled = true;
-
             try {
                 let res = await fetch(`${FIREBASE_URL}/users/${u}.json`);
                 if (!res.ok) throw new Error("Gagal terhubung ke server");
-
                 let data = await res.json();
-                if (data) {
-                    showAuthError("Username sudah terdaftar!");
-                    if (btn) btn.disabled = false;
-                    return;
-                }
-
-                let initData = {
-                    balance: 0.00,
-                    fullName: fname,
-                    password: p,
-                    avatar: null,
-                    positions: [],
-                    history: []
-                };
-
+                if (data) { showAuthError("Username sudah terdaftar!"); if (btn) btn.disabled = false; return; }
+                let initData = { balance: 0.00, fullName: fname, password: p, avatar: null, positions: [], history: [], deposits: [] };
                 let regRes = await fetch(`${FIREBASE_URL}/users/${u}.json`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(initData)
+                    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(initData)
                 });
-
                 if (!regRes.ok) throw new Error("Gagal menyimpan akun baru");
-
                 currentUser = u;
                 fullName = fname;
                 localStorage.setItem("mt5_username", currentUser);
                 document.getElementById("auth-screen").style.display = "none";
                 initUserSession();
-                showToast("Pendaftaran Berhasil!", "Akun baru dibuat ($0.00). Silakan hubungi Telegram Admin untuk isi saldo.", "info");
+                showToast("Pendaftaran Berhasil!", "Akun baru dibuat ($0.00). Silakan hubungi Admin untuk isi saldo.", "info");
                 openDepositModal();
-            } catch(e) {
+            } catch (e) {
                 showAuthError("Gagal mendaftarkan akun!");
-            } finally {
-                if (btn) btn.disabled = false;
-            }
+            } finally { if (btn) btn.disabled = false; }
         }
 
         async function initUserSession() {
@@ -769,7 +675,6 @@
             document.getElementById("locked-username-input").value = "@" + currentUser;
             document.getElementById("user-avatar").textContent = currentUser.charAt(0).toUpperCase();
             document.getElementById("profile-initial").textContent = currentUser.charAt(0).toUpperCase();
-
             await fetchUserData();
             renderQuotes();
             setInterval(fetchUserData, 2000);
@@ -781,10 +686,8 @@
             try {
                 let res = await fetch(`${FIREBASE_URL}/marketForce.json`);
                 let data = await res.json();
-                if (data) {
-                    globalMarketForce = typeof data === 'string' ? { market: "ALL", force: data } : data;
-                }
-            } catch(e) {}
+                if (data) globalMarketForce = typeof data === 'string' ? { market: "ALL", force: data } : data;
+            } catch (e) {}
         }
 
         async function fetchUserData() {
@@ -796,27 +699,23 @@
                     if (typeof data.balance === 'number') currentBalance = data.balance;
                     fullName = data.fullName || fullName;
                     avatarBase64 = data.avatar || null;
-
                     if (Date.now() - lastLocalMutation > 3500) {
                         openPositions = Array.isArray(data.positions) ? data.positions : [];
                         tradeHistory = Array.isArray(data.history) ? data.history : [];
+                        depositHistory = Array.isArray(data.deposits) ? data.deposits : [];
                     }
-
                     document.getElementById("profile-display-name").textContent = fullName;
                     document.getElementById("edit-fullname-input").value = fullName;
-
                     if (avatarBase64) {
                         let img1 = document.getElementById("profile-img-preview");
                         let img2 = document.getElementById("header-avatar-img");
-                        img1.src = avatarBase64;
-                        img2.src = avatarBase64;
-                        img1.classList.remove("hidden");
-                        img2.classList.remove("hidden");
+                        img1.src = avatarBase64; img2.src = avatarBase64;
+                        img1.classList.remove("hidden"); img2.classList.remove("hidden");
                         document.getElementById("profile-initial").classList.add("hidden");
                         document.getElementById("user-avatar").classList.add("hidden");
                     }
                 }
-            } catch(e) {}
+            } catch (e) {}
         }
 
         function logout() {
@@ -842,10 +741,8 @@
                     avatarBase64 = e.target.result;
                     let img1 = document.getElementById("profile-img-preview");
                     let img2 = document.getElementById("header-avatar-img");
-                    img1.src = avatarBase64;
-                    img2.src = avatarBase64;
-                    img1.classList.remove("hidden");
-                    img2.classList.remove("hidden");
+                    img1.src = avatarBase64; img2.src = avatarBase64;
+                    img1.classList.remove("hidden"); img2.classList.remove("hidden");
                     document.getElementById("profile-initial").classList.add("hidden");
                     document.getElementById("user-avatar").classList.add("hidden");
                     syncFirebaseData();
@@ -855,36 +752,52 @@
             }
         }
 
+        // ================= NAVIGATION =================
         function switchTab(tabId) {
             document.querySelectorAll(".tab-pane").forEach(el => el.classList.add("hidden"));
             document.getElementById("tab-" + tabId).classList.remove("hidden");
-
             document.querySelectorAll(".nav-btn").forEach(btn => {
                 btn.classList.remove("text-ios-blue");
                 btn.classList.add("text-gray-400");
             });
-
             const activeBtn = document.querySelector(`.nav-btn[data-target="tab-${tabId}"]`);
             if (activeBtn) {
                 activeBtn.classList.remove("text-gray-400");
                 activeBtn.classList.add("text-ios-blue");
             }
+            if (tabId === 'history') { renderHistory(); renderDepositHistory(); }
+        }
 
-            if (tabId === 'history') {
+        function switchHistorySubTab(sub) {
+            const btnTrade = document.getElementById("subtab-trade-btn");
+            const btnDep = document.getElementById("subtab-deposit-btn");
+            const panelTrade = document.getElementById("history-panel-trades");
+            const panelDep = document.getElementById("history-panel-deposits");
+
+            if (sub === 'trades') {
+                btnTrade.className = "flex-1 py-2 text-xs font-extrabold rounded-xl liquid-btn-blue text-white shadow transition-all";
+                btnDep.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-400 hover:text-white transition-all";
+                panelTrade.classList.remove("hidden");
+                panelDep.classList.add("hidden");
                 renderHistory();
+            } else {
+                btnDep.className = "flex-1 py-2 text-xs font-extrabold rounded-xl liquid-btn-blue text-white shadow transition-all";
+                btnTrade.className = "flex-1 py-2 text-xs font-bold rounded-xl text-gray-400 hover:text-white transition-all";
+                panelDep.classList.remove("hidden");
+                panelTrade.classList.add("hidden");
+                renderDepositHistory();
             }
         }
 
+        // ================= QUOTES VIEW =================
         function renderQuotes() {
             const list = document.getElementById("market-list");
             if (!list) return;
-            
             let html = "";
             Object.keys(markets).forEach(sym => {
                 let m = markets[sym];
                 let isGreen = m.change >= 0;
                 let spreadPips = ((m.ask - m.bid) * m.pipMultiplier).toFixed(1);
-
                 html += `
                     <div onclick="selectMarket('${sym}')" id="quote-card-${sym}" class="liquid-glass-card p-4 rounded-2xl flex items-center justify-between cursor-pointer transition-all active:scale-98">
                         <div>
@@ -924,9 +837,9 @@
             selectedTimeframe = tf;
             document.querySelectorAll(".tf-btn").forEach(btn => {
                 if (btn.getAttribute("data-tf") === tf) {
-                    btn.className = "tf-btn px-2.5 py-1 rounded-lg bg-ios-blue text-white shadow font-extrabold";
+                    btn.className = "tf-btn px-3 py-1 rounded-lg bg-ios-blue text-white shadow text-xs font-extrabold";
                 } else {
-                    btn.className = "tf-btn px-2.5 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white font-extrabold";
+                    btn.className = "tf-btn px-3 py-1 rounded-lg bg-white/5 text-gray-400 hover:text-white text-xs font-extrabold";
                 }
             });
             document.getElementById("chart-timeframe-tag").textContent = tf;
@@ -938,26 +851,20 @@
             Object.keys(markets).forEach(sym => {
                 let m = markets[sym];
                 let targetForce = "NORMAL";
-
                 if (globalMarketForce.market === "ALL" || globalMarketForce.market === sym) {
                     targetForce = globalMarketForce.force;
                 }
-
                 let isFast = (targetForce === "LONG" || targetForce === "SHORT");
                 let baseStep = m.bid * (isFast ? 0.0008 : 0.00012);
                 let rand = (Math.random() - 0.49);
-
-                if (targetForce === "LONG") {
-                    rand = Math.abs(rand) + 0.65;
-                } else if (targetForce === "SHORT") {
-                    rand = -(Math.abs(rand) + 0.65);
-                }
-
+                if (targetForce === "LONG") rand = Math.abs(rand) + 0.65;
+                else if (targetForce === "SHORT") rand = -(Math.abs(rand) + 0.65);
                 m.targetBid += rand * baseStep;
-                m.targetBid += (m.baseBid - m.targetBid) * 0.005; // Gentle mean reversion anchor
+                m.targetBid += (m.baseBid - m.targetBid) * 0.005;
             });
         }
 
+        // ================= 60FPS ENGINE & DYNAMIC CANDLE SWITCHING =================
         let lastFrameTime = performance.now();
         let domUpdateCounter = 0;
 
@@ -965,7 +872,6 @@
             function loop(now) {
                 let dt = Math.min((now - lastFrameTime) / 1000, 0.1);
                 lastFrameTime = now;
-
                 let activeForce = globalMarketForce.force;
                 let isFastMarket = (activeForce === "LONG" || activeForce === "SHORT");
                 const lerpFactor = isFastMarket ? 0.38 : 0.12;
@@ -975,24 +881,34 @@
                     let oldBid = m.bid;
                     m.bid += (m.targetBid - m.bid) * lerpFactor;
                     m.ask = m.bid + (m.bid * 0.00012);
-
                     let diff = m.bid - oldBid;
                     m.change = +(m.change + (diff * (isFastMarket ? 45 : 20))).toFixed(2);
 
+                    // MULTI-TIMEFRAME DYNAMIC CANDLE CREATION LOGIC
+                    let realNow = Date.now();
                     Object.keys(tfMinutesMap).forEach(tf => {
                         let candles = candleHistory[sym][tf];
+                        let intervalMs = tfDurationMs[tf];
+                        let currentCandleBoundary = Math.floor(realNow / intervalMs) * intervalMs;
+
                         if (candles && candles.length > 0) {
-                            let last = candles[candles.length - 1];
-                            last.close = m.bid;
-                            if (m.bid > last.high) last.high = m.bid;
-                            if (m.bid < last.low) last.low = m.bid;
+                            let lastCandle = candles[candles.length - 1];
 
-                            let tfMins = tfMinutesMap[tf] || 1;
-                            let candleDuration = isFastMarket ? (tfMins * 8000) : (tfMins * 30000);
-
-                            if (now - (last.time || 0) > candleDuration) {
-                                candles.push({ open: m.bid, high: m.bid, low: m.bid, close: m.bid, time: now });
+                            if (currentCandleBoundary > lastCandle.time) {
+                                // Close current candle & Start a BRAND NEW CANDLE for this timeframe
+                                candles.push({
+                                    open: m.bid,
+                                    high: m.bid,
+                                    low: m.bid,
+                                    close: m.bid,
+                                    time: currentCandleBoundary
+                                });
                                 if (candles.length > 80) candles.shift();
+                            } else {
+                                // Update active candle price action
+                                lastCandle.close = m.bid;
+                                if (m.bid > lastCandle.high) lastCandle.high = m.bid;
+                                if (m.bid < lastCandle.low) lastCandle.low = m.bid;
                             }
                         }
                     });
@@ -1000,18 +916,29 @@
 
                 if (!document.getElementById("tab-chart").classList.contains("hidden")) {
                     drawChart();
+                    updateCandleTimer();
                 }
 
                 calculateOpenPositions();
 
                 domUpdateCounter++;
-                if (domUpdateCounter % (isFastMarket ? 1 : 3) === 0) {
-                    updatePriceTickerDOM();
-                }
-
+                if (domUpdateCounter % (isFastMarket ? 1 : 3) === 0) updatePriceTickerDOM();
                 requestAnimationFrame(loop);
             }
             requestAnimationFrame(loop);
+        }
+
+        function updateCandleTimer() {
+            const timerEl = document.getElementById("candle-timer");
+            if (!timerEl) return;
+            let duration = tfDurationMs[selectedTimeframe];
+            let now = Date.now();
+            let nextClose = Math.ceil(now / duration) * duration;
+            let remaining = Math.max(0, nextClose - now);
+            let secs = Math.floor(remaining / 1000);
+            let mins = Math.floor(secs / 60);
+            let remSecs = secs % 60;
+            timerEl.textContent = `Next Candle: ${String(mins).padStart(2,'0')}:${String(remSecs).padStart(2,'0')}`;
         }
 
         function updatePriceTickerDOM() {
@@ -1020,17 +947,12 @@
                 let bidEl = document.getElementById(`quote-bid-${sym}`);
                 let askEl = document.getElementById(`quote-ask-${sym}`);
                 let changeEl = document.getElementById(`quote-change-${sym}`);
-
                 if (bidEl) {
                     let prevVal = parseFloat(bidEl.textContent) || m.bid;
                     bidEl.textContent = m.bid.toFixed(m.decimals);
-                    if (m.bid > prevVal) {
-                        bidEl.className = "text-sm font-extrabold font-mono tick-glow-up";
-                    } else if (m.bid < prevVal) {
-                        bidEl.className = "text-sm font-extrabold font-mono tick-glow-down";
-                    } else {
-                        bidEl.className = "text-sm font-extrabold text-white font-mono transition-colors";
-                    }
+                    if (m.bid > prevVal) bidEl.className = "text-sm font-extrabold font-mono tick-glow-up";
+                    else if (m.bid < prevVal) bidEl.className = "text-sm font-extrabold font-mono tick-glow-down";
+                    else bidEl.className = "text-sm font-extrabold text-white font-mono transition-colors";
                 }
                 if (askEl) askEl.textContent = `Ask: ${m.ask.toFixed(m.decimals)}`;
                 if (changeEl) {
@@ -1039,28 +961,30 @@
                     changeEl.className = `px-2.5 py-1 rounded-xl text-xs font-bold ${isGreen ? 'bg-ios-green/20 text-ios-green border border-ios-green/30' : 'bg-ios-red/20 text-ios-red border border-ios-red/30'}`;
                 }
             });
-
+            
             let activeM = markets[selectedSymbol];
             let chartBidAsk = document.getElementById("chart-bid-ask");
-            if (chartBidAsk && activeM) {
-                chartBidAsk.textContent = `Bid: ${activeM.bid.toFixed(activeM.decimals)} | Ask: ${activeM.ask.toFixed(activeM.decimals)}`;
+            let dockSell = document.getElementById("dock-sell-price");
+            let dockBuy = document.getElementById("dock-buy-price");
+            if (activeM) {
+                if (chartBidAsk) chartBidAsk.textContent = `Bid: ${activeM.bid.toFixed(activeM.decimals)} | Ask: ${activeM.ask.toFixed(activeM.decimals)}`;
+                if (dockSell) dockSell.textContent = activeM.bid.toFixed(activeM.decimals);
+                if (dockBuy) dockBuy.textContent = activeM.ask.toFixed(activeM.decimals);
             }
         }
 
+        // ================= CANVAS CHART DRAWING ENGINE =================
         function drawChart() {
             const canvas = document.getElementById("trading-canvas");
             if (!canvas) return;
-
             const rect = canvas.parentElement.getBoundingClientRect();
             const dpr = window.devicePixelRatio || 1;
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
-
             const ctx = canvas.getContext("2d");
             ctx.scale(dpr, dpr);
             const width = rect.width;
             const height = rect.height;
-
             ctx.clearRect(0, 0, width, height);
 
             let candles = candleHistory[selectedSymbol] ? candleHistory[selectedSymbol][selectedTimeframe] : null;
@@ -1071,7 +995,6 @@
             let endIndex = Math.max(visibleCount, candles.length + chartPanOffset);
             let startIndex = Math.max(0, endIndex - visibleCount);
             let visibleCandles = candles.slice(startIndex, endIndex);
-
             if (visibleCandles.length === 0) return;
 
             let maxPrice = Math.max(...visibleCandles.map(c => c.high));
@@ -1084,6 +1007,7 @@
             const rightPadding = 58;
             const chartWidth = width - rightPadding;
 
+            // Draw Background Grid Lines
             ctx.lineWidth = 0.5;
             ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
             ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
@@ -1093,15 +1017,11 @@
             for (let i = 0; i <= gridSteps; i++) {
                 let y = (height / gridSteps) * i;
                 let price = maxPrice - (range / gridSteps) * i;
-
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(chartWidth, y);
-                ctx.stroke();
-
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(chartWidth, y); ctx.stroke();
                 ctx.fillText(price.toFixed(m.decimals), chartWidth + 6, y + 3);
             }
 
+            // Draw SMA(14) Indicator Line
             let smaValues = [];
             for (let i = 0; i < visibleCandles.length; i++) {
                 let fullIdx = startIndex + i;
@@ -1114,110 +1034,78 @@
 
             let candleWidth = Math.max(3, (chartWidth / visibleCandles.length) - 3);
 
+            // Draw Candlesticks
             visibleCandles.forEach((c, i) => {
                 let x = i * (candleWidth + 3) + 5;
                 let isGreen = c.close >= c.open;
                 let color = isGreen ? '#30D158' : '#FF453A';
-
                 let yHigh = height - ((c.high - minPrice) / range) * height;
                 let yLow = height - ((c.low - minPrice) / range) * height;
                 let yOpen = height - ((c.open - minPrice) / range) * height;
                 let yClose = height - ((c.close - minPrice) / range) * height;
-
-                ctx.strokeStyle = color;
-                ctx.lineWidth = 1.2;
-                ctx.beginPath();
-                ctx.moveTo(x + candleWidth / 2, yHigh);
-                ctx.lineTo(x + candleWidth / 2, yLow);
-                ctx.stroke();
-
+                
+                // Wick
+                ctx.strokeStyle = color; ctx.lineWidth = 1.2;
+                ctx.beginPath(); ctx.moveTo(x + candleWidth / 2, yHigh); ctx.lineTo(x + candleWidth / 2, yLow); ctx.stroke();
+                
+                // Body
                 ctx.fillStyle = color;
                 let bodyY = Math.min(yOpen, yClose);
                 let bodyH = Math.max(2, Math.abs(yClose - yOpen));
                 ctx.fillRect(x, bodyY, candleWidth, bodyH);
             });
 
+            // Render SMA Line
             if (smaValues.length > 1) {
-                ctx.beginPath();
-                ctx.strokeStyle = "#FFD60A";
-                ctx.lineWidth = 1.5;
+                ctx.beginPath(); ctx.strokeStyle = "#FFD60A"; ctx.lineWidth = 1.5;
                 smaValues.forEach((pt, idx) => {
                     let x = pt.xIdx * (candleWidth + 3) + 5 + candleWidth / 2;
                     let y = height - ((pt.val - minPrice) / range) * height;
-                    if (idx === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
+                    if (idx === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
                 });
                 ctx.stroke();
             }
 
+            // Render Open Position Lines
             openPositions.forEach(p => {
                 if (p.symbol === selectedSymbol) {
                     let yPos = height - ((p.openPrice - minPrice) / range) * height;
                     if (yPos >= 0 && yPos <= height) {
                         ctx.strokeStyle = p.type === 'BUY' ? '#0A84FF' : '#FF453A';
-                        ctx.lineWidth = 1;
-                        ctx.setLineDash([4, 4]);
-                        ctx.beginPath();
-                        ctx.moveTo(0, yPos);
-                        ctx.lineTo(chartWidth, yPos);
-                        ctx.stroke();
+                        ctx.lineWidth = 1; ctx.setLineDash([4, 4]);
+                        ctx.beginPath(); ctx.moveTo(0, yPos); ctx.lineTo(chartWidth, yPos); ctx.stroke();
                         ctx.setLineDash([]);
-
                         ctx.fillStyle = p.type === 'BUY' ? '#0A84FF' : '#FF453A';
                         ctx.fillRect(5, yPos - 10, 85, 14);
-                        ctx.fillStyle = '#FFFFFF';
-                        ctx.font = "bold 9px sans-serif";
+                        ctx.fillStyle = '#FFFFFF'; ctx.font = "bold 9px sans-serif";
                         ctx.fillText(`${p.type} ${p.lots}L @ ${p.openPrice.toFixed(m.decimals)}`, 8, yPos + 1);
                     }
                 }
             });
 
+            // Live Price Pointer
             let currentY = height - ((m.bid - minPrice) / range) * height;
-
             let glowGrad = ctx.createLinearGradient(0, currentY - 8, 0, currentY + 8);
             glowGrad.addColorStop(0, 'rgba(48, 209, 88, 0.25)');
             glowGrad.addColorStop(0.5, 'rgba(48, 209, 88, 0.8)');
             glowGrad.addColorStop(1, 'rgba(48, 209, 88, 0.25)');
+            ctx.strokeStyle = glowGrad; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(0, currentY); ctx.lineTo(chartWidth, currentY); ctx.stroke();
 
-            ctx.strokeStyle = glowGrad;
-            ctx.lineWidth = 1.5;
-            ctx.beginPath();
-            ctx.moveTo(0, currentY);
-            ctx.lineTo(chartWidth, currentY);
-            ctx.stroke();
-
-            ctx.fillStyle = '#30D158';
-            ctx.shadowColor = 'rgba(48, 209, 88, 0.5)';
-            ctx.shadowBlur = 8;
-            ctx.fillRect(chartWidth, currentY - 9, rightPadding, 18);
-            ctx.shadowBlur = 0;
-
-            ctx.fillStyle = '#000000';
-            ctx.font = "bold 9.5px 'Plus Jakarta Sans', sans-serif";
+            ctx.fillStyle = '#30D158'; ctx.shadowColor = 'rgba(48, 209, 88, 0.5)'; ctx.shadowBlur = 8;
+            ctx.fillRect(chartWidth, currentY - 9, rightPadding, 18); ctx.shadowBlur = 0;
+            ctx.fillStyle = '#000000'; ctx.font = "bold 9.5px 'Plus Jakarta Sans', sans-serif";
             ctx.fillText(m.bid.toFixed(m.decimals), chartWidth + 4, currentY + 4);
 
+            // Crosshair Tool
             if (crosshairPos.active && crosshairPos.x <= chartWidth && crosshairPos.y <= height) {
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
-                ctx.lineWidth = 0.8;
-                ctx.setLineDash([3, 3]);
-
-                ctx.beginPath();
-                ctx.moveTo(crosshairPos.x, 0);
-                ctx.lineTo(crosshairPos.x, height);
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.moveTo(0, crosshairPos.y);
-                ctx.lineTo(chartWidth, crosshairPos.y);
-                ctx.stroke();
-
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)'; ctx.lineWidth = 0.8; ctx.setLineDash([3, 3]);
+                ctx.beginPath(); ctx.moveTo(crosshairPos.x, 0); ctx.lineTo(crosshairPos.x, height); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(0, crosshairPos.y); ctx.lineTo(chartWidth, crosshairPos.y); ctx.stroke();
                 ctx.setLineDash([]);
-
                 let hoverPrice = maxPrice - (crosshairPos.y / height) * range;
-                ctx.fillStyle = '#0A84FF';
-                ctx.fillRect(chartWidth, crosshairPos.y - 8, rightPadding, 16);
-                ctx.fillStyle = '#FFFFFF';
-                ctx.font = "bold 9px sans-serif";
+                ctx.fillStyle = '#0A84FF'; ctx.fillRect(chartWidth, crosshairPos.y - 8, rightPadding, 16);
+                ctx.fillStyle = '#FFFFFF'; ctx.font = "bold 9px sans-serif";
                 ctx.fillText(hoverPrice.toFixed(m.decimals), chartWidth + 4, crosshairPos.y + 4);
             }
         }
@@ -1226,131 +1114,147 @@
             chartZoomLevel *= factor;
             chartZoomLevel = Math.max(0.5, Math.min(3.0, chartZoomLevel));
         }
-
-        function resetChartZoom() {
-            chartZoomLevel = 1.0;
-            chartPanOffset = 0;
-        }
+        function resetChartZoom() { chartZoomLevel = 1.0; chartPanOffset = 0; }
 
         function setupChartInteractivity() {
             const canvas = document.getElementById("trading-canvas");
             if (!canvas) return;
-
             let isDragging = false;
             let startX = 0;
-
             const updateCrosshair = (e) => {
                 const rect = canvas.getBoundingClientRect();
                 crosshairPos.x = e.clientX - rect.left;
                 crosshairPos.y = e.clientY - rect.top;
                 crosshairPos.active = true;
             };
-
-            canvas.addEventListener("pointerdown", (e) => {
-                isDragging = true;
-                startX = e.clientX;
-                updateCrosshair(e);
-            });
-
+            canvas.addEventListener("pointerdown", (e) => { isDragging = true; startX = e.clientX; updateCrosshair(e); });
             canvas.addEventListener("pointermove", (e) => {
                 updateCrosshair(e);
                 if (isDragging) {
                     let dx = e.clientX - startX;
-                    if (Math.abs(dx) > 8) {
-                        chartPanOffset += dx > 0 ? 1 : -1;
-                        startX = e.clientX;
-                    }
+                    if (Math.abs(dx) > 8) { chartPanOffset += dx > 0 ? 1 : -1; startX = e.clientX; }
                 }
             });
-
             canvas.addEventListener("pointerup", () => isDragging = false);
-            canvas.addEventListener("pointerleave", () => {
-                isDragging = false;
-                crosshairPos.active = false;
-            });
+            canvas.addEventListener("pointerleave", () => { isDragging = false; crosshairPos.active = false; });
         }
 
-        function adjustLotSize(delta) {
-            let input = document.getElementById("trade-lots");
-            let val = parseFloat(input.value) || 0.1;
-            val = Math.max(0.01, Math.min(10.0, val + delta));
+        // ================= TRADING & ORDER EXECUTION LOGIC =================
+        function adjustChartLot(delta) {
+            let input = document.getElementById("chart-lot-input");
+            let val = parseFloat(input.value) || 0.10;
+            val = Math.max(0.01, Math.min(100.0, val + delta));
             input.value = val.toFixed(2);
-            updateModalMarginRequirement();
         }
 
-        function updateModalMarginRequirement() {
-            let lots = parseFloat(document.getElementById("trade-lots").value) || 0.1;
-            let m = markets[selectedSymbol];
-            let execPrice = tradeActionType === 'BUY' ? m.ask : m.bid;
-            let margin = (lots * m.lotSize * execPrice) / 100; // 1:100 leverage estimate
-            document.getElementById("modal-exec-price").textContent = execPrice.toFixed(m.decimals);
-            document.getElementById("modal-margin-required").textContent = `$${margin.toFixed(2)}`;
+        function toggleOneClickMode(checked) {
+            if (checked && !isOneClickAgreed) {
+                // Show 1-Click Agreement terms modal
+                document.getElementById("one-click-modal").classList.remove("hidden");
+                document.getElementById("one-click-toggle").checked = false;
+            } else {
+                isOneClickEnabled = checked;
+            }
         }
 
-        function openTradeModal(type) {
+        function acceptOneClickAgreement() {
+            const checkbox = document.getElementById("agree-terms-checkbox");
+            if (!checkbox.checked) {
+                showToast("Persetujuan Diperlukan", "Anda harus mencentang kotak persetujuan risiko.", "error");
+                return;
+            }
+            isOneClickAgreed = true;
+            isOneClickEnabled = true;
+            document.getElementById("one-click-toggle").checked = true;
+            document.getElementById("one-click-modal").classList.add("hidden");
+            showToast("Mode 1-Klik Aktif", "Order akan dieksekusi secara instan dari tombol chart.", "success");
+        }
+
+        function declineOneClickAgreement() {
+            isOneClickAgreed = false;
+            isOneClickEnabled = false;
+            document.getElementById("one-click-toggle").checked = false;
+            document.getElementById("one-click-modal").classList.add("hidden");
+        }
+
+        function handleChartTradeClick(type) {
             if (currentBalance <= 0) {
-                showToast("Saldo Habis", "Saldo akun $0.00. Silakan isi saldo melalui Telegram Admin.", "error");
+                showToast("Saldo Habis", "Saldo $0.00. Silakan isi saldo via Telegram Admin.", "error");
                 openDepositModal();
                 return;
             }
 
-            tradeActionType = type;
-            let m = markets[selectedSymbol];
-            document.getElementById("trade-modal-title").textContent = `Order ${type} ${selectedSymbol}`;
+            let lots = parseFloat(document.getElementById("chart-lot-input").value) || 0.10;
+            lots = Math.max(0.01, Math.min(100.0, lots));
 
-            let btn = document.getElementById("execute-order-btn");
-            btn.textContent = `Konfirmasi ${type} ${selectedSymbol}`;
-            btn.className = `w-full py-4 rounded-2xl font-black text-sm text-white transition active:scale-95 shadow-lg ${type === 'BUY' ? 'liquid-btn-blue' : 'liquid-btn-red'}`;
-
-            updateModalMarginRequirement();
-            document.getElementById("trade-modal").classList.remove("hidden");
+            if (isOneClickEnabled && isOneClickAgreed) {
+                // INSTANT 1-CLICK EXECUTION
+                executeDirectOrder(type, selectedSymbol, lots);
+            } else {
+                // CONFIRMATION DIALOG REQUIREMENT
+                openOrderConfirmModal(type, selectedSymbol, lots);
+            }
         }
 
-        function closeTradeModal() {
-            document.getElementById("trade-modal").classList.add("hidden");
+        function openOrderConfirmModal(type, symbol, lots) {
+            let m = markets[symbol];
+            let price = type === 'BUY' ? m.ask : m.bid;
+            let margin = (lots * m.lotSize * price) / 100;
+
+            pendingOrderData = { type, symbol, lots, price, margin };
+
+            document.getElementById("qc-icon").className = `w-16 h-16 rounded-2xl mx-auto mb-3 flex items-center justify-center ${type === 'BUY' ? 'bg-ios-blue/20 border border-ios-blue/40 text-ios-blue' : 'bg-ios-red/20 border border-ios-red/40 text-ios-red'}`;
+            document.getElementById("qc-icon").innerHTML = `<i data-lucide="${type === 'BUY' ? 'trending-up' : 'trending-down'}" class="w-8 h-8"></i>`;
+            document.getElementById("qc-title").textContent = `Konfirmasi ${type}`;
+            document.getElementById("qc-symbol").textContent = symbol;
+            document.getElementById("qc-type").textContent = type;
+            document.getElementById("qc-type").className = `font-bold ${type === 'BUY' ? 'text-ios-blue' : 'text-ios-red'}`;
+            document.getElementById("qc-lots").textContent = lots.toFixed(2) + " Lot";
+            document.getElementById("qc-price").textContent = price.toFixed(m.decimals);
+            document.getElementById("qc-margin").textContent = `$${margin.toFixed(2)}`;
+
+            const confirmBtn = document.getElementById("qc-confirm-btn");
+            confirmBtn.className = `py-3 rounded-2xl font-black text-xs text-white transition active:scale-95 ${type === 'BUY' ? 'liquid-btn-blue' : 'liquid-btn-red'}`;
+            confirmBtn.textContent = `✅ Konfirmasi ${type}`;
+
+            document.getElementById("order-confirm-modal").classList.remove("hidden");
+            try { lucide.createIcons(); } catch (e) {}
         }
 
-        function executeOrder() {
-            if (currentBalance <= 0) {
-                showToast("Order Gagal", "Saldo $0.00 tidak mencukupi untuk trading.", "error");
-                closeTradeModal();
-                return;
-            }
+        function closeOrderConfirmModal() {
+            document.getElementById("order-confirm-modal").classList.add("hidden");
+            pendingOrderData = null;
+        }
 
-            let lots = parseFloat(document.getElementById("trade-lots").value) || 0.1;
-            if (lots > 10.0) {
-                showToast("Batas Lot Eksed", "Maksimal Lot Size adalah 10.0 Lot.", "error");
-                return;
-            }
+        function executeConfirmedOrder() {
+            if (!pendingOrderData) return;
+            executeDirectOrder(pendingOrderData.type, pendingOrderData.symbol, pendingOrderData.lots);
+            closeOrderConfirmModal();
+        }
 
-            let m = markets[selectedSymbol];
-            let openPrice = tradeActionType === 'BUY' ? m.ask : m.bid;
-            
-            // STRICT MARGIN VALIDATION CHECK
-            let requiredMargin = (lots * m.lotSize * openPrice) / 100; // 1:100 leverage
+        function executeDirectOrder(type, symbol, lots) {
+            let m = markets[symbol];
+            let openPrice = type === 'BUY' ? m.ask : m.bid;
+            let requiredMargin = (lots * m.lotSize * openPrice) / 100;
+
             if (currentEquity < requiredMargin) {
-                showToast("Free Margin Tidak Cukup", `Diperlukan margin $${requiredMargin.toFixed(2)} untuk membuka ${lots} Lot ${selectedSymbol}.`, "error");
+                showToast("Margin Tidak Cukup", `Perlu margin $${requiredMargin.toFixed(2)} untuk membuka ${lots} Lot.`, "error");
                 return;
             }
 
             lastLocalMutation = Date.now();
             openPositions.push({
                 id: 'pos_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
-                symbol: selectedSymbol,
-                type: tradeActionType,
-                lots: lots,
-                openPrice: openPrice,
-                time: new Date().toLocaleTimeString(),
-                pl: 0
+                symbol, type, lots, openPrice,
+                time: new Date().toLocaleTimeString(), pl: 0
             });
 
-            closeTradeModal();
             renderPositions();
             syncFirebaseData();
-            showToast("Order Berhasil", `${tradeActionType} ${lots} Lot ${selectedSymbol} @ ${openPrice.toFixed(m.decimals)}`, "success");
+            showToast("Order Berhasil!", `${type} ${lots} Lot ${symbol} @ ${openPrice.toFixed(m.decimals)}`, "success");
         }
 
-        // ACCURATE CONTRACT SIZE & MARGIN CALCULATIONS
+        // ================= POSITION CALCULATIONS =================
         function calculateOpenPositions() {
             let totalPL = 0;
             openPositions.forEach(p => {
@@ -1358,34 +1262,21 @@
                 if (!m) return;
                 let currentMarketPrice = p.type === 'BUY' ? m.bid : m.ask;
                 let diff = p.type === 'BUY' ? (currentMarketPrice - p.openPrice) : (p.openPrice - currentMarketPrice);
-
-                // EXACT MT5 CONTRACT FORMULAS
-                if (p.symbol === 'XAUUSD') {
-                    p.pl = diff * p.lots * 100; // 1 Lot = 100 oz ($1.00 diff = $100)
-                } else if (p.symbol === 'BTCUSD') {
-                    p.pl = diff * p.lots * 1;   // 1 Lot = 1 BTC ($1.00 diff = $1)
-                } else if (p.symbol === 'USDJPY') {
-                    p.pl = (diff / currentMarketPrice) * p.lots * 100000;
-                } else {
-                    p.pl = diff * p.lots * 100000; // EURUSD / GBPUSD Standard Forex Contract
-                }
-
+                
+                if (p.symbol === 'XAUUSD') p.pl = diff * p.lots * 100;
+                else if (p.symbol === 'BTCUSD') p.pl = diff * p.lots * 1;
+                else if (p.symbol === 'USDJPY') p.pl = (diff / currentMarketPrice) * p.lots * 100000;
+                else p.pl = diff * p.lots * 100000;
+                
                 totalPL += p.pl;
             });
-
+            
             currentEquity = currentBalance + totalPL;
 
-            // STRICT MARGIN CALL: TRIGGERS ONLY IF EQUITY <= 0
             if (currentEquity <= 0 && openPositions.length > 0) {
                 lastLocalMutation = Date.now();
                 openPositions.forEach(p => {
-                    tradeHistory.unshift({
-                        symbol: p.symbol,
-                        type: p.type,
-                        lots: p.lots,
-                        profit: p.pl,
-                        time: new Date().toLocaleTimeString()
-                    });
+                    tradeHistory.unshift({ symbol: p.symbol, type: p.type, lots: p.lots, profit: p.pl, time: new Date().toLocaleTimeString() });
                 });
                 openPositions = [];
                 currentBalance = 0;
@@ -1399,7 +1290,6 @@
             let eqEl = document.getElementById("summary-equity");
             let portBalEl = document.getElementById("portfolio-balance");
             let portEqEl = document.getElementById("portfolio-equity");
-
             if (balEl) balEl.textContent = `$${currentBalance.toFixed(2)}`;
             if (eqEl) eqEl.textContent = `$${currentEquity.toFixed(2)}`;
             if (portBalEl) portBalEl.textContent = `$${currentBalance.toFixed(2)}`;
@@ -1410,11 +1300,9 @@
                 plEl.textContent = `${totalPL >= 0 ? '+' : ''}$${totalPL.toFixed(2)}`;
                 plEl.className = `text-sm font-extrabold mt-0.5 ${totalPL >= 0 ? 'text-ios-green' : 'text-ios-red'}`;
             }
-
             let marginLevel = openPositions.length > 0 ? Math.max(0, ((currentEquity / (openPositions.length * 50)) * 100)).toFixed(1) + '%' : '0.00%';
             let marginEl = document.getElementById("summary-margin");
             if (marginEl) marginEl.textContent = marginLevel;
-
             renderPositions();
         }
 
@@ -1422,24 +1310,20 @@
             const list = document.getElementById("positions-list");
             const countBadge = document.getElementById("open-positions-count");
             const closeAllBtn = document.getElementById("close-all-btn");
-
             if (countBadge) countBadge.textContent = `${openPositions.length} Posisi`;
             if (closeAllBtn) {
                 if (openPositions.length > 0) closeAllBtn.classList.remove("hidden");
                 else closeAllBtn.classList.add("hidden");
             }
             if (!list) return;
-
             if (openPositions.length === 0) {
                 list.innerHTML = `<div class="text-center py-12 text-gray-500 text-xs font-semibold">Belum ada posisi terbuka</div>`;
                 return;
             }
-
             let html = "";
             openPositions.forEach((p) => {
                 let isProf = (p.pl || 0) >= 0;
                 let m = markets[p.symbol];
-
                 html += `
                     <div class="liquid-glass-card p-4 rounded-2xl flex items-center justify-between shadow-lg">
                         <div>
@@ -1465,75 +1349,48 @@
         function closePosition(posId) {
             let targetIdx = openPositions.findIndex(p => p.id === posId);
             if (targetIdx === -1) return;
-
             let p = openPositions[targetIdx];
             let pnl = p.pl || 0;
             currentBalance += pnl;
             if (currentBalance < 0) currentBalance = 0;
-
-            tradeHistory.unshift({
-                symbol: p.symbol,
-                type: p.type,
-                lots: p.lots,
-                profit: pnl,
-                time: new Date().toLocaleTimeString()
-            });
-
+            tradeHistory.unshift({ symbol: p.symbol, type: p.type, lots: p.lots, profit: pnl, time: new Date().toLocaleTimeString() });
             lastLocalMutation = Date.now();
             openPositions = openPositions.filter(pos => pos.id !== posId);
-
-            renderPositions();
-            renderHistory();
-            syncFirebaseData();
+            renderPositions(); renderHistory(); syncFirebaseData();
             showToast("Posisi Ditutup", `Hasil: ${pnl >= 0 ? '+' : ''}$${pnl.toFixed(2)}`, pnl >= 0 ? "success" : "error");
         }
 
         function closeAllPositions() {
             if (openPositions.length === 0) return;
-
             let count = openPositions.length;
             let totalPnl = 0;
-
             openPositions.forEach(p => {
                 let pnl = p.pl || 0;
                 totalPnl += pnl;
                 currentBalance += pnl;
-                tradeHistory.unshift({
-                    symbol: p.symbol,
-                    type: p.type,
-                    lots: p.lots,
-                    profit: pnl,
-                    time: new Date().toLocaleTimeString()
-                });
+                tradeHistory.unshift({ symbol: p.symbol, type: p.type, lots: p.lots, profit: pnl, time: new Date().toLocaleTimeString() });
             });
-
             if (currentBalance < 0) currentBalance = 0;
-
             lastLocalMutation = Date.now();
             openPositions = [];
-
-            renderPositions();
-            renderHistory();
-            syncFirebaseData();
-            showToast("Semua Posisi Ditutup", `${count} posisi ditutup (${totalPnl >= 0 ? '+' : ''}$${totalPnl.toFixed(2)})`, totalPnl >= 0 ? "success" : "error");
+            renderPositions(); renderHistory(); syncFirebaseData();
+            showToast("Semua Posisi Ditutup", `${count} posisi (${totalPnl >= 0 ? '+' : ''}$${totalPnl.toFixed(2)})`, totalPnl >= 0 ? "success" : "error");
         }
 
+        // ================= HISTORY RENDERING =================
         function renderHistory() {
             const list = document.getElementById("history-list");
             const totalProfitEl = document.getElementById("history-total-profit");
             if (!list) return;
-
             let totalPnl = tradeHistory.reduce((acc, h) => acc + (h.profit || 0), 0);
             if (totalProfitEl) {
                 totalProfitEl.textContent = `${totalPnl >= 0 ? '+' : ''}$${totalPnl.toFixed(2)}`;
                 totalProfitEl.className = `text-xs font-extrabold ${totalPnl >= 0 ? 'text-ios-green' : 'text-ios-red'}`;
             }
-
             if (!Array.isArray(tradeHistory) || tradeHistory.length === 0) {
                 list.innerHTML = `<div class="text-center py-12 text-gray-500 text-xs font-semibold">Belum ada riwayat transaksi</div>`;
                 return;
             }
-
             let html = "";
             tradeHistory.forEach(h => {
                 let isProf = h.profit >= 0;
@@ -1552,14 +1409,63 @@
             list.innerHTML = html;
         }
 
-        function openDepositModal() {
-            document.getElementById("deposit-modal").classList.remove("hidden");
+        function renderDepositHistory() {
+            const list = document.getElementById("deposit-history-list");
+            if (!list) return;
+            if (!Array.isArray(depositHistory) || depositHistory.length === 0) {
+                list.innerHTML = `<div class="text-center py-12 text-gray-500 text-xs font-semibold">Belum ada riwayat deposit</div>`;
+                return;
+            }
+            let html = "";
+            depositHistory.forEach(d => {
+                let statusBg = d.status === 'Approved' ? 'bg-ios-green/20 text-ios-green border-ios-green/30' : 'bg-ios-gold/20 text-ios-gold border-ios-gold/30';
+                html += `
+                    <div class="liquid-glass-card p-4 rounded-2xl flex items-center justify-between shadow-md">
+                        <div>
+                            <div class="text-xs font-extrabold text-white">Deposit Saldo MT5</div>
+                            <div class="text-[10px] text-gray-400 mt-0.5">${d.date} | Ref: ${d.ref}</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs font-black font-mono text-white">+$${parseFloat(d.amount).toFixed(2)}</div>
+                            <span class="text-[9px] font-extrabold px-2 py-0.5 rounded border ${statusBg}">${d.status}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            list.innerHTML = html;
         }
 
-        function closeDepositModal() {
-            document.getElementById("deposit-modal").classList.add("hidden");
+        // ================= DEPOSIT SYSTEM =================
+        function openDepositModal() { document.getElementById("deposit-modal").classList.remove("hidden"); }
+        function closeDepositModal() { document.getElementById("deposit-modal").classList.add("hidden"); }
+
+        function submitDepositRequest() {
+            let amount = parseFloat(document.getElementById("deposit-amount-input").value) || 0;
+            if (amount < 5) { showToast("Minimal Deposit", "Minimal deposit adalah $5.00", "error"); return; }
+            
+            let refId = 'DEP_' + Math.floor(100000 + Math.random() * 900000);
+            let depEntry = {
+                ref: refId,
+                amount: amount,
+                status: 'Pending Admin',
+                date: new Date().toLocaleString('id-ID')
+            };
+
+            depositHistory.unshift(depEntry);
+            lastLocalMutation = Date.now();
+            syncFirebaseData();
+            closeDepositModal();
+
+            showToast("Pengajuan Berhasil", `Ref: ${refId}. Membuka Telegram Admin...`, "success");
+
+            // Direct Telegram Deep Link
+            let tgMsg = encodeURIComponent(`Halo Admin @manzxsync, saya ingin konfirmasi deposit saldo MT5:\n\n👤 Username: @${currentUser}\n💵 Nominal: $${amount.toFixed(2)}\n🆔 Ref ID: ${refId}`);
+            setTimeout(() => {
+                window.open(`https://t.me/manzxsync?text=${tgMsg}`, '_blank');
+            }, 800);
         }
 
+        // ================= FIREBASE REALTIME SYNC =================
         async function syncFirebaseData() {
             if (!currentUser) return;
             isSyncing = true;
@@ -1572,10 +1478,11 @@
                         fullName: fullName,
                         avatar: avatarBase64,
                         positions: openPositions.length > 0 ? openPositions : [],
-                        history: tradeHistory
+                        history: tradeHistory,
+                        deposits: depositHistory
                     })
                 });
-            } catch(e) {}
+            } catch (e) {}
             setTimeout(() => { isSyncing = false; }, 500);
         }
     </script>
